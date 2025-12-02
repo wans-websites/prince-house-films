@@ -1,0 +1,204 @@
+/* Preloader Styles */
+#preloader {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100%;
+  z-index: 99999;
+  display: flex;
+  background: black;
+}
+
+#preloader:before,
+#preloader:after {
+  content: "";
+  background: black;
+  background-position: center;
+  position: absolute;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  transition: all 0.5s ease 0s;
+  z-index: -1;
+  opacity: 0;
+  -webkit-animation: cssAnimation 3s forwards;
+  animation: cssAnimation 3s forwards;
+}
+
+#background-video {
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  opacity: 1;
+  -webkit-animation: cssAnimation 6s forwards;
+  animation: cssAnimation 6s forwards;
+}
+
+#preloader:after {
+  left: auto;
+  right: 0;
+}
+
+#preloader .line {
+  position: relative;
+  overflow: hidden;
+  margin: auto;
+  width: 2px;
+  height: 280px;
+  transition: all 0.8s ease 0s;
+  z-index: 234;
+}
+
+#preloader .line:before {
+  content: "";
+  position: absolute;
+  background-color: var(--color-primary);
+  left: 0;
+  top: 50%;
+  width: 2px;
+  height: 0%;
+  transform: translateY(-50%);
+  -webkit-animation: lineincrease 2000ms ease-in-out 0s forwards;
+  animation: lineincrease 2000ms ease-in-out 0s forwards;
+}
+
+#preloader .line:after {
+  content: "";
+  position: absolute;
+  background-color: var(--color-primary);
+  left: 0;
+  top: 0;
+  width: 1px;
+  height: 100%;
+  transform: translateY(-100%);
+  -webkit-animation: linemove 1200ms linear 0s infinite;
+  animation: linemove 1200ms linear 0s infinite;
+  -webkit-animation-delay: 3000ms;
+  animation-delay: 3000ms;
+}
+
+#preloader.loaded .line {
+  opacity: 0;
+  height: 100% !important;
+}
+
+#preloader.loaded .line:after {
+  opacity: 0;
+}
+
+#preloader.loaded:before,
+#preloader.loaded:after {
+  -webkit-animation: preloaderfinish 3000ms ease-in-out 5000ms forwards;
+  animation: preloaderfinish 3000ms ease-in-out 5000ms forwards;
+}
+
+@keyframes cssAnimation {
+  0% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 0.9;
+  }
+  72% {
+    opacity: 0.8;
+  }
+  74% {
+    opacity: 0.7;
+  }
+  76% {
+    opacity: 0.6;
+  }
+  78% {
+    opacity: 0.5;
+  }
+  80% {
+    opacity: 0.4;
+  }
+  85% {
+    opacity: 0.3;
+  }
+  90% {
+    opacity: 0.2;
+  }
+  95% {
+    opacity: 0.1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes cssAnimation {
+  0% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes lineincrease {
+  0% {
+    height: 0%;
+  }
+  100% {
+    height: 100%;
+  }
+}
+
+@keyframes lineincrease {
+  0% {
+    height: 0%;
+  }
+  100% {
+    height: 100%;
+  }
+}
+
+@-webkit-keyframes linemove {
+  0% {
+    transform: translateY(200%);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+@keyframes linemove {
+  0% {
+    transform: translateY(200%);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+@-webkit-keyframes preloaderfinish {
+  0% {
+    width: 50%;
+  }
+  100% {
+    width: 0%;
+  }
+}
+
+@keyframes preloaderfinish {
+  0% {
+    width: 50%;
+  }
+  100% {
+    width: 0%;
+  }
+}
+
+#preloader.loaded {
+  display: none;
+}

@@ -1,0 +1,154 @@
+/*--------------------------------------------------------------
+# 1. HeroBiz template variables - DARK THEME
+--------------------------------------------------------------*/
+:root {
+  /* Fonts */
+  --font-default: "Open Sans", system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-primary: "Source Sans Pro", sans-serif;
+  --font-secondary: "Poppins", sans-serif;
+
+  /* Colors - DARK THEME */
+  /* Default text color */
+  --color-default: #f8f9fa;
+  --color-default-rgb: 248, 249, 250;
+
+  /* Defult links color */
+  --color-links: #ff0400;
+  --color-links-hover: #ff2a26;
+
+  /* Primary colors */
+  --color-primary: #ff0400;
+  --color-primary-light: #ff2a26;
+  --color-primary-dark: #a90300;
+
+  --color-primary-rgb: 255, 4, 0;
+  --color-primary-light-rgb: 255, 42, 38;
+  --color-primary-dark-rgb: 169, 3, 0;
+  /* Secondary colors - DARK THEME */
+  --color-secondary: #121212;
+  --color-secondary-light: #1e1e1e;
+  --color-secondary-dark: #0a0a0a;
+
+  --color-secondary-rgb: 18, 18, 18;
+  --color-secondary-light-rgb: 30, 30, 30;
+  --color-secondary-dark-rgb: 10, 10, 10;
+
+  /* General colors */
+  --color-blue: #0d6efd;
+  --color-blue-rgb: 13, 110, 253;
+
+  --color-indigo: #6610f2;
+  --color-indigo-rgb: 102, 16, 242;
+
+  --color-purple: #6f42c1;
+  --color-purple-rgb: 111, 66, 193;
+
+  --color-pink: #f3268c;
+  --color-pink-rgb: 243, 38, 140;
+
+  --color-red: #df1529;
+  --color-red-rgb: 223, 21, 4;
+
+  --color-orange: #fd7e14;
+  --color-orange-rgb: 253, 126, 20;
+
+  --color-yellow: #ffc107;
+  --color-yellow-rgb: 255, 193, 7;
+
+  --color-green: #ff0400;
+  --color-green-rgb: 64, 189, 14;
+
+  --color-teal: #20c997;
+  --color-teal-rgb: 32, 201, 151;
+
+  --color-cyan: #0dcaf0;
+  --color-cyan-rgb: 13, 202, 240;
+
+  --color-white: #ffffff;
+  --color-white-rgb: 255, 255, 255;
+
+  --color-gray: #adb5bd;
+  --color-gray-rgb: 173, 181, 189;
+
+  --color-black: #000000;
+  --color-black-rgb: 0, 0, 0;
+}
+
+/*--------------------------------------------------------------
+# 2. Override default Bootstrap variables - DARK THEME
+--------------------------------------------------------------*/
+:root {
+  --bs-body-color: var(--color-default);
+  --bs-body-bg: var(--color-secondary);
+  --bs-secondary: var(--color-secondary-light);
+  --bs-light: var(--color-secondary-light);
+  --bs-dark: var(--color-secondary-dark);
+}
+
+/*--------------------------------------------------------------
+# 3. Set color and background class names - DARK THEME
+--------------------------------------------------------------*/
+/* Fonts */
+.font-default {
+  font-family: var(--font-default) !important;
+}
+.font-primary {
+  font-family: var(--font-primary) !important;
+}
+.font-secondary {
+  font-family: var(--font-secondary) !important;
+}
+
+/* Text Colors */
+.color-default {
+  color: var(--color-default) !important;
+}
+.color-links {
+  color: var(--color-links) !important;
+}
+.color-links:hover {
+  color: var(--color-links-hover) !important;
+}
+.color-primary {
+  color: var(--color-primary) !important;
+}
+.color-primary-light {
+  color: var(--color-primary-light) !important;
+}
+.color-primary-dark {
+  color: var(--color-primary-dark) !important;
+}
+.color-secondary {
+  color: var(--color-secondary) !important;
+}
+.color-secondary-light {
+  color: var(--color-secondary-light) !important;
+}
+.color-secondary-dark {
+  color: var(--color-secondary-dark) !important;
+}
+
+/* Background Colors */
+.bg-default {
+  background-color: var(--color-default) !important;
+}
+.bg-primary {
+  background-color: var(--color-primary) !important;
+}
+.bg-primary-light {
+  background-color: var(--color-primary-light) !important;
+}
+.bg-primary-dark {
+  background-color: var(--color-primary-dark) !important;
+}
+.bg-secondary {
+  background-color: var(--color-secondary) !important;
+}
+.bg-secondary-light {
+  background-color: var(--color-secondary-light) !important;
+}
+.bg-secondary-dark {
+  background-color: var(--color-secondary-dark) !important;
+}

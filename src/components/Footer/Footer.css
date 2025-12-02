@@ -1,0 +1,62 @@
+/* Footer Styles */
+#footer {
+  background: var(--color-secondary-dark);
+  padding: 50px 0;
+  z-index: 1999;
+  position: relative;
+  color: var(--color-white);
+}
+
+#footer .socials-media {
+  width: 100%;
+}
+
+#footer .socials-media ul {
+  display: inline-block;
+  margin: 0 0 20px 0;
+}
+
+#footer .socials-media ul li {
+  display: inline-block;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+#footer .socials-media ul li a {
+  font-size: 24px;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  font-weight: 500;
+  background: transparent;
+  text-transform: uppercase;
+  transition: all 0.5s ease-in-out 0s;
+  display: inline-block;
+}
+
+#footer .socials-media ul li a:hover {
+  color: var(--color-primary);
+  transition: all 0.5s ease-in-out 0s;
+  transform: translateY(-5px);
+}
+
+#footer p {
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  font-weight: 500;
+  margin-top: 0;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* Dark theme specific */
+#footer {
+  background: var(--color-secondary-dark);
+}
+
+#footer .socials-media ul li a {
+  color: var(--text-muted);
+}
+
+#footer .socials-media ul li a:hover {
+  color: var(--color-primary);
+}
