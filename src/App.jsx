@@ -8,7 +8,6 @@ import Objectives from "./components/Objectives/Objectives";
 import Approach from "./components/Approach/Approach";
 import WhyUs from "./components/WhyUs/WhyUs";
 import Portfolio from "./components/Portfolio/Portfolio";
-import Services from "./components/Services/Services";
 import Gallery from "./components/Gallery/Gallery";
 import GetInTouch from "./components/GetInTouch/GetInTouch";
 import Footer from "./components/Footer/Footer";
