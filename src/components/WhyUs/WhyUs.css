@@ -1,0 +1,366 @@
+/* WhyUs.css - Why Choose Us */
+@import "../SectionsShared.css";
+
+.whyus-section {
+  background: linear-gradient(
+    135deg,
+    rgba(12, 12, 12, 0.95),
+    rgba(28, 28, 28, 0.95)
+  );
+  position: relative;
+  overflow: hidden;
+}
+
+.whyus-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+      circle at 15% 15%,
+      rgba(255, 4, 0, 0.1) 0%,
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at 85% 85%,
+      rgba(13, 110, 253, 0.08) 0%,
+      transparent 35%
+    ),
+    url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Ccircle cx='20' cy='20' r='5'/%3E%3Ccircle cx='50' cy='20' r='5'/%3E%3Ccircle cx='80' cy='20' r='5'/%3E%3Ccircle cx='20' cy='50' r='5'/%3E%3Ccircle cx='50' cy='50' r='5'/%3E%3Ccircle cx='80' cy='50' r='5'/%3E%3Ccircle cx='20' cy='80' r='5'/%3E%3Ccircle cx='50' cy='80' r='5'/%3E%3Ccircle cx='80' cy='80' r='5'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+.advantages-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 40px;
+  margin-top: 60px;
+}
+
+.advantage-card {
+  padding: 40px;
+  border-radius: 24px;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(
+    145deg,
+    rgba(40, 40, 40, 0.8),
+    rgba(25, 25, 25, 0.8)
+  );
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.advantage-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+}
+
+.advantage-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 100%;
+  background: linear-gradient(to bottom, var(--card-color), transparent);
+}
+
+.advantage-icon {
+  font-size: 48px;
+  margin-bottom: 24px;
+  background: linear-gradient(
+    135deg,
+    var(--card-color),
+    rgba(255, 255, 255, 0.3)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.advantage-title {
+  font-family: var(--font-secondary);
+  font-size: 28px;
+  color: var(--color-default);
+  margin: 0 0 20px 0;
+}
+
+.advantage-description {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 18px;
+  line-height: 1.7;
+  margin: 0 0 30px 0;
+}
+
+.advantage-features {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 16px;
+}
+
+.feature-item i {
+  color: var(--card-color);
+  font-size: 18px;
+}
+
+.comparison-section {
+  margin-top: 80px;
+  background: linear-gradient(
+    135deg,
+    rgba(30, 30, 30, 0.7),
+    rgba(18, 18, 18, 0.7)
+  );
+  border-radius: 24px;
+  padding: 50px;
+  position: relative;
+  overflow: hidden;
+}
+
+.comparison-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 4, 0, 0.05),
+    rgba(13, 110, 253, 0.05)
+  );
+}
+
+.comparison-title {
+  font-family: var(--font-secondary);
+  font-size: 32px;
+  color: var(--color-default);
+  text-align: center;
+  margin: 0 0 40px 0;
+}
+
+.comparison-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 40px;
+}
+
+.comparison-column h4 {
+  font-family: var(--font-secondary);
+  font-size: 24px;
+  color: var(--color-default);
+  margin: 0 0 24px 0;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--column-color);
+}
+
+.comparison-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.comparison-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 17px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.comparison-item i {
+  font-size: 20px;
+}
+
+.us-column .comparison-item i {
+  color: var(--color-primary);
+}
+
+.others-column .comparison-item i {
+  color: var(--color-gray);
+  opacity: 0.6;
+}
+
+/* Stats Section */
+.stats-section {
+  margin-top: 80px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+}
+
+.stat-item {
+  text-align: center;
+  padding: 40px 20px;
+  border-radius: 20px;
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.05),
+    rgba(0, 0, 0, 0.3)
+  );
+  transition: all 0.3s ease;
+}
+
+.stat-item:hover {
+  transform: translateY(-8px);
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.08),
+    rgba(0, 0, 0, 0.4)
+  );
+}
+
+.stat-number {
+  font-family: var(--font-secondary);
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin: 0 0 12px 0;
+  line-height: 1;
+}
+
+.stat-label {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 18px;
+  margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .advantages-grid {
+    gap: 30px;
+  }
+
+  .advantage-card {
+    padding: 30px;
+  }
+
+  .comparison-section {
+    padding: 40px 30px;
+  }
+
+  .stats-section {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 992px) {
+  .advantages-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .comparison-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .advantage-icon {
+    width: 70px;
+    height: 70px;
+    font-size: 40px;
+  }
+
+  .advantage-title {
+    font-size: 26px;
+  }
+}
+
+@media (max-width: 768px) {
+  .advantage-card {
+    padding: 24px;
+  }
+
+  .advantage-title {
+    font-size: 24px;
+  }
+
+  .advantage-description {
+    font-size: 17px;
+  }
+
+  .comparison-section {
+    padding: 30px 24px;
+    margin-top: 60px;
+  }
+
+  .comparison-title {
+    font-size: 28px;
+    margin-bottom: 30px;
+  }
+
+  .stats-section {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    margin-top: 60px;
+  }
+
+  .stat-item {
+    padding: 30px 20px;
+  }
+
+  .stat-number {
+    font-size: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .advantage-card {
+    padding: 20px;
+  }
+
+  .advantage-icon {
+    width: 60px;
+    height: 60px;
+    font-size: 32px;
+    margin-bottom: 20px;
+  }
+
+  .advantage-title {
+    font-size: 22px;
+    margin-bottom: 16px;
+  }
+
+  .advantage-description {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+
+  .comparison-section {
+    padding: 24px 20px;
+  }
+
+  .comparison-title {
+    font-size: 24px;
+  }
+
+  .comparison-column h4 {
+    font-size: 20px;
+  }
+
+  .comparison-item {
+    font-size: 16px;
+  }
+
+  .stat-number {
+    font-size: 36px;
+  }
+
+  .stat-label {
+    font-size: 16px;
+  }
+}

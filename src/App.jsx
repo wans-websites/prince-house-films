@@ -3,8 +3,14 @@ import Header from "./components/Header/Header";
 import Hero from "./components/Hero/Hero";
 import About from "./components/About/About";
 import Counts from "./components/Counts/Counts";
-import Services from "./components/Services/Services";
+import WhatWeDo from "./components/WhatWeDo/WhatWeDo";
+import Objectives from "./components/Objectives/Objectives";
+import Approach from "./components/Approach/Approach";
+import WhyUs from "./components/WhyUs/WhyUs";
 import Portfolio from "./components/Portfolio/Portfolio";
+import Services from "./components/Services/Services";
+import Gallery from "./components/Gallery/Gallery";
+import GetInTouch from "./components/GetInTouch/GetInTouch";
 import Footer from "./components/Footer/Footer";
 import Preloader from "./components/Preloader/Preloader";
 import "./styles/global.css";
@@ -20,18 +26,15 @@ function App() {
       setLoading(false);
     }, 3000);
 
-    // Handle sticky header
+    // Handle sticky header - much simpler logic
     const handleScroll = () => {
-      const hero = document.getElementById("hero-animated");
       const header = document.getElementById("header");
 
-      if (hero && header) {
-        const heroHeight = hero.offsetHeight;
-        const scrollPosition = window.scrollY;
+      if (header) {
+        const headerRect = header.getBoundingClientRect();
 
-        // Header should become sticky when we've scrolled past the hero section
-        // (when the header's normal position would be at the top)
-        if (scrollPosition > heroHeight) {
+        // Header becomes sticky when its top reaches the top of viewport
+        if (headerRect.top <= 0) {
           setIsHeaderSticky(true);
         } else {
           setIsHeaderSticky(false);
@@ -84,19 +87,6 @@ function App() {
           });
         });
       }
-
-      // Mobile nav toggle
-      const mobileNavToggle = document.querySelector(".mobile-nav-toggle");
-      const navbar = document.querySelector("#navbar");
-
-      if (mobileNavToggle && navbar) {
-        mobileNavToggle.addEventListener("click", function (e) {
-          e.preventDefault();
-          navbar.classList.toggle("navbar-mobile");
-          this.classList.toggle("bi-list");
-          this.classList.toggle("bi-x");
-        });
-      }
     };
 
     // Load external scripts
@@ -145,15 +135,24 @@ function App() {
   return (
     <>
       {loading && <Preloader />}
+
+      {/* Normal document flow: Hero, then Header, then other sections */}
       <Hero />
       <Header isSticky={isHeaderSticky} />
+
       <main id="main">
         <About />
         <Counts />
-        {/* <Services />
-        <Portfolio /> */}
+        <WhatWeDo />
+        <Objectives />
+        <Approach />
+        <WhyUs />
+        <Portfolio />
+        <Gallery />
+        <GetInTouch />
       </main>
-      {/* <Footer /> */}
+
+      <Footer />
 
       <a
         href="#"

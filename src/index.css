@@ -29,3 +29,27 @@ body {
     height: 60px;
   }
 }
+
+.phf-section {
+  padding: 80px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.phf-section h2 {
+  font-family: var(--font-secondary);
+  font-size: 42px;
+}
+.phf-sub {
+  color: var(--color-gray);
+  margin-bottom: 40px;
+  max-width: 680px;
+}
+
+@media (max-width: 900px) {
+  .approach-grid {
+    grid-template-columns: 1fr;
+  }
+  .phf-section h2 {
+    font-size: 32px;
+  }
+}
