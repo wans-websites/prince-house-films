@@ -1,7 +1,14 @@
 import React, { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
 import "./Counts.css";
-import { BiCameraMovie, BiTrophy, BiGlobe, BiHappy } from "react-icons/bi";
+import {
+  BiCameraMovie,
+  BiTrophy,
+  BiGlobe,
+  BiHappy,
+  BiStar,
+  BiWorld,
+} from "react-icons/bi";
 
 const Counts = () => {
   const [counts, setCounts] = useState({
@@ -103,17 +110,12 @@ const Counts = () => {
 
   const achievements = [
     {
-      icon: "🏆",
-      title: "Award-Winning",
-      description: "50+ industry awards",
-    },
-    {
-      icon: "⭐",
+      icon: <BiStar />,
       title: "Premium Quality",
       description: "Broadcast standard",
     },
     {
-      icon: "🌍",
+      icon: <BiWorld />,
       title: "Global Reach",
       description: "International projects",
     },
@@ -190,58 +192,6 @@ const Counts = () => {
               </div>
             </motion.div>
           ))}
-        </motion.div>
-
-        <motion.div
-          className="section-cta"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ delay: 0.8 }}
-          style={{ marginTop: "60px", textAlign: "center" }}
-        >
-          <p
-            style={{
-              color: "var(--color-gray)",
-              fontSize: "18px",
-              marginBottom: "20px",
-              maxWidth: "600px",
-              marginLeft: "auto",
-              marginRight: "auto",
-            }}
-          >
-            Join our growing list of satisfied clients and let us bring your
-            story to life with the same passion and excellence that's earned us
-            these numbers.
-          </p>
-          <a
-            href="/contact"
-            className="cta-button"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "10px",
-              padding: "16px 42px",
-              background:
-                "linear-gradient(90deg, var(--color-primary), var(--color-primary-dark))",
-              color: "white",
-              textDecoration: "none",
-              borderRadius: "50px",
-              fontWeight: "600",
-              fontSize: "16px",
-              transition: "all 0.3s ease",
-              boxShadow: "0 10px 30px rgba(255, 4, 0, 0.3)",
-            }}
-            onMouseEnter={(e) => {
-              e.target.style.transform = "translateY(-3px)";
-              e.target.style.boxShadow = "0 15px 35px rgba(255, 4, 0, 0.4)";
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.transform = "translateY(0)";
-              e.target.style.boxShadow = "0 10px 30px rgba(255, 4, 0, 0.3)";
-            }}
-          >
-            Become Our Next Success Story <i className="bi bi-arrow-right"></i>
-          </a>
         </motion.div>
       </div>
     </section>

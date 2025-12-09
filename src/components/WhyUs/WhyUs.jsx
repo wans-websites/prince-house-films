@@ -107,7 +107,7 @@ export default function WhyUs() {
                 transition: { duration: 0.2 },
               }}
             >
-              <div className="advantage-icon">{advantage.icon}</div>
+              {/* <div className="advantage-icon">{advantage.icon}</div> */}
               <h3 className="advantage-title">{advantage.title}</h3>
               <p className="advantage-description">{advantage.description}</p>
 
@@ -215,7 +215,7 @@ export default function WhyUs() {
             </motion.div>
           ))}
         </motion.div>
-
+        {/* 
         <motion.div
           className="final-cta"
           initial={{ opacity: 0 }}
@@ -325,7 +325,7 @@ export default function WhyUs() {
               <i className="bi bi-play-circle" style={{ fontSize: "20px" }}></i>
             </a>
           </div>
-        </motion.div>
+        </motion.div> */}
       </div>
     </section>
   );

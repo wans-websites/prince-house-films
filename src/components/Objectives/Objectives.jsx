@@ -35,7 +35,7 @@ export default function Objectives() {
   ];
 
   return (
-    <section className="phf-section objectives-section">
+    <section className="phf-section objectives-section" id="approach">
       <div className="glow-overlay"></div>
       <div className="container">
         <motion.h2

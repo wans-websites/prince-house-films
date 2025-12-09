@@ -204,7 +204,7 @@ const Portfolio = () => {
             </motion.div>
           ))}
         </div>
-
+        {/* 
         <motion.div
           className="section-cta"
           initial={{ opacity: 0 }}
@@ -255,7 +255,7 @@ const Portfolio = () => {
           >
             View Full Portfolio <i className="bi bi-collection"></i>
           </a>
-        </motion.div>
+        </motion.div> */}
       </div>
 
       {/* Modal */}

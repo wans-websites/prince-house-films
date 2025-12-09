@@ -9,6 +9,7 @@ import {
   BiRocket,
 } from "react-icons/bi";
 import { FaFilm, FaPlayCircle, FaEdit } from "react-icons/fa";
+import img1 from "../../assets/img/service1.JPG";
 
 const services = [
   {
@@ -23,8 +24,7 @@ const services = [
     title: "Creative Content",
     text: "Engaging digital content designed for social media, campaigns, and brand storytelling that captures attention.",
     icon: <BiPen />,
-    bgImage:
-      "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=800",
+    bgImage: img1,
     hasBg: true,
   },
   {
@@ -109,18 +109,14 @@ export default function WhatWeDo() {
             {services.map((item, i) => (
               <motion.div
                 key={i}
-                className={`bento-item ${item.hasBg ? "has-bg" : ""}`}
-                style={{
-                  "--bg-image": `url(${item.bgImage})`,
-                  "--bento-bg": `url(${item.bgImage})`,
-                }}
+                className={`bento-item ${item.hasBg ? "has-bg" : ""} ${
+                  i === 1 || i === 4 || i === 7 ? "featured" : ""
+                }`}
+                style={{ "--bento-bg": `url(${item.bgImage})` }}
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, delay: i * 0.05 }}
-                whileHover={{
-                  scale: 1.02,
-                  transition: { duration: 0.2 },
-                }}
+                whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
               >
                 <div className="bento-content">
                   <div>
@@ -133,7 +129,7 @@ export default function WhatWeDo() {
             ))}
           </div>
         </div>
-
+        {/* 
         <motion.div
           className="section-cta"
           initial={{ opacity: 0 }}
@@ -180,7 +176,7 @@ export default function WhatWeDo() {
             Start Your Project{" "}
             <i className="bi bi-arrow-right" style={{ fontSize: "18px" }}></i>
           </a>
-        </motion.div>
+        </motion.div> */}
       </div>
     </section>
   );

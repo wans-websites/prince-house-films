@@ -2,7 +2,7 @@
 @import "../SectionsShared.css";
 
 .hero-section {
-  min-height: 100vh;
+  /* min-height: 100vh; */
   background: linear-gradient(
     135deg,
     rgba(8, 8, 8, 0.95),
@@ -12,7 +12,8 @@
   overflow: hidden;
   display: flex;
   align-items: center;
-  padding-top: 80px;
+  padding-top: 100px;
+  /* background-color: red; */
 }
 
 .hero-section::before {
@@ -51,7 +52,6 @@
   z-index: 3;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 20px;
 }
 
 .hero-main-title {
@@ -153,8 +153,8 @@
 }
 
 .hero-features {
-  display: flex;
-  gap: 40px;
+  display: grid;
+  grid-template-columns: auto auto auto;
   margin-top: 60px;
   flex-wrap: wrap;
 }

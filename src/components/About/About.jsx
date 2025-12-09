@@ -79,21 +79,13 @@ const About = () => {
               studio specializing in cinematic storytelling, branded video, and
               immersive digital content. We partner with visionary brands,
               nonprofits, agencies, and creators to craft high-impact films,
-              social-first content, commercials, and documentary shorts.
-            </motion.p>
-
-            <motion.p
-              className="about-description"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              Using industry-leading production, direction, and post-production
-              techniques, we transform ideas into compelling visual experiences
-              that increase engagement, grow audiences, and drive measurable
-              results. Our team blends technical expertise, artistic direction,
-              and strategic thinking, from concept and script through shooting,
-              color grading, motion design, and distribution strategy.
+              social-first content, commercials, and documentary shorts. Using
+              industry-leading production, direction, and post-production
+              techniques, we turn ideas into compelling visual experiences that
+              boost engagement, grow audiences, and drive measurable results.
+              Our team combines technical expertise, artistic direction, and
+              strategic thinking, from concept and script through shooting,
+              color grading, motion design, and distribution.
             </motion.p>
 
             <div className="about-highlights">
@@ -115,7 +107,7 @@ const About = () => {
               ))}
             </div>
 
-            <motion.a
+            {/* <motion.a
               href="/contact"
               className="cta-button"
               initial={{ opacity: 0, y: 20 }}
@@ -125,7 +117,7 @@ const About = () => {
               whileTap={{ scale: 0.95 }}
             >
               Start Your Project <i className="bi bi-arrow-right"></i>
-            </motion.a>
+            </motion.a> */}
           </div>
 
           <div

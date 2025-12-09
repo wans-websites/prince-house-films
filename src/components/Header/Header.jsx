@@ -19,6 +19,7 @@ const Header = ({ isSticky }) => {
   const navItems = [
     { id: "home", label: "Home", path: "/" },
     { id: "about", label: "Who We Are", path: "/about" },
+    { id: "counts", label: "Impact", path: "/impact" },
     { id: "services", label: "What We Do", path: "/services" },
     { id: "approach", label: "Our Approach", path: "/approach" },
     { id: "portfolio", label: "Portfolio", path: "/portfolio" },

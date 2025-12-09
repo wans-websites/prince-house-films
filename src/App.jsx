@@ -14,6 +14,7 @@ import Footer from "./components/Footer/Footer";
 import Preloader from "./components/Preloader/Preloader";
 import "./styles/global.css";
 import "./styles/dark-theme.css";
+import Team from "./components/Team/Team";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -147,7 +148,8 @@ function App() {
         <Approach />
         <WhyUs />
         <Portfolio />
-        <Gallery />
+        <Team />
+        {/* <Gallery /> */}
         <GetInTouch />
       </main>
 

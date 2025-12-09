@@ -8,6 +8,7 @@ import {
   BiCheckShield,
   BiTimer,
 } from "react-icons/bi";
+import hero from "../../assets/img/hero.png";
 
 const Hero = () => {
   const scrollToContent = () => {
@@ -23,11 +24,11 @@ const Hero = () => {
       title: "Cinematic Production",
       description: "Hollywood-quality visuals",
     },
-    {
-      icon: <BiAward />,
-      title: "Award-Winning",
-      description: "Industry recognized excellence",
-    },
+    // {
+    //   icon: <BiAward />,
+    //   title: "Award-Winning",
+    //   description: "Industry recognized excellence",
+    // },
     {
       icon: <BiCheckShield />,
       title: "Guaranteed Quality",
@@ -59,10 +60,10 @@ const Hero = () => {
         muted
         loop
         playsInline
-        poster="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=1200"
+        poster={hero}
       >
         <source
-          src="https://assets.mixkit.co/videos/preview/mixkit-film-reel-spinning-1938-large.mp4"
+          // src="https://assets.mixkit.co/videos/preview/mixkit-film-reel-spinning-1938-large.mp4"
           type="video/mp4"
         />
       </video>
@@ -79,16 +80,16 @@ const Hero = () => {
           </h1>
 
           <p className="hero-subtitle">
-            Prince House Films is an award-winning production studio
-            specializing in cinematic storytelling, commercial filmmaking, and
-            digital content that captivates audiences and drives real results.
-            From concept to screen, we bring stories to life with technical
-            mastery and creative passion.
+            Prince House Films is a production studio specializing in cinematic
+            storytelling, commercial filmmaking, and digital content that
+            captivates audiences and drives real results. From concept to
+            screen, we bring stories to life with technical mastery and creative
+            passion.
           </p>
 
           <div className="hero-cta-buttons">
             <motion.a
-              href="/contact"
+              href="#contact"
               className="hero-primary-btn"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -99,7 +100,7 @@ const Hero = () => {
               Start Your Project <i className="bi bi-arrow-right"></i>
             </motion.a>
 
-            <motion.a
+            {/* <motion.a
               href="/portfolio"
               className="hero-secondary-btn"
               whileHover={{ scale: 1.05 }}
@@ -109,7 +110,7 @@ const Hero = () => {
               transition={{ duration: 0.6, delay: 0.3 }}
             >
               <BiPlayCircle /> View Our Work
-            </motion.a>
+            </motion.a> */}
           </div>
 
           <motion.div
@@ -129,7 +130,7 @@ const Hero = () => {
             ))}
           </motion.div>
 
-          <motion.div
+          {/* <motion.div
             className="hero-trust"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -143,11 +144,11 @@ const Hero = () => {
                 </div>
               ))}
             </div>
-          </motion.div>
+          </motion.div> */}
         </motion.div>
       </div>
 
-      <motion.div
+      {/* <motion.div
         className="hero-scroll-indicator"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -157,7 +158,7 @@ const Hero = () => {
       >
         <span>Explore Our Story</span>
         <i className="bi bi-chevron-down"></i>
-      </motion.div>
+      </motion.div> */}
     </section>
   );
 };
