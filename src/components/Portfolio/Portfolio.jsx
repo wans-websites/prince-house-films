@@ -88,7 +88,7 @@ const Portfolio = () => {
       category: "social",
       description: "Viral social media campaign for fashion brand",
       image:
-        "https://images.unsplash.com/photo-1611746872915-64382b5c0e5a?q=80&w=1200",
+        "https://images.pexels.com/photos/147413/twitter-facebook-together-exchange-of-information-147413.jpeg",
       client: "UrbanStyle",
       year: "2024",
       duration: "30 sec episodes",

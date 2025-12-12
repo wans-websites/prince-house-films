@@ -213,7 +213,7 @@ const GetInTouch = () => {
                 </div>
                 <div className="contact-item">
                   <span className="contact-label">
-                    📧 princehousefilms@gmail.com
+                    📧 info@princehousefilms.com
                   </span>
                 </div>
                 <div className="contact-item">

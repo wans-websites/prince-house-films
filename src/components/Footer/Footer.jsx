@@ -117,7 +117,7 @@ const Footer = () => {
               <i className="bi bi-envelope"></i> info@princehousefilms.com
             </p>
             <p>
-              <i className="bi bi-phone"></i> +254 700 000 000
+              <i className="bi bi-phone"></i> +254 701 914 626
             </p>
             <p>
               <i className="bi bi-clock"></i> Mon - Fri: 9:00 AM - 6:00 PM
