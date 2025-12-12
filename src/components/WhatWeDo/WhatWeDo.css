@@ -1,13 +1,12 @@
-/* MODERN BENTO GRID */
+/* --- BASE GRID --- */
 .bento-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-auto-rows: 260px;
   gap: 24px;
   margin-top: 50px;
 }
 
-/* BASE CARD STYLE */
+/* --- BASE CARD STYLE --- */
 .bento-item {
   position: relative;
   border-radius: 22px;
@@ -18,6 +17,7 @@
   transition: all 0.35s ease;
   display: flex;
   flex-direction: column;
+  height: 260px;
 }
 
 .bento-item:hover {
@@ -25,7 +25,7 @@
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
 }
 
-/* IMAGE BACKGROUND ITEMS */
+/* --- BACKGROUND IMAGES --- */
 .bento-item.has-bg {
   background: linear-gradient(
       to bottom,
@@ -35,13 +35,12 @@
     var(--bento-bg) center/cover no-repeat;
 }
 
-/* CONTENT */
+/* --- CONTENT --- */
 .bento-content {
   padding: 28px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 100%;
 }
 
 .bento-icon {
@@ -52,7 +51,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 42, 38, 0.1);
+  background: rgba(255, 42, 38, 0.12);
   border-radius: 16px;
   color: var(--color-primary);
 }
@@ -60,7 +59,7 @@
 .bento-title {
   font-size: 22px;
   font-weight: 700;
-  margin: 10px 0 12px;
+  margin-top: 10px;
   color: var(--color-default);
 }
 
@@ -70,47 +69,53 @@
   line-height: 1.5;
 }
 
-/* EXACT SCREENSHOT LAYOUT --------------------------------- */
+/* ============================================================
+   NEW LAYOUT — FIRST ROW IS ONE WIDE CARD
+   ============================================================ */
 
-/* ITEM 1: wide (2 columns) */
+/* FIRST ITEM — wide full row */
 .bento-item:nth-child(1) {
-  grid-column: span 2;
-  grid-row: span 2; /* makes it same height as tall card */
+  grid-column: 1 / -1; /* spans all 3 columns */
+  height: 540px; /* make it visually dominant */
+}
+.bento-item:nth-child(1) .bento-content {
+  height: 100%;
+  justify-content: space-around;
 }
 
-/* ITEMS 2 & 3: short stacked */
+/* SECOND ROW (items 2, 3, 4) → normal */
 .bento-item:nth-child(2),
-.bento-item:nth-child(3) {
-  grid-row: span 1;
-}
-
-/* ITEM 4: tall card (spans 2 rows) */
+.bento-item:nth-child(3),
 .bento-item:nth-child(4) {
-  grid-row: span 2;
+  height: 260px;
 }
 
-/* ITEMS 5, 6, 7: mid-sized cards in full row */
+/* THIRD ROW (items 5, 6, 7) → normal */
 .bento-item:nth-child(5),
 .bento-item:nth-child(6),
 .bento-item:nth-child(7) {
-  grid-row: span 1;
+  height: 260px;
 }
 
-/* ITEMS 8 & 9: small row */
+/* LAST ROW can shrink if fewer items */
 .bento-item:nth-child(8),
-.bento-item:nth-child(9) {
-  grid-row: span 1;
+.bento-item:nth-child(9),
+.bento-item:nth-child(10) {
+  height: 240px;
 }
 
-/* MOBILE TABLET FIXES */
+/* ============================================================
+   RESPONSIVE LAYOUT
+   ============================================================ */
+
 @media (max-width: 1024px) {
   .bento-grid {
     grid-template-columns: repeat(2, 1fr);
-    grid-auto-rows: auto;
   }
-  .bento-item {
-    grid-column: span 1 !important;
-    grid-row: auto !important;
+
+  .bento-item:nth-child(1) {
+    grid-column: 1 / -1; /* still full width */
+    height: 320px;
   }
 }
 
@@ -118,7 +123,12 @@
   .bento-grid {
     grid-template-columns: 1fr;
   }
+
   .bento-item {
+    height: auto !important;
+  }
+
+  .bento-item:nth-child(1) {
     height: auto !important;
   }
 }

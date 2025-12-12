@@ -10,9 +10,9 @@ import {
   FaHandshake,
   FaLightbulb,
 } from "react-icons/fa";
-import tito from "../../assets/img/tito.JPG";
-import calvin from "../../assets/img/calvin.JPG";
-import ruth from "../../assets/img/ruth.JPG";
+
+// Import your landscape group photo here
+import teamGroupPhoto from "../../assets/img/team-group.jpeg";
 
 const Team = () => {
   const teamMembers = [
@@ -21,7 +21,6 @@ const Team = () => {
       name: "John",
       role: "Founder & Videographer/Editor",
       bio: "Visionary storyteller with 10+ years in cinematic production. Leads creative direction for all projects.",
-      image: "",
       expertise: ["Cinematography", "Creative Direction", "Storytelling"],
       social: {
         linkedin: "#",
@@ -32,10 +31,9 @@ const Team = () => {
     {
       id: 2,
       name: "Tito Gatitu",
-      role: " Drone pilot",
+      role: "Drone Pilot",
       bio: "Strategic producer managing budgets, timelines, and client relationships across all projects.",
-      image: tito,
-      expertise: ["Production", "Budgeting", "Client Management"],
+      expertise: ["Aerial Cinematography", "Drone Operations", "Safety"],
       social: {
         linkedin: "#",
         twitter: "#",
@@ -43,10 +41,9 @@ const Team = () => {
     },
     {
       id: 3,
-      name: "Calvin Claks ",
-      role: "Cimenatographer, gimbal operator , D.O.P",
+      name: "Calvin Claks",
+      role: "Cinematographer, Gimbal Operator, D.O.P",
       bio: "Award-winning cinematographer specializing in commercial and documentary filmmaking.",
-      image: calvin,
       expertise: ["Cinematography", "Lighting", "Camera Operation"],
       social: {
         linkedin: "#",
@@ -56,11 +53,10 @@ const Team = () => {
     },
     {
       id: 4,
-      name: "Ruth Matindi ",
-      role: "Content Creator/ Editor",
-      bio: "Award-winning cinematographer specializing in commercial and documentary filmmaking.",
-      image: ruth,
-      expertise: ["Cinematography", "Lighting", "Camera Operation"],
+      name: "Ruth Matindi",
+      role: "Content Creator/Editor",
+      bio: "Creative editor with expertise in post-production and content strategy for digital platforms.",
+      expertise: ["Video Editing", "Content Strategy", "Motion Graphics"],
       social: {
         linkedin: "#",
         instagram: "#",
@@ -112,224 +108,80 @@ const Team = () => {
     }
   };
 
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.6,
+      },
+    },
+  };
+
   return (
-    <section id="team" className="phf-section team-section">
-      <div className="glow-overlay"></div>
+    <section id="team" className="team-section-single">
+      <div className="team-glow-overlay"></div>
+
       <div className="container">
-        <motion.h2
-          className="section-title"
+        {/* Header */}
+        <motion.div
+          className="team-header"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          Meet Our Creative Team
-        </motion.h2>
-
-        <p className="section-subtitle">
-          A diverse team of award-winning filmmakers, designers, and strategists
-          who bring passion, expertise, and creativity to every project.
-          Together, we transform visions into cinematic realities.
-        </p>
-
-        <div className="team-grid-seven">
-          {teamMembers.map((member, i) => (
-            <motion.div
-              key={member.id}
-              className="team-member phf-card"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
-              whileHover={{
-                scale: 1.02,
-                transition: { duration: 0.2 },
-              }}
-            >
-              <div
-                className="member-image"
-                style={{ backgroundImage: `url(${member.image})` }}
-              />
-
-              <div className="member-info">
-                <h3 className="member-name">{member.name}</h3>
-                <div className="member-role">{member.role}</div>
-                <p className="member-bio">{member.bio}</p>
-
-                <div className="member-expertise">
-                  {member.expertise.map((skill, j) => (
-                    <span key={j} className="expertise-tag">
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-
-                <div className="member-social">
-                  {Object.entries(member.social).map(([platform, url]) => (
-                    <a
-                      key={platform}
-                      href={url}
-                      className="social-icon"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {getSocialIcon(platform)}
-                    </a>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* <motion.div
-          className="team-stats"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ delay: 0.4 }}
-        >
-          {teamStats.map((stat, i) => (
-            <div key={i} className="stat-item">
-              <h3 className="stat-number">{stat.number}</h3>
-              <p className="stat-label">{stat.label}</p>
-            </div>
-          ))}
-        </motion.div> */}
-
-        {/* <motion.div
-          className="team-values"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ delay: 0.6 }}
-        >
-          {teamValues.map((value, i) => (
-            <motion.div
-              key={i}
-              className="value-item"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.7 + i * 0.1 }}
-              whileHover={{
-                scale: 1.05,
-                transition: { duration: 0.2 },
-              }}
-            >
-              <div className="value-icon">{value.icon}</div>
-              <h3 className="value-title">{value.title}</h3>
-              <p className="value-description">{value.description}</p>
-            </motion.div>
-          ))}
-        </motion.div> */}
-
-        {/* <motion.div
-          className="section-cta"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ delay: 0.9 }}
-          style={{
-            marginTop: "80px",
-            textAlign: "center",
-            padding: "50px",
-            background:
-              "linear-gradient(135deg, rgba(255, 4, 0, 0.1), rgba(13, 110, 253, 0.1))",
-            borderRadius: "24px",
-            border: "1px solid rgba(255, 255, 255, 0.05)",
-          }}
-        >
-          <h3
-            style={{
-              fontFamily: "var(--font-secondary)",
-              fontSize: "32px",
-              color: "var(--color-default)",
-              margin: "0 0 16px 0",
-            }}
-          >
-            Want to Join Our Team?
-          </h3>
-
-          <p
-            style={{
-              color: "rgba(255, 255, 255, 0.85)",
-              fontSize: "18px",
-              margin: "0 0 30px 0",
-              maxWidth: "700px",
-              marginLeft: "auto",
-              marginRight: "auto",
-            }}
-          >
-            We're always looking for talented creatives to join our growing
-            team. If you're passionate about storytelling and have skills in
-            film production, design, or strategy, we'd love to hear from you.
+          <h2 className="team-title">Meet Our Creative Team</h2>
+          <p className="team-subtitle">
+            A passionate collective of storytellers, cinematographers, and
+            innovators
           </p>
+        </motion.div>
 
+        {/* Main Group Photo */}
+        <motion.div
+          className="team-group-photo-section"
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8 }}
+        >
           <div
-            style={{
-              display: "flex",
-              gap: "20px",
-              justifyContent: "center",
-              flexWrap: "wrap",
-            }}
+            className="team-group-photo"
+            style={{ backgroundImage: `url(${teamGroupPhoto})` }}
           >
-            <a
-              href="/careers"
-              className="cta-button"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "10px",
-                padding: "16px 42px",
-                background:
-                  "linear-gradient(90deg, var(--color-primary), var(--color-primary-dark))",
-                color: "white",
-                textDecoration: "none",
-                borderRadius: "50px",
-                fontWeight: "600",
-                fontSize: "16px",
-                transition: "all 0.3s ease",
-                boxShadow: "0 10px 30px rgba(255, 4, 0, 0.3)",
-              }}
-              onMouseEnter={(e) => {
-                e.target.style.transform = "translateY(-3px)";
-                e.target.style.boxShadow = "0 15px 35px rgba(255, 4, 0, 0.4)";
-              }}
-              onMouseLeave={(e) => {
-                e.target.style.transform = "translateY(0)";
-                e.target.style.boxShadow = "0 10px 30px rgba(255, 4, 0, 0.3)";
-              }}
-            >
-              View Open Positions <i className="bi bi-briefcase"></i>
-            </a>
-
-            <a
-              href="/contact?type=career"
-              className="cta-button"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "10px",
-                padding: "16px 42px",
-                background: "transparent",
-                color: "var(--color-default)",
-                textDecoration: "none",
-                borderRadius: "50px",
-                fontWeight: "600",
-                fontSize: "16px",
-                transition: "all 0.3s ease",
-                border: "2px solid rgba(255, 255, 255, 0.2)",
-              }}
-              onMouseEnter={(e) => {
-                e.target.style.transform = "translateY(-3px)";
-                e.target.style.background = "rgba(255, 255, 255, 0.05)";
-                e.target.style.borderColor = "var(--color-primary)";
-              }}
-              onMouseLeave={(e) => {
-                e.target.style.transform = "translateY(0)";
-                e.target.style.background = "transparent";
-                e.target.style.borderColor = "rgba(255, 255, 255, 0.2)";
-              }}
-            >
-              Send Your Portfolio <i className="bi bi-send"></i>
-            </a>
+            <div className="photo-overlay">
+              <div className="photo-content">
+                <motion.h3
+                  className="photo-title"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                >
+                  The Creative Minds
+                </motion.h3>
+                <motion.p
+                  className="photo-description"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 }}
+                >
+                  United by passion, driven by innovation
+                </motion.p>
+              </div>
+            </div>
           </div>
-        </motion.div> */}
+        </motion.div>
       </div>
     </section>
   );

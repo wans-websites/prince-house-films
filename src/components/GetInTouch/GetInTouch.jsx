@@ -83,7 +83,7 @@ const GetInTouch = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="section-title">Get In Touch</h2>
+          <h2 className="section-title">Have a Project In Mind?</h2>
           <p className="section-subtitle">
             Ready to bring your vision to life? Connect with us through any
             channel.

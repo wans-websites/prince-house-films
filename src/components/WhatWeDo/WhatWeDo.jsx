@@ -14,13 +14,14 @@ import documentary from "../../assets/img/documentary.gif";
 import event from "../../assets/img/event.gif";
 import cinematic from "../../assets/img/cinematic.gif";
 import graphic from "../../assets/img/graphic.gif";
+import stream from "../../assets/img/stream.gif";
 
 const services = [
   {
     title: "Cinematic Videography",
-    text: "Professional film production for commercials, corporate films, and events with cinematic quality and emotional storytelling.",
+    text: "",
     icon: <BiCameraMovie />,
-    bgImage: cinematic,
+    bgImage: event,
     hasBg: true,
   },
   {
@@ -34,15 +35,14 @@ const services = [
     title: "Documentary Production",
     text: "Authentic storytelling that informs, educates, and inspires audiences with real-life narratives.",
     icon: <FaFilm />,
-    bgImage: documentary,
+    bgImage: cinematic,
     hasBg: true,
   },
   {
     title: "Live Streaming",
     text: "Professional multi-platform live broadcasts for events, launches, and conferences with studio-quality production.",
     icon: <FaPlayCircle />,
-    bgImage:
-      "https://images.unsplash.com/photo-1581090700227-3f99b85ee1c9?q=80&w=800",
+    bgImage: stream,
     hasBg: true,
   },
   {
@@ -60,19 +60,19 @@ const services = [
       "https://images.unsplash.com/photo-1561070791-2526d30994b5?q=80&w=800",
     hasBg: true,
   },
-  {
-    title: "Social Media Strategy",
-    text: "Comprehensive digital strategy, content management, and growth solutions for consistent online presence.",
-    icon: <BiRocket />,
-    bgImage:
-      "https://images.unsplash.com/photo-1611162616305-c69b3fa7a16b?q=80&w=800",
-    hasBg: true,
-  },
+  // {
+  //   title: "Social Media Strategy",
+  //   text: "Comprehensive digital strategy, content management, and growth solutions for consistent online presence.",
+  //   icon: <BiRocket />,
+  //   bgImage:
+  //     "https://images.unsplash.com/photo-1611162616305-c69b3fa7a16b?q=80&w=800",
+  //   hasBg: true,
+  // },
   {
     title: "Event Coverage",
     text: "Complete professional coverage of corporate events, launches, and celebrations with cinematic flair.",
     icon: <BiVideoRecording />,
-    bgImage: event,
+    bgImage: documentary,
     hasBg: true,
   },
 ];
@@ -90,11 +90,6 @@ export default function WhatWeDo() {
         >
           Our Creative Services
         </motion.h2>
-        <p className="section-subtitle">
-          We offer a full spectrum of film and media production services, from
-          concept to final delivery. Each project receives our signature blend
-          of creativity, technical excellence, and storytelling passion.
-        </p>
 
         <div className="bento-container">
           <div className="bento-grid">

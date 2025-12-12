@@ -75,11 +75,7 @@
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  background: linear-gradient(
-    90deg,
-    var(--color-primary),
-    var(--color-primary-dark)
-  );
+  background: var(--color-primary);
   color: white;
   box-shadow: 0 15px 35px rgba(255, 4, 0, 0.3);
   transition: 0.3s ease;

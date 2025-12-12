@@ -21,9 +21,9 @@ const Header = ({ isSticky }) => {
     { id: "about", label: "Who We Are", path: "/about" },
     // { id: "counts", label: "Impact", path: "/impact" },
     { id: "services", label: "What We Do", path: "/services" },
-    { id: "approach", label: "Our Approach", path: "/approach" },
-    // { id: "why-us", label: "Why Us", path: "/why-us" },
     { id: "portfolio", label: "Portfolio", path: "/portfolio" },
+    // { id: "approach", label: "Our Approach", path: "/approach" },
+    // { id: "why-us", label: "Why Us", path: "/why-us" },
     { id: "team", label: "The Team", path: "/team" },
     { id: "contact", label: "Contact", path: "/contact" },
   ];

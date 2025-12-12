@@ -147,7 +147,7 @@ const Portfolio = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          Our Featured Work
+          Our Portolio
         </motion.h2>
         {/* 
         <p className="section-subtitle">

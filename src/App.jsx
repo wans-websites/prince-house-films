@@ -145,9 +145,9 @@ function App() {
         {/* <Counts /> */}
         <WhatWeDo />
         {/* <Objectives /> */}
-        <Approach />
-        {/* <WhyUs /> */}
         <Portfolio />
+        {/* <Approach /> */}
+        {/* <WhyUs /> */}
         <Team />
         {/* <Gallery /> */}
         <GetInTouch />
