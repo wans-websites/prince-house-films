@@ -101,7 +101,7 @@ const showcaseItems = [
 
 export default function Approach() {
   return (
-    <section className="phf-section approach-section">
+    <section className="phf-section approach-section" id="approach">
       <div className="glow-overlay"></div>
       <div className="container">
         <motion.h2
@@ -112,11 +112,11 @@ export default function Approach() {
         >
           Our Creative Process
         </motion.h2>
-        <p className="section-subtitle">
+        {/* <p className="section-subtitle">
           From initial concept to final delivery, our proven 5-step process
           ensures every project receives the attention to detail, creative
           excellence, and strategic thinking it deserves.
-        </p>
+        </p> */}
 
         <div className="process-container">
           {processSteps.map((step, i) => (

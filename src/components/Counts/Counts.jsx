@@ -138,10 +138,10 @@ const Counts = () => {
           Our Impact in Numbers
         </motion.h2>
 
-        <p className="section-subtitle">
+        {/* <p className="section-subtitle">
           A decade of cinematic excellence, measured by the stories we've told
           and the clients we've empowered through visual storytelling.
-        </p>
+        </p> */}
 
         <div className="stats-grid">
           {stats.map((stat, i) => (

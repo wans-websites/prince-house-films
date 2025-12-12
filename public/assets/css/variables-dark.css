@@ -1,13 +1,11 @@
-/*--------------------------------------------------------------
-# 1. HeroBiz template variables - DARK THEME
---------------------------------------------------------------*/
 :root {
   /* Fonts */
-  --font-default: "Open Sans", system-ui, -apple-system, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --font-primary: "Source Sans Pro", sans-serif;
-  --font-secondary: "Poppins", sans-serif;
+  --font-default: "Geoform", "Open Sans", system-ui, -apple-system, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+
+  --font-primary: "Geoform", "Source Sans Pro", sans-serif;
+
+  --font-secondary: "Geoform", "Poppins", sans-serif;
 
   /* Colors - DARK THEME */
   /* Default text color */
@@ -15,13 +13,13 @@
   --color-default-rgb: 248, 249, 250;
 
   /* Defult links color */
-  --color-links: #ff0400;
+  --color-links: #dc1f29;
   --color-links-hover: #ff2a26;
 
   /* Primary colors */
-  --color-primary: #ff0400;
-  --color-primary-light: #ff2a26;
-  --color-primary-dark: #a90300;
+  --color-primary: #dc1f29;
+  --color-primary-light: #f0414a;
+  --color-primary-dark: #b30810;
 
   --color-primary-rgb: 255, 4, 0;
   --color-primary-light-rgb: 255, 42, 38;
@@ -57,7 +55,7 @@
   --color-yellow: #ffc107;
   --color-yellow-rgb: 255, 193, 7;
 
-  --color-green: #ff0400;
+  --color-green: #dc1f29;
   --color-green-rgb: 64, 189, 14;
 
   --color-teal: #20c997;

@@ -10,15 +10,18 @@ import {
 } from "react-icons/bi";
 import { FaFilm, FaPlayCircle, FaEdit } from "react-icons/fa";
 import img1 from "../../assets/img/service1.JPG";
+import documentary from "../../assets/img/documentary.gif";
+import event from "../../assets/img/event.gif";
+import cinematic from "../../assets/img/cinematic.gif";
+import graphic from "../../assets/img/graphic.gif";
 
 const services = [
   {
     title: "Cinematic Videography",
     text: "Professional film production for commercials, corporate films, and events with cinematic quality and emotional storytelling.",
     icon: <BiCameraMovie />,
-    bgImage:
-      "https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?q=80&w=800",
-    hasBg: false,
+    bgImage: cinematic,
+    hasBg: true,
   },
   {
     title: "Creative Content",
@@ -31,9 +34,8 @@ const services = [
     title: "Documentary Production",
     text: "Authentic storytelling that informs, educates, and inspires audiences with real-life narratives.",
     icon: <FaFilm />,
-    bgImage:
-      "https://images.unsplash.com/photo-1601933470928-cacb3d78ad6b?q=80&w=800",
-    hasBg: false,
+    bgImage: documentary,
+    hasBg: true,
   },
   {
     title: "Live Streaming",
@@ -41,14 +43,13 @@ const services = [
     icon: <FaPlayCircle />,
     bgImage:
       "https://images.unsplash.com/photo-1581090700227-3f99b85ee1c9?q=80&w=800",
-    hasBg: false,
+    hasBg: true,
   },
   {
     title: "Motion Graphics",
     text: "Dynamic animations, explainer videos, and cinematic title sequences that bring concepts to life.",
     icon: <BiSlideshow />,
-    bgImage:
-      "https://images.unsplash.com/photo-1558655146-9f40138edfeb?q=80&w=800",
+    bgImage: graphic,
     hasBg: true,
   },
   {
@@ -57,7 +58,7 @@ const services = [
     icon: <BiPalette />,
     bgImage:
       "https://images.unsplash.com/photo-1561070791-2526d30994b5?q=80&w=800",
-    hasBg: false,
+    hasBg: true,
   },
   {
     title: "Social Media Strategy",
@@ -65,23 +66,14 @@ const services = [
     icon: <BiRocket />,
     bgImage:
       "https://images.unsplash.com/photo-1611162616305-c69b3fa7a16b?q=80&w=800",
-    hasBg: false,
+    hasBg: true,
   },
   {
     title: "Event Coverage",
     text: "Complete professional coverage of corporate events, launches, and celebrations with cinematic flair.",
     icon: <BiVideoRecording />,
-    bgImage:
-      "https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=800",
+    bgImage: event,
     hasBg: true,
-  },
-  {
-    title: "Post-Production",
-    text: "Expert editing, color grading, sound design, and visual effects to perfect your final product.",
-    icon: <FaEdit />,
-    bgImage:
-      "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?q=80&w=800",
-    hasBg: false,
   },
 ];
 
@@ -129,54 +121,6 @@ export default function WhatWeDo() {
             ))}
           </div>
         </div>
-        {/* 
-        <motion.div
-          className="section-cta"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ delay: 0.8 }}
-          style={{ marginTop: "60px", textAlign: "center" }}
-        >
-          <p
-            style={{
-              color: "var(--color-gray)",
-              fontSize: "18px",
-              marginBottom: "20px",
-            }}
-          >
-            Ready to bring your vision to life?
-          </p>
-          <a
-            href="/contact"
-            className="phf-btn"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "10px",
-              padding: "14px 32px",
-              background:
-                "linear-gradient(90deg, var(--color-primary), var(--color-primary-dark))",
-              color: "white",
-              textDecoration: "none",
-              borderRadius: "50px",
-              fontWeight: "600",
-              fontSize: "16px",
-              transition: "all 0.3s ease",
-              boxShadow: "0 8px 25px rgba(255, 4, 0, 0.3)",
-            }}
-            onMouseEnter={(e) => {
-              e.target.style.transform = "translateY(-3px)";
-              e.target.style.boxShadow = "0 12px 30px rgba(255, 4, 0, 0.4)";
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.transform = "translateY(0)";
-              e.target.style.boxShadow = "0 8px 25px rgba(255, 4, 0, 0.3)";
-            }}
-          >
-            Start Your Project{" "}
-            <i className="bi bi-arrow-right" style={{ fontSize: "18px" }}></i>
-          </a>
-        </motion.div> */}
       </div>
     </section>
   );

@@ -149,12 +149,12 @@ const Portfolio = () => {
         >
           Our Featured Work
         </motion.h2>
-
+        {/* 
         <p className="section-subtitle">
           Explore our award-winning portfolio of films, documentaries,
           commercials, and digital content that showcases our creative vision
           and technical excellence.
-        </p>
+        </p> */}
 
         <div className="portfolio-filters">
           {filters.map((filter) => (

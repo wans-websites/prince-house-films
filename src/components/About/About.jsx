@@ -62,10 +62,10 @@ const About = () => {
         >
           Who We Are
         </motion.h2>
-
+        {/* 
         <p className="about-subtitle">
           Prince House Films: Cinematic Storytelling & Visual Strategy
-        </p>
+        </p> */}
 
         <div className="about-content">
           <div className="about-text">
@@ -75,17 +75,12 @@ const About = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
             >
-              Prince House Films is a boutique full-service creative production
-              studio specializing in cinematic storytelling, branded video, and
-              immersive digital content. We partner with visionary brands,
-              nonprofits, agencies, and creators to craft high-impact films,
-              social-first content, commercials, and documentary shorts. Using
-              industry-leading production, direction, and post-production
-              techniques, we turn ideas into compelling visual experiences that
-              boost engagement, grow audiences, and drive measurable results.
-              Our team combines technical expertise, artistic direction, and
-              strategic thinking, from concept and script through shooting,
-              color grading, motion design, and distribution.
+              Prince House Films is a creative studio crafting cinematic video
+              and digital content. We partner with brands and creators to
+              produce impactful films, commercials, and social content that
+              drives engagement and results. Our full-service approach blends
+              technical skill and artistic direction from concept through to
+              distribution.
             </motion.p>
 
             <div className="about-highlights">

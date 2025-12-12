@@ -2,15 +2,6 @@ import React from "react";
 import { motion } from "framer-motion";
 import "./Team.css";
 import {
-  BiCamera,
-  BiVideo,
-  BiEdit,
-  BiPalette,
-  BiBullseye,
-  BiGroup,
-  BiTrendingUp,
-} from "react-icons/bi";
-import {
   FaLinkedinIn,
   FaTwitter,
   FaInstagram,

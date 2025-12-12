@@ -12,13 +12,13 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-/* When not sticky - normal flow */
-.header:not(.sticked) {
+/* When not sticky - normal flow .header:not(.sticked) {
   position: relative;
-}
+} */
 
 /* When sticky - fixed at top */
-.header.sticked {
+.header.sticked,
+.header:not(.sticked) {
   position: fixed;
   top: 0;
   left: 0;

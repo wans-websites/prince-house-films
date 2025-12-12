@@ -142,11 +142,11 @@ function App() {
 
       <main id="main">
         <About />
-        <Counts />
+        {/* <Counts /> */}
         <WhatWeDo />
-        <Objectives />
+        {/* <Objectives /> */}
         <Approach />
-        <WhyUs />
+        {/* <WhyUs /> */}
         <Portfolio />
         <Team />
         {/* <Gallery /> */}

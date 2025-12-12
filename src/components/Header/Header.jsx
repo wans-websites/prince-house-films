@@ -19,12 +19,12 @@ const Header = ({ isSticky }) => {
   const navItems = [
     { id: "home", label: "Home", path: "/" },
     { id: "about", label: "Who We Are", path: "/about" },
-    { id: "counts", label: "Impact", path: "/impact" },
+    // { id: "counts", label: "Impact", path: "/impact" },
     { id: "services", label: "What We Do", path: "/services" },
     { id: "approach", label: "Our Approach", path: "/approach" },
+    // { id: "why-us", label: "Why Us", path: "/why-us" },
     { id: "portfolio", label: "Portfolio", path: "/portfolio" },
     { id: "team", label: "The Team", path: "/team" },
-    { id: "why-us", label: "Why Us", path: "/why-us" },
     { id: "contact", label: "Contact", path: "/contact" },
   ];
 
