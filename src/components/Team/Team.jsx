@@ -12,7 +12,7 @@ import {
 } from "react-icons/fa";
 
 // Import your landscape group photo here
-import teamGroupPhoto from "../../assets/img/team-group.jpeg";
+import teamGroupPhoto from "../../assets/img/team.jpg";
 
 const Team = () => {
   const teamMembers = [

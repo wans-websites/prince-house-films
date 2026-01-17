@@ -1,67 +1,14 @@
 import React from "react";
 import { motion } from "framer-motion";
-import "./Partnerships.css";
-import {
-  BiBuilding,
-  BiMovie,
-  BiGlobe,
-  BiShield,
-  BiTrendingUp,
-  BiGroup,
-} from "react-icons/bi";
+import "./Partnership.css";
+
+// Import all partner images
+import partners from "./partnerImages";
+
+// Import only the icons we actually use
+import { BiBuilding, BiMovie, BiGlobe } from "react-icons/bi";
 
 const Partnerships = () => {
-  const partners = [
-    {
-      name: "Netflix",
-      category: "Streaming Platform",
-      description: "Content distribution and production collaboration",
-      logo: "N",
-    },
-    {
-      name: "BBC Studios",
-      category: "Broadcast Network",
-      description: "Documentary production and content licensing",
-      logo: "BBC",
-    },
-    {
-      name: "National Geographic",
-      category: "Media Network",
-      description: "Documentary filmmaking and expedition coverage",
-      logo: "NG",
-    },
-    {
-      name: "MTV Africa",
-      category: "Music Television",
-      description: "Music video production and event coverage",
-      logo: "MTV",
-    },
-    {
-      name: "CNN International",
-      category: "News Network",
-      description: "News feature production and documentary segments",
-      logo: "CNN",
-    },
-    {
-      name: "Disney Africa",
-      category: "Entertainment",
-      description: "Family content production and brand campaigns",
-      logo: "D",
-    },
-    {
-      name: "YouTube Originals",
-      category: "Digital Platform",
-      description: "Original content production and distribution",
-      logo: "YT",
-    },
-    {
-      name: "United Nations",
-      category: "Non-Profit",
-      description: "Documentary storytelling for global initiatives",
-      logo: "UN",
-    },
-  ];
-
   const partnershipTypes = [
     {
       icon: <BiBuilding />,
@@ -108,47 +55,58 @@ const Partnerships = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
         >
           Our Valued Partnerships
         </motion.h2>
 
-        <p className="section-subtitle">
-          We collaborate with leading brands, networks, and organizations to
-          create impactful content that reaches global audiences and drives
-          meaningful change.
-        </p>
+        {/* Partners Infinite Scroll Slider */}
+        <div className="partners-slider-container">
+          <div className="partners-track">
+            {/* First set of partners */}
+            {partners.map((partner, i) => (
+              <motion.div
+                key={`first-${i}`}
+                className="partner-card"
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.4, delay: i * 0.05 }}
+                whileHover={{
+                  scale: 1.03,
+                  transition: { duration: 0.2 },
+                }}
+                viewport={{ once: true }}
+              >
+                <img
+                  src={partner.img}
+                  alt={`${partner.name} logo`}
+                  loading="lazy"
+                />
+              </motion.div>
+            ))}
 
-        <div className="partners-grid">
-          {partners.map((partner, i) => (
-            <motion.div
-              key={i}
-              className="partner-card phf-card"
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.4, delay: i * 0.05 }}
-              whileHover={{
-                scale: 1.03,
-                transition: { duration: 0.2 },
-              }}
-            >
-              <div className="partner-logo">
-                <span
-                  style={{
-                    fontSize: "36px",
-                    fontWeight: "700",
-                    color: "var(--color-default)",
-                    opacity: 0.8,
-                  }}
-                >
-                  {partner.logo}
-                </span>
-              </div>
-
-              <h3 className="partner-name">{partner.name}</h3>
-              <div className="partner-category">{partner.category}</div>
-              <p className="partner-description">{partner.description}</p>
-            </motion.div>
-          ))}
+            {/* Duplicate for seamless loop */}
+            {partners.map((partner, i) => (
+              <motion.div
+                key={`second-${i}`}
+                className="partner-card"
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.4, delay: i * 0.05 }}
+                whileHover={{
+                  scale: 1.03,
+                  transition: { duration: 0.2 },
+                }}
+                viewport={{ once: true }}
+              >
+                <img
+                  src={partner.img}
+                  alt={`${partner.name} logo`}
+                  loading="lazy"
+                />
+              </motion.div>
+            ))}
+          </div>
         </div>
 
         <motion.div
@@ -156,6 +114,7 @@ const Partnerships = () => {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ delay: 0.3 }}
+          viewport={{ once: true }}
         >
           {partnershipTypes.map((type, i) => (
             <motion.div
@@ -168,11 +127,11 @@ const Partnerships = () => {
                 scale: 1.02,
                 transition: { duration: 0.2 },
               }}
+              viewport={{ once: true }}
             >
-              <div className="type-icon">{type.icon}</div>
+              {/* <div className="type-icon">{type.icon}</div> */}
               <h3 className="type-title">{type.title}</h3>
               <p className="type-description">{type.description}</p>
-
               <ul className="type-features">
                 {type.features.map((feature, j) => (
                   <li key={j}>
@@ -189,109 +148,20 @@ const Partnerships = () => {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ delay: 0.8 }}
-          style={{
-            marginTop: "80px",
-            textAlign: "center",
-            padding: "50px",
-            background:
-              "linear-gradient(135deg, rgba(255, 4, 0, 0.1), rgba(13, 110, 253, 0.1))",
-            borderRadius: "24px",
-            border: "1px solid rgba(255, 255, 255, 0.05)",
-          }}
+          viewport={{ once: true }}
         >
-          <h3
-            style={{
-              fontFamily: "var(--font-secondary)",
-              fontSize: "32px",
-              color: "var(--color-default)",
-              margin: "0 0 16px 0",
-            }}
-          >
-            Interested in Partnering With Us?
-          </h3>
-
-          <p
-            style={{
-              color: "rgba(255, 255, 255, 0.85)",
-              fontSize: "18px",
-              margin: "0 0 30px 0",
-              maxWidth: "700px",
-              marginLeft: "auto",
-              marginRight: "auto",
-            }}
-          >
+          <h3>Interested in Partnering With Us?</h3>
+          <p>
             Whether you're a brand looking for consistent content, a network
             seeking production partners, or an organization with a story to
             tell, let's explore how we can create something extraordinary
             together.
           </p>
-
-          <div
-            style={{
-              display: "flex",
-              gap: "20px",
-              justifyContent: "center",
-              flexWrap: "wrap",
-            }}
-          >
-            <a
-              href="/contact?type=partnership"
-              className="cta-button"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "10px",
-                padding: "16px 42px",
-                background:
-                  "linear-gradient(90deg, var(--color-primary), var(--color-primary-dark))",
-                color: "white",
-                textDecoration: "none",
-                borderRadius: "50px",
-                fontWeight: "600",
-                fontSize: "16px",
-                transition: "all 0.3s ease",
-                boxShadow: "0 10px 30px rgba(255, 4, 0, 0.3)",
-              }}
-              onMouseEnter={(e) => {
-                e.target.style.transform = "translateY(-3px)";
-                e.target.style.boxShadow = "0 15px 35px rgba(255, 4, 0, 0.4)";
-              }}
-              onMouseLeave={(e) => {
-                e.target.style.transform = "translateY(0)";
-                e.target.style.boxShadow = "0 10px 30px rgba(255, 4, 0, 0.3)";
-              }}
-            >
+          <div className="cta-buttons">
+            <a href="/contact?type=partnership" className="cta-button primary">
               Discuss Partnership <i className="bi bi-handshake"></i>
             </a>
-
-            <a
-              href="/portfolio"
-              className="cta-button"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "10px",
-                padding: "16px 42px",
-                background: "transparent",
-                color: "var(--color-default)",
-                textDecoration: "none",
-                borderRadius: "50px",
-                fontWeight: "600",
-                fontSize: "16px",
-                transition: "all 0.3s ease",
-                border: "2px solid rgba(255, 255, 255, 0.2)",
-              }}
-              onMouseEnter={(e) => {
-                e.target.style.transform = "translateY(-3px)";
-                e.target.style.background = "rgba(255, 255, 255, 0.05)";
-                e.target.style.borderColor = "var(--color-primary)";
-              }}
-              onMouseLeave={(e) => {
-                e.target.style.transform = "translateY(0)";
-                e.target.style.background = "transparent";
-                e.target.style.borderColor = "rgba(255, 255, 255, 0.2)";
-              }}
-            >
+            <a href="/portfolio" className="cta-button secondary">
               View Case Studies <i className="bi bi-folder2-open"></i>
             </a>
           </div>

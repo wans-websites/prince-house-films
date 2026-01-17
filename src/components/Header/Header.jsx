@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Header.css";
-import logo from "../../assets/img/phf_logo.png";
+import logo from "../../assets/img/phf_word_logo.png";
 
 const Header = ({ isSticky }) => {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);

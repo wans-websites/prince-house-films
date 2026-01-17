@@ -12,18 +12,19 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-/* When not sticky - normal flow .header:not(.sticked) {
+/* When not sticky - normal flow */
+.header:not(.sticked) {
   position: relative;
-} */
+  padding: 15px 0; /* More padding when not sticky */
+}
 
 /* When sticky - fixed at top */
-.header.sticked,
-.header:not(.sticked) {
+.header.sticked {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  padding: 5px 0;
+  padding: 8px 0; /* Reduced padding when sticky */
   background: rgba(10, 10, 10, 0.98) !important;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   animation: slideDown 0.3s ease;
@@ -41,16 +42,35 @@
 .header .container-fluid {
   max-width: 1400px;
   padding: 0 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
+/* FIX: Logo container */
+.header .logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+/* FIX: Logo image sizing */
 .header .logo img {
-  height: 50px;
+  height: 80px; /* Default height */
   width: auto;
   transition: all 0.3s ease;
+  object-fit: contain;
 }
 
+/* Larger logo when not sticky */
+.header:not(.sticked) .logo img {
+  height: 120px; /* Bigger logo when not sticky */
+}
+
+/* Smaller logo when sticky */
 .header.sticked .logo img {
-  height: 45px;
+  height: 60px; /* Smaller logo when sticky */
+  /* background-color: red; */
 }
 
 /* Desktop Navigation */
@@ -234,16 +254,25 @@
     padding: 15px 0;
   }
 
-  .header.sticked {
-    padding: 12px 0;
+  .header:not(.sticked) {
+    padding: 15px 0;
   }
 
+  .header.sticked {
+    padding: 10px 0;
+  }
+
+  /* Responsive logo sizes */
   .header .logo img {
-    height: 40px;
+    height: 70px;
+  }
+
+  .header:not(.sticked) .logo img {
+    height: 90px;
   }
 
   .header.sticked .logo img {
-    height: 35px;
+    height: 50px;
   }
 }
 
@@ -254,5 +283,18 @@
 
   .navbar {
     width: 280px;
+  }
+
+  /* Even smaller logos for mobile */
+  .header .logo img {
+    height: 60px;
+  }
+
+  .header:not(.sticked) .logo img {
+    height: 70px;
+  }
+
+  .header.sticked .logo img {
+    height: 45px;
   }
 }
