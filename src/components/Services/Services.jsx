@@ -92,15 +92,15 @@ export default function Services() {
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, delay: i * 0.05 }}
-                // whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
-                // onClick={() => handleServiceClick(item)}
+                whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
+                onClick={() => handleServiceClick(item)}
                 role="button"
                 tabIndex={0}
-                // onKeyDown={(e) => {
-                //   if (e.key === "Enter" || e.key === " ") {
-                //     handleServiceClick(item);
-                //   }
-                // }}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    handleServiceClick(item);
+                  }
+                }}
               >
                 <div className="bento-content">
                   <div>

@@ -1,68 +1,61 @@
 import React from "react";
 
 const MediaEmbed = ({ item }) => {
-  // Auto-play muted parameters for video platforms
-  const autoPlayMutedParams = "autoplay=1&muted=1&controls=0&loop=1";
-
   switch (item.type) {
     case "cloudinary_video":
       return (
-        <div className="video-wrapper">
+        <div className="service-modal-video-wrapper">
           <iframe
-            src={`https://player.cloudinary.com/embed/?cloud_name=YOUR_CLOUD_NAME&public_id=${item.embedPublicId}&${autoPlayMutedParams}`}
+            src={`https://player.cloudinary.com/embed/?cloud_name=${
+              item.cloudName || "dlzstmm4e"
+            }&public_id=${item.embedPublicId}&player%5Bfluid%5D=true&player%5Bcontrols%5D=false&player%5Bshow_jump_controls%5D=false&player%5Bautoplay_mode%5D=on-scroll&player%5Bloop%5D=true&player%5Bmuted%5D=true`}
             title={item.title}
             frameBorder="0"
-            allow="autoplay; encrypted-media"
+            allow="autoplay"
             allowFullScreen
-          ></iframe>
+            style={{ width: "100%", height: "100%" }}
+          />
+        </div>
+      );
+
+    case "cloudinary_image":
+      return (
+        <div className="service-modal-image-wrapper">
+          <img
+            src={`https://res.cloudinary.com/${item.cloudName || "dlzstmm4e"}/image/upload/c_fill,w_1000,h_1000,g_auto/${item.embedPublicId}`}
+            alt={item.title || "Content"}
+            loading="lazy"
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+          />
         </div>
       );
 
     case "instagram_embed":
-      // Instagram embeds are fixed-height iframes. Auto-play is not supported.
       return (
-        <div className="instagram-wrapper">
+        <div className="service-modal-instagram-wrapper">
           <iframe
             src={item.embedUrl}
             title={item.title}
             frameBorder="0"
             scrolling="no"
             allowtransparency="true"
-          ></iframe>
-          <a
-            href={item.postUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="view-original-link"
-          >
-            View on Instagram
-          </a>
-        </div>
-      );
-
-    case "vimeo_video":
-    case "youtube_video":
-      // Similar iframe structure for Vimeo/YouTube with autoplay params
-      const videoUrl =
-        item.type === "vimeo_video"
-          ? `https://player.vimeo.com/video/${item.videoId}?${autoPlayMutedParams}&background=1`
-          : `https://www.youtube.com/embed/${item.videoId}?${autoPlayMutedParams}&playlist=${item.videoId}`;
-
-      return (
-        <div className="video-wrapper">
-          <iframe
-            src={videoUrl}
-            title={item.title}
-            frameBorder="0"
-            allow="autoplay; encrypted-media"
-            allowFullScreen
-          ></iframe>
+            style={{ width: "100%", height: "100%" }}
+          />
         </div>
       );
 
     case "image":
     default:
-      return <img src={item.thumbnail} alt={item.title} loading="lazy" />;
+      return (
+        <div className="service-modal-image-wrapper">
+          <img
+            src={item.thumbnail}
+            alt={item.title || "Content"}
+            loading="lazy"
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+          />
+        </div>
+      );
   }
 };
 

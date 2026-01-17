@@ -49,7 +49,7 @@ const Footer = () => {
     { icon: "bi bi-twitter", href: "https://twitter.com/PrinceHouseFilms" },
     {
       icon: "bi bi-instagram",
-      href: "https://www.instagram.com/princehousefilms/",
+      href: "https://www.instagram.com/princehouse_films/",
     },
     {
       icon: "bi bi-youtube",

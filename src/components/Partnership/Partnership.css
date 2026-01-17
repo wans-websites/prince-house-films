@@ -45,6 +45,14 @@
   overflow: hidden;
 }
 
+/* Remove the dark gradient overlays on mobile */
+@media (max-width: 768px) {
+  .partners-slider-container::before,
+  .partners-slider-container::after {
+    display: none; /* Remove dark overlays on mobile */
+  }
+}
+
 .partners-slider-container::before,
 .partners-slider-container::after {
   content: "";
@@ -78,6 +86,7 @@
   animation-play-state: paused;
 }
 
+/* Base partner card styles */
 .partner-card {
   flex: 0 0 auto;
   width: 180px;
@@ -114,8 +123,8 @@
 }
 
 .partner-card img {
-  max-width: 100%;
-  /* max-height: 80px; */
+  max-width: 80%;
+  max-height: 80%;
   width: auto;
   height: auto;
   object-fit: contain;
@@ -123,7 +132,7 @@
   /* Add a subtle background for transparent logos */
   background: rgba(255, 255, 255, 0.05);
   border-radius: 8px;
-  padding: 10px;
+  padding: 15px;
   overflow: hidden;
 }
 
@@ -139,6 +148,42 @@
   }
   100% {
     transform: translateX(-50%);
+  }
+}
+
+/* Mobile adjustments for partner cards */
+@media (max-width: 768px) {
+  .partner-card {
+    width: auto !important; /* Auto width on mobile */
+    min-width: 180px !important; /* Minimum width */
+    height: 180px !important; /* Fixed height of 180 */
+    padding: 30px; /* More padding for better display */
+    margin: 0 15px; /* Add some horizontal spacing */
+  }
+
+  .partner-card img {
+    max-width: 90%;
+    max-height: 90%;
+    padding: 20px;
+    background: rgba(
+      255,
+      255,
+      255,
+      0.08
+    ); /* Lighter background for better visibility */
+  }
+
+  .partners-track {
+    gap: 20px; /* Reduce gap on mobile */
+    padding: 0 20px; /* Add padding for better spacing */
+  }
+}
+
+/* Tablet adjustments */
+@media (max-width: 992px) and (min-width: 769px) {
+  .partner-card {
+    width: 160px;
+    height: 140px;
   }
 }
 
@@ -382,11 +427,6 @@
   .partnership-types {
     grid-template-columns: repeat(2, 1fr);
   }
-
-  .partner-card {
-    width: 160px;
-    height: 110px;
-  }
 }
 
 @media (max-width: 992px) {
@@ -397,11 +437,6 @@
 
   .partnership-type {
     padding: 30px 24px;
-  }
-
-  .partner-card {
-    width: 140px;
-    height: 100px;
   }
 
   .section-cta {
@@ -418,14 +453,8 @@
     margin: 40px 0;
   }
 
-  .partner-card {
-    width: 120px;
-    height: 90px;
-    padding: 15px;
-  }
-
   .partnership-section {
-    padding: 80px 0;
+    padding: 40px 0;
   }
 
   .section-cta h3 {
@@ -443,13 +472,8 @@
 }
 
 @media (max-width: 576px) {
-  .partner-card {
-    width: 100px;
-    height: 80px;
-  }
-
   .partnership-type {
-    padding: 25px 20px;
+    /* padding: 25px 20px; */
   }
 
   .type-icon {

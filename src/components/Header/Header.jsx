@@ -19,11 +19,8 @@ const Header = ({ isSticky }) => {
   const navItems = [
     { id: "home", label: "Home", path: "/" },
     { id: "about", label: "Who We Are", path: "/about" },
-    // { id: "counts", label: "Impact", path: "/impact" },
     { id: "services", label: "What We Do", path: "/services" },
-    { id: "portfolio", label: "Portfolio", path: "/portfolio" },
-    // { id: "approach", label: "Our Approach", path: "/approach" },
-    // { id: "why-us", label: "Why Us", path: "/why-us" },
+    { id: "partnerships", label: "partnerships", path: "/partnerships" },
     { id: "team", label: "The Team", path: "/team" },
     { id: "contact", label: "Contact", path: "/contact" },
   ];
@@ -93,69 +90,18 @@ const Header = ({ isSticky }) => {
                   </a>
                 </li>
               ))}
-
-              <li className="d-lg-none mt-4">
-                <a
-                  href="/contact"
-                  className="phf-btn"
-                  style={{
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: "10px",
-                    padding: "12px 24px",
-                    background:
-                      "linear-gradient(90deg, var(--color-primary), var(--color-primary-dark))",
-                    color: "white",
-                    textDecoration: "none",
-                    borderRadius: "50px",
-                    fontWeight: "600",
-                    fontSize: "15px",
-                    transition: "all 0.3s ease",
-                    boxShadow: "0 8px 25px rgba(255, 4, 0, 0.3)",
-                  }}
-                  onClick={closeMobileNav}
-                >
-                  Start Project <i className="bi bi-arrow-right"></i>
-                </a>
-              </li>
             </ul>
+          </nav>
+
+          <div className="d-flex align-items-center">
             <i
               className={`bi ${
                 mobileNavOpen ? "bi-x" : "bi-list"
-              } mobile-nav-toggle d-lg-none`}
+              } mobile-nav-toggle`}
               onClick={toggleMobileNav}
+              aria-label={mobileNavOpen ? "Close menu" : "Open menu"}
             ></i>
-          </nav>
-
-          <a
-            href="/contact"
-            className="phf-btn d-none d-lg-flex"
-            style={{
-              alignItems: "center",
-              gap: "10px",
-              padding: "12px 28px",
-              background:
-                "linear-gradient(90deg, var(--color-primary), var(--color-primary-dark))",
-              color: "white",
-              textDecoration: "none",
-              borderRadius: "50px",
-              fontWeight: "600",
-              fontSize: "15px",
-              transition: "all 0.3s ease",
-              boxShadow: "0 8px 25px rgba(255, 4, 0, 0.3)",
-              whiteSpace: "nowrap",
-            }}
-            onMouseEnter={(e) => {
-              e.target.style.transform = "translateY(-2px)";
-              e.target.style.boxShadow = "0 12px 30px rgba(255, 4, 0, 0.4)";
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.transform = "translateY(0)";
-              e.target.style.boxShadow = "0 8px 25px rgba(255, 4, 0, 0.3)";
-            }}
-          >
-            Start Project <i className="bi bi-arrow-right"></i>
-          </a>
+          </div>
         </div>
       </header>
 
