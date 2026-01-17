@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { BiX } from "react-icons/bi";
 import "./ServiceModal.css";
+import MediaEmbed from "../MediaEmbed";
 
 const ServiceModal = ({ isOpen, onClose, serviceData }) => {
   // Close modal on ESC key
@@ -21,127 +22,29 @@ const ServiceModal = ({ isOpen, onClose, serviceData }) => {
 
   if (!isOpen || !serviceData) return null;
 
-  // Sample content data - you can fetch this from API or separate data file
   const getServiceContent = (serviceTitle) => {
     const contentMap = {
       "Cinematic / Videography": [
         {
-          type: "video",
-          url: "https://instagram.com/p/sample1",
-          thumbnail:
-            "https://images.unsplash.com/photo-1551029506-0807df4e2031?w=400&h=500&fit=crop",
-        },
-        {
-          type: "image",
-          url: "https://instagram.com/p/sample2",
-          thumbnail:
-            "https://images.unsplash.com/photo-1542751110-97427bbecf20?w-400&h=500&fit=crop",
-        },
-        {
-          type: "video",
-          url: "https://instagram.com/p/sample3",
-          thumbnail:
-            "https://images.unsplash.com/photo-1551796880-ddd03d8b43ac?w=400&h=500&fit=crop",
-        },
-        {
-          type: "image",
-          url: "https://youtube.com/watch/sample",
-          thumbnail:
-            "https://images.unsplash.com/photo-1520045892732-304bc3ac5d8e?w=400&h=500&fit=crop",
-        },
-        {
-          type: "image",
-          url: "https://vimeo.com/sample",
-          thumbnail:
-            "https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?w=400&h=500&fit=crop",
-        },
-        {
-          type: "video",
-          url: "https://instagram.com/p/sample6",
-          thumbnail:
-            "https://images.unsplash.com/photo-1542204165-65bf26472b9b?w=400&h=500&fit=crop",
-        },
-      ],
-      "Creative Content": [
-        {
-          type: "video",
-          url: "https://player.cloudinary.com/embed/?cloud_name=dlzstmm4e&public_id=IMG_9457_kpeuab",
+          type: "cloudinary_video", // Specific type for your Cloudinary videos
+          embedPublicId: "IMG_9457_kpeuab", // Your Cloudinary public ID
           thumbnail:
             "https://res.cloudinary.com/dlzstmm4e/video/upload/v1768637270/IMG_9457_kpeuab.mov",
+          title: "Brand Commercial",
         },
         {
-          type: "video",
-          url: "https://instagram.com/p/creative2",
-          thumbnail:
-            "https://images.unsplash.com/photo-1611605698335-8b1569810432?w=400&h=500&fit=crop",
+          type: "instagram_embed",
+          embedUrl: "https://www.instagram.com/p/Ct4lWygNJ4P/embed", // Real Instagram embed URL
+          postUrl: "https://instagram.com/p/Ct4lWygNJ4P", // Link to the actual post
+          title: "Instagram Reel",
         },
         {
-          type: "image",
-          url: "https://instagram.com/p/creative3",
-          thumbnail:
-            "https://images.unsplash.com/photo-1611162616305-c69b3fa7a16b?w=400&h=500&fit=crop",
+          type: "vimeo_video",
+          videoId: "824804225", // Vimeo video ID
+          title: "Showcase Video",
         },
       ],
-      "Motion Graphics": [
-        {
-          type: "video",
-          url: "https://vimeo.com/motion1",
-          thumbnail:
-            "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=400&h=500&fit=crop",
-        },
-        {
-          type: "video",
-          url: "https://youtube.com/watch/motion2",
-          thumbnail:
-            "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=400&h=500&fit=crop",
-        },
-        {
-          type: "image",
-          url: "https://instagram.com/p/motion3",
-          thumbnail:
-            "https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?w=400&h=500&fit=crop",
-        },
-      ],
-      "Graphic Design": [
-        {
-          type: "image",
-          url: "https://behance.net/project1",
-          thumbnail:
-            "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&h=500&fit=crop",
-        },
-        {
-          type: "image",
-          url: "https://dribbble.com/shots/design1",
-          thumbnail:
-            "https://images.unsplash.com/photo-1564865878688-9a244444042a?w=400&h=500&fit=crop",
-        },
-        {
-          type: "image",
-          url: "https://instagram.com/p/design3",
-          thumbnail:
-            "https://images.unsplash.com/photo-1586717799252-bd134ad00e26?w=400&h=500&fit=crop",
-        },
-      ],
-      "Event Coverage": [
-        {
-          type: "video",
-          url: "https://youtube.com/watch/event1",
-          thumbnail:
-            "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&h=500&fit=crop",
-        },
-        {
-          type: "image",
-          url: "https://instagram.com/p/event2",
-          thumbnail:
-            "https://images.unsplash.com/photo-1511578314322-379afb476865?w=400&h=500&fit=crop",
-        },
-        {
-          type: "video",
-          url: "https://vimeo.com/event3",
-          thumbnail:
-            "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=400&h=500&fit=crop",
-        },
-      ],
+      // ... other services
     };
     return contentMap[serviceTitle] || [];
   };
@@ -203,11 +106,7 @@ const ServiceModal = ({ isOpen, onClose, serviceData }) => {
                   whileTap={{ scale: 0.98 }}
                 >
                   <div className="item-thumbnail">
-                    <img
-                      src={item.thumbnail}
-                      alt={`${serviceData.title} content ${index + 1}`}
-                      loading="lazy"
-                    />
+                    <MediaEmbed item={item} />
                     {item.type === "video" && (
                       <div className="video-indicator">
                         <div className="play-icon">▶</div>

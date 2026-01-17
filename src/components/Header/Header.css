@@ -1,42 +1,31 @@
-/* Header.css - Simple sticky header */
+/* Header.css - Always fixed header */
 .header {
   width: 100%;
-  padding: 10px 0;
+  padding: 15px 0;
   background: linear-gradient(
     180deg,
     rgba(12, 12, 12, 0.98),
     rgba(18, 18, 18, 0.95)
   );
   backdrop-filter: blur(10px);
-  z-index: 1000;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-}
 
-/* When not sticky - normal flow */
-.header:not(.sticked) {
-  position: relative;
-  padding: 15px 0; /* More padding when not sticky */
-}
-
-/* When sticky - fixed at top */
-.header.sticked {
+  /* ALWAYS FIXED */
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  padding: 8px 0; /* Reduced padding when sticky */
-  background: rgba(10, 10, 10, 0.98) !important;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-  animation: slideDown 0.3s ease;
+  z-index: 1000;
+
+  /* Smooth transitions */
+  transition: all 0.3s ease;
 }
 
-@keyframes slideDown {
-  from {
-    transform: translateY(-100%);
-  }
-  to {
-    transform: translateY(0);
-  }
+/* When scrolled (sticked state) */
+.header.sticked {
+  padding: 10px 0; /* Reduced padding when scrolled */
+  background: rgba(10, 10, 10, 0.98) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
 .header .container-fluid {
@@ -47,30 +36,24 @@
   justify-content: space-between;
 }
 
-/* FIX: Logo container */
+/* Logo container */
 .header .logo {
   display: flex;
   align-items: center;
   text-decoration: none;
 }
 
-/* FIX: Logo image sizing */
+/* Logo image sizing - with transitions */
 .header .logo img {
-  height: 80px; /* Default height */
+  height: 60px; /* Default larger height */
   width: auto;
   transition: all 0.3s ease;
   object-fit: contain;
 }
 
-/* Larger logo when not sticky */
-.header:not(.sticked) .logo img {
-  height: 120px; /* Bigger logo when not sticky */
-}
-
-/* Smaller logo when sticky */
+/* Smaller logo when sticky/scrolled */
 .header.sticked .logo img {
-  height: 60px; /* Smaller logo when sticky */
-  /* background-color: red; */
+  height: 50px; /* Smaller logo when scrolled */
 }
 
 /* Desktop Navigation */
@@ -251,23 +234,15 @@
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .header {
-    padding: 15px 0;
-  }
-
-  .header:not(.sticked) {
-    padding: 15px 0;
+    padding: 12px 0;
   }
 
   .header.sticked {
-    padding: 10px 0;
+    padding: 8px 0;
   }
 
   /* Responsive logo sizes */
   .header .logo img {
-    height: 70px;
-  }
-
-  .header:not(.sticked) .logo img {
     height: 90px;
   }
 
@@ -287,10 +262,6 @@
 
   /* Even smaller logos for mobile */
   .header .logo img {
-    height: 60px;
-  }
-
-  .header:not(.sticked) .logo img {
     height: 70px;
   }
 
