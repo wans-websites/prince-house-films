@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import "./Services.css";
-import ServiceModal from "./ServiceModal"; // Add this import
+import ServiceModal from "./ServiceModal";
 import {
   BiCameraMovie,
   BiPen,
@@ -12,7 +12,7 @@ import {
 import img1 from "../../assets/img/services/creativeContent.gif";
 import event from "../../assets/img/services/event.gif";
 import motionGraphic from "../../assets/img/services/motion.gif";
-import cinematic from "../../assets/img/services/videography.gif";
+import cinematic from "../../assets/img/hero.gif";
 import graphic from "../../assets/img/services/graphic.png";
 
 const services = [

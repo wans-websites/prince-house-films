@@ -1,4 +1,4 @@
-/* ServiceModal.css - Complete Fixed Version with Max 5 Columns - PORTRAIT REELS */
+/* ServiceModal.css */
 .service-modal-backdrop {
   position: fixed;
   top: 0;
@@ -105,21 +105,26 @@
   transform: rotate(90deg);
 }
 
-/* Content Grid - MAX 5 COLUMNS, NO GAPS - PORTRAIT REELS */
+/* Content Grid - Default 5 columns, Graphic Design 4 columns */
 .service-modal-grid {
   flex: 1;
   overflow-y: auto;
   padding: 10px;
   display: grid;
-  grid-template-columns: repeat(5, 1fr); /* 5 columns on desktop */
+  grid-template-columns: repeat(5, 1fr); /* Default: 5 columns on desktop */
   gap: 0;
-  grid-auto-rows: auto; /* Let rows size to content */
+  grid-auto-rows: auto;
   align-items: stretch;
   min-height: 0;
 
   /* Smooth scrolling */
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 42, 38, 0.3) rgba(0, 0, 0, 0.1);
+}
+
+/* Graphic Design specific - 4 columns */
+.service-modal[data-service-type="graphic-design"] .service-modal-grid {
+  grid-template-columns: repeat(4, 1fr); /* Graphic Design: 4 columns */
 }
 
 /* Custom scrollbar */
@@ -141,7 +146,7 @@
   background: rgba(255, 42, 38, 0.5);
 }
 
-/* Grid Item - Instagram Reels Portrait Style (9:16 aspect ratio) */
+/* Grid Item - Dynamic aspect ratio based on content type */
 .service-modal-grid-item {
   position: relative;
   cursor: pointer;
@@ -150,11 +155,18 @@
   border: 2px solid transparent;
   transition: all 0.3s ease;
   z-index: 1;
-
-  /* Instagram Reels portrait aspect ratio (9:16) */
-  aspect-ratio: 9 / 16; /* Changed from 1/1 to 9/16 for portrait */
   width: 100%;
-  min-height: 250px; /* Increased minimum height for portrait */
+
+  /* Default is portrait for videos, will be overridden by data attribute */
+  aspect-ratio: 9 / 16; /* Portrait aspect ratio for videos */
+  min-height: 250px;
+}
+
+/* Square aspect ratio for image items */
+.service-modal-grid-item[data-item-type="cloudinary_image"],
+.service-modal-grid-item[data-item-type="image"] {
+  aspect-ratio: 1 / 1; /* Square aspect ratio for images */
+  min-height: 200px; /* Slightly smaller minimum height for squares */
 }
 
 /* Thumbnail wrapper */
@@ -165,7 +177,7 @@
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background: #000; /* Add black background for any gaps */
+  background: #000;
 }
 
 /* Video/Image wrapper - Force absolute positioning */
@@ -180,38 +192,46 @@
   overflow: hidden;
 }
 
-/* PORTRAIT MEDIA - Force full cover with 9:16 aspect ratio */
-.service-modal-video-wrapper iframe,
-.service-modal-video-wrapper video,
-.service-modal-image-wrapper img,
-.service-modal-instagram-wrapper iframe {
+/* PORTRAIT MEDIA - FIXED to properly cover the entire frame */
+/* Video element styling - covers entire container */
+.service-modal-video-wrapper video {
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  max-width: none;
-  max-height: none;
-  transform: translate(-50%, -50%);
   object-fit: cover;
-  pointer-events: none;
-  border: none !important;
-  margin: 0 !important;
-  padding: 0 !important;
+  display: block;
+  background: #000;
+}
+
+/* Square image styling - covers entire container with contain for images */
+.service-modal-image-wrapper img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Changed from cover to contain to show full image */
+  display: block;
+  background: #000; /* Black background for any empty space */
+}
+
+/* Iframe styling - covers entire container */
+.service-modal-video-wrapper iframe,
+.service-modal-instagram-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
   display: block;
 }
 
-/* For portrait content, we want to cover width fully but may crop top/bottom */
-.service-modal-video-wrapper iframe {
-  width: 100% !important;
-  height: 177.78% !important; /* 16/9 = 177.78% for 9:16 container */
-  transform: translate(-50%, -50%);
-}
-
-.service-modal-image-wrapper img {
-  width: 100% !important;
-  height: 177.78% !important;
-  transform: translate(-50%, -50%);
+/* Remove pointer-events restriction for video to allow interaction */
+.service-modal-video-wrapper video {
+  pointer-events: auto;
 }
 
 /* Hide video controls */
@@ -231,39 +251,130 @@
     0 10px 25px rgba(0, 0, 0, 0.4);
 }
 
+.service-modal-grid-item:hover .service-modal-video-wrapper video,
+.service-modal-grid-item:hover .service-modal-image-wrapper img,
 .service-modal-grid-item:hover .service-modal-video-wrapper iframe,
-.service-modal-grid-item:hover .service-modal-image-wrapper img {
-  transform: translate(-50%, -50%) scale(1.05);
+.service-modal-grid-item:hover .service-modal-instagram-wrapper iframe {
+  transform: scale(1.05);
   transition: transform 0.5s ease;
 }
 
-/* Video indicator */
-.service-modal-video-indicator {
+/* Custom Play Button Styles */
+.custom-play-button-overlay {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: rgba(0, 0, 0, 0.7);
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 10;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.custom-play-button-overlay:hover {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.custom-play-button {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.custom-play-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+  background: white;
+}
+
+.custom-play-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, #ff2a26 0%, #ff4d4a 100%);
   opacity: 0;
   transition: opacity 0.3s ease;
-  pointer-events: none;
+}
+
+.custom-play-button:hover::before {
+  opacity: 1;
+}
+
+.custom-play-button svg {
+  position: relative;
   z-index: 1;
+  fill: #ff2a26;
+  transition: fill 0.3s ease;
+  margin-left: 3px;
 }
 
-.service-modal-grid-item:hover .service-modal-video-indicator {
-  opacity: 0.8;
+.custom-play-button:hover svg {
+  fill: white;
 }
 
-.service-modal-play-icon {
+/* View More Button Styles */
+.view-more-button-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 12px;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.85));
+  z-index: 11;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: auto;
+}
+
+.view-more-button {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
   color: white;
-  font-size: 24px;
-  margin-left: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 8px 16px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 120px;
+  justify-content: center;
+}
+
+.view-more-button:hover {
+  background: rgba(255, 42, 38, 0.9);
+  border-color: rgba(255, 42, 38, 0.5);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(255, 42, 38, 0.3);
+}
+
+.view-more-button svg {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.3s ease;
+}
+
+.view-more-button:hover svg {
+  transform: translateX(3px);
 }
 
 /* Modal Footer */
@@ -282,16 +393,20 @@
   margin: 0;
 }
 
-/* Responsive Design - Progressive column reduction for PORTRAIT */
+/* Responsive Design - Progressive column reduction */
 
-/* Desktop - 5 columns for portrait */
+/* Desktop - 5 columns default, 4 for graphic design */
 @media (min-width: 1025px) {
   .service-modal-grid {
     grid-template-columns: repeat(5, 1fr);
   }
+
+  .service-modal[data-service-type="graphic-design"] .service-modal-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
 
-/* Tablet landscape - 4 columns for portrait */
+/* Tablet landscape - 4 columns default, 3 for graphic design */
 @media (max-width: 1024px) and (min-width: 769px) {
   .service-modal {
     max-width: 96%;
@@ -303,7 +418,14 @@
   }
 
   .service-modal-grid {
-    grid-template-columns: repeat(4, 1fr); /* 4 columns on tablet */
+    grid-template-columns: repeat(4, 1fr); /* Default: 4 columns on tablet */
+  }
+
+  .service-modal[data-service-type="graphic-design"] .service-modal-grid {
+    grid-template-columns: repeat(
+      3,
+      1fr
+    ); /* Graphic Design: 3 columns on tablet */
   }
 
   .service-modal-icon {
@@ -317,7 +439,7 @@
   }
 }
 
-/* Tablet portrait - 3 columns for portrait */
+/* Tablet portrait - 3 columns default, 2 for graphic design */
 @media (max-width: 768px) and (min-width: 577px) {
   .service-modal {
     max-width: 96%;
@@ -329,7 +451,17 @@
   }
 
   .service-modal-grid {
-    grid-template-columns: repeat(3, 1fr); /* 3 columns on small tablet */
+    grid-template-columns: repeat(
+      3,
+      1fr
+    ); /* Default: 3 columns on small tablet */
+  }
+
+  .service-modal[data-service-type="graphic-design"] .service-modal-grid {
+    grid-template-columns: repeat(
+      2,
+      1fr
+    ); /* Graphic Design: 2 columns on small tablet */
   }
 
   .service-modal-header-left {
@@ -352,14 +484,14 @@
   }
 }
 
-/* Mobile landscape - 2 columns for portrait */
+/* Mobile landscape - 2 columns for all */
 @media (max-width: 576px) and (min-width: 481px) {
   .service-modal {
     width: 100%;
     height: 100%;
     max-height: 100vh;
     border-radius: 0;
-    top: 0;
+    top: 10%;
     left: 0;
   }
 
@@ -368,18 +500,21 @@
   }
 
   .service-modal-grid {
-    grid-template-columns: repeat(2, 1fr); /* 2 columns on mobile landscape */
+    grid-template-columns: repeat(
+      2,
+      1fr
+    ); /* 2 columns on mobile landscape for all */
   }
 }
 
-/* Mobile portrait - 2 columns for portrait */
+/* Mobile portrait - 2 columns for all */
 @media (max-width: 480px) and (min-width: 376px) {
   .service-modal {
     width: 100%;
     height: 100%;
     max-height: 100vh;
     border-radius: 0;
-    top: 0;
+    top: 10%;
     left: 0;
   }
 
@@ -388,7 +523,7 @@
   }
 
   .service-modal-grid {
-    grid-template-columns: repeat(2, 1fr); /* 2 columns on mobile */
+    grid-template-columns: repeat(2, 1fr); /* 2 columns on mobile for all */
   }
 
   .service-modal-footer {
@@ -404,14 +539,14 @@
   }
 }
 
-/* Extra small mobile - 2 columns for portrait */
+/* Extra small mobile - 2 columns for all */
 @media (max-width: 375px) {
   .service-modal {
     width: 100%;
     height: 100%;
     max-height: 100vh;
     border-radius: 0;
-    top: 0;
+    top: 10%;
     left: 0;
   }
 
@@ -420,7 +555,10 @@
   }
 
   .service-modal-grid {
-    grid-template-columns: repeat(2, 1fr); /* 2 columns on extra small */
+    grid-template-columns: repeat(
+      2,
+      1fr
+    ); /* 2 columns on extra small for all */
   }
 
   .service-modal-footer {
@@ -436,10 +574,13 @@
   }
 }
 
-/* Tiny mobile - 1 column for portrait (only for very small screens) */
+/* Tiny mobile - 1 column for all */
 @media (max-width: 320px) {
   .service-modal-grid {
-    grid-template-columns: repeat(1, 1fr); /* 1 column on tiny screens */
+    grid-template-columns: repeat(
+      1,
+      1fr
+    ); /* 1 column on tiny screens for all */
   }
 }
 

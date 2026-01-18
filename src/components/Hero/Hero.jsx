@@ -32,8 +32,8 @@ const Hero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, ease: "easeOut" }}
         >
-          Transform Your Vision Into{" "}
-          <span className="hero-highlight">Cinematic Reality</span>
+          Where visual storytelling{" "}
+          <span className="hero-highlight">meets strategy</span>
         </motion.h1>
 
         {/* CTA BUTTON ANIMATION */}

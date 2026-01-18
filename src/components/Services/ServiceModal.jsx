@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { BiX } from "react-icons/bi";
 import "./ServiceModal.css";
-import MediaEmbed from "../MediaEmbed";
+import MediaEmbed, { VideoPlayerProvider } from "../MediaEmbed";
 
 const ServiceModal = ({ isOpen, onClose, serviceData }) => {
   useEffect(() => {
@@ -21,6 +21,8 @@ const ServiceModal = ({ isOpen, onClose, serviceData }) => {
 
   if (!isOpen || !serviceData) return null;
 
+  // https://www.instagram.com/princehouse_films/
+
   const getServiceContent = (serviceTitle) => {
     const contentMap = {
       "Cinematic / Videography": [
@@ -30,7 +32,8 @@ const ServiceModal = ({ isOpen, onClose, serviceData }) => {
           cloudName: "dlzstmm4e",
           thumbnail:
             "https://res.cloudinary.com/dlzstmm4e/video/upload/c_fill,w_400,h_500,so_0.5/e_blur:500,q_auto/IMG_9459_yplb1m.jpg",
-          redirectUrl: "https://www.instagram.com/princehouse_films/",
+          redirectUrl:
+            "https://www.instagram.com/reel/DAyOtJ7IZj4/?igsh=N3ZjajVlNjVrY3Ro",
           title: "Brand Commercial",
           platform: "Instagram",
         },
@@ -39,7 +42,8 @@ const ServiceModal = ({ isOpen, onClose, serviceData }) => {
           embedPublicId: "IMG_9460_in27nw",
           cloudName: "dlzstmm4e",
           thumbnail: "your_thumbnail_url",
-          redirectUrl: "https://www.instagram.com/princehouse_films/",
+          redirectUrl:
+            "https://www.instagram.com/reel/DBLWhicogNb/?igsh=djNyYmltZjZqdzZz",
           title: "Another Project",
           platform: "Instagram",
         },
@@ -48,7 +52,8 @@ const ServiceModal = ({ isOpen, onClose, serviceData }) => {
           embedPublicId: "IMG_9458_iyqbut",
           cloudName: "dlzstmm4e",
           thumbnail: "your_thumbnail_url",
-          redirectUrl: "https://www.instagram.com/princehouse_films/",
+          redirectUrl:
+            "https://www.instagram.com/reel/C5f0e85oSK-/?igsh=MXNhbmxubGNiYWhqbQ==",
           title: "Another Project",
           platform: "Instagram",
         },
@@ -87,7 +92,8 @@ const ServiceModal = ({ isOpen, onClose, serviceData }) => {
           embedPublicId: "IMG_2492_nrejko",
           cloudName: "dlzstmm4e",
           thumbnail: "your_thumbnail_url",
-          redirectUrl: "https://www.instagram.com/princehouse_films/",
+          redirectUrl:
+            "https://www.instagram.com/reel/DReIWw6jJVS/?igsh=YzZiZWJnMmVwaHRy",
           title: "Another Project",
           platform: "Instagram",
         },
@@ -96,7 +102,8 @@ const ServiceModal = ({ isOpen, onClose, serviceData }) => {
           embedPublicId: "IMG_9457_kpeuab",
           cloudName: "dlzstmm4e",
           thumbnail: "your_thumbnail_url",
-          redirectUrl: "https://www.instagram.com/princehouse_films/",
+          redirectUrl:
+            "https://www.instagram.com/reel/DLCkr7xNWVZ/?igsh=MWhvMWcwdjJtNnVjcA==",
           title: "Another Project",
           platform: "Instagram",
         },
@@ -105,7 +112,8 @@ const ServiceModal = ({ isOpen, onClose, serviceData }) => {
           embedPublicId: "IMG_9463_buc6tr",
           cloudName: "dlzstmm4e",
           thumbnail: "your_thumbnail_url",
-          redirectUrl: "https://www.instagram.com/princehouse_films/",
+          redirectUrl:
+            "https://www.instagram.com/reel/DReIWw6jJVS/?igsh=YzZiZWJnMmVwaHRy",
           title: "Another Project",
           platform: "Instagram",
         },
@@ -210,7 +218,8 @@ const ServiceModal = ({ isOpen, onClose, serviceData }) => {
           embedPublicId: "IMG_9466_dffpzd",
           cloudName: "dlzstmm4e",
           thumbnail: "your_thumbnail_url",
-          redirectUrl: "https://www.instagram.com/princehouse_films/",
+          redirectUrl:
+            "https://www.instagram.com/reel/DBD1eoAKzKW/?igsh=em5nMWNicWo1Mmg3",
           title: "Another Project",
           platform: "Instagram",
         },
@@ -219,7 +228,8 @@ const ServiceModal = ({ isOpen, onClose, serviceData }) => {
           embedPublicId: "IMG_8084_icevnc",
           cloudName: "dlzstmm4e",
           thumbnail: "your_thumbnail_url",
-          redirectUrl: "https://www.instagram.com/princehouse_films/",
+          redirectUrl:
+            "https://www.instagram.com/reel/DSiGmsvjLOA/?igsh=ejd4eDF5c2prOGpu",
           title: "Another Project",
           platform: "Instagram",
         },
@@ -228,7 +238,8 @@ const ServiceModal = ({ isOpen, onClose, serviceData }) => {
           embedPublicId: "IMG_7951_g58a5f",
           cloudName: "dlzstmm4e",
           thumbnail: "your_thumbnail_url",
-          redirectUrl: "https://www.instagram.com/princehouse_films/",
+          redirectUrl:
+            "https://www.instagram.com/reel/DSfPD9IDHeC/?igsh=NnNseDA4a3M1dTZh",
           title: "Another Project",
           platform: "Instagram",
         },
@@ -238,12 +249,7 @@ const ServiceModal = ({ isOpen, onClose, serviceData }) => {
   };
 
   const contentItems = getServiceContent(serviceData.title);
-
-  const handleContentClick = (item) => {
-    if (item.redirectUrl) {
-      window.open(item.redirectUrl, "_blank", "noopener,noreferrer");
-    }
-  };
+  const isGraphicDesign = serviceData.title === "Graphic Design";
 
   return (
     <AnimatePresence>
@@ -259,6 +265,7 @@ const ServiceModal = ({ isOpen, onClose, serviceData }) => {
 
           <motion.div
             className="service-modal"
+            data-service-type={isGraphicDesign ? "graphic-design" : "default"} // Add this line
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
@@ -280,30 +287,33 @@ const ServiceModal = ({ isOpen, onClose, serviceData }) => {
               </button>
             </div>
 
-            {/* Modal Content Grid */}
-            <div className="service-modal-grid">
-              {contentItems.map((item, index) => (
-                <motion.div
-                  key={index}
-                  className="service-modal-grid-item"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.05 }}
-                  onClick={() => handleContentClick(item)}
-                  whileHover={{ scale: 0.99 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <div className="service-modal-thumbnail">
-                    <MediaEmbed item={item} />
-                  </div>
-                </motion.div>
-              ))}
-            </div>
+            {/* Modal Content Grid - Wrap with VideoPlayerProvider */}
+            <VideoPlayerProvider>
+              <div className="service-modal-grid">
+                {contentItems.map((item, index) => (
+                  <motion.div
+                    key={index}
+                    className="service-modal-grid-item"
+                    data-item-type={item.type}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.05 }}
+                    whileHover={{ scale: 0.99 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <div className="service-modal-thumbnail">
+                      <MediaEmbed item={item} index={index} />
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </VideoPlayerProvider>
 
             {/* Modal Footer */}
             <div className="service-modal-footer">
               <p className="service-modal-footer-note">
-                Click on any content to view more
+                Click the play button to preview, then "View More" for full
+                content
               </p>
             </div>
           </motion.div>
