@@ -1,52 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 import "./Footer.css";
 import logo from "../../assets/img/phf_logo.png";
 
 const Footer = () => {
-  const [email, setEmail] = useState("");
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (email) {
-      // Handle newsletter subscription
-      console.log("Subscribed:", email);
-      setEmail("");
-      alert("Thank you for subscribing to our newsletter!");
-    }
-  };
-
-  const footerLinks = [
-    {
-      title: "Quick Links",
-      links: [
-        { label: "Home", href: "/" },
-        { label: "About Us", href: "/about" },
-        { label: "Services", href: "/services" },
-        { label: "Portfolio", href: "/portfolio" },
-        { label: "Our Team", href: "/team" },
-        { label: "Contact", href: "/contact" },
-      ],
-    },
-    {
-      title: "Services",
-      links: [
-        { label: "Videography", href: "/services#videography" },
-        { label: "Content Creation", href: "/services#content" },
-        { label: "Documentaries", href: "/services#documentaries" },
-        { label: "Live Streaming", href: "/services#live" },
-        { label: "Motion Graphics", href: "/services#motion" },
-        { label: "Social Media", href: "/services#social" },
-      ],
-    },
-  ];
-
-  const socialLinks = [
-    {
-      icon: "bi bi-facebook",
-      href: "https://www.facebook.com/PrinceHouseFilms",
-    },
-    { icon: "bi bi-twitter", href: "https://twitter.com/PrinceHouseFilms" },
+  const socials = [
     {
       icon: "bi bi-instagram",
       href: "https://www.instagram.com/princehouse_films/",
@@ -59,137 +17,102 @@ const Footer = () => {
       icon: "bi bi-linkedin",
       href: "https://linkedin.com/company/princehousefilms",
     },
-  ];
-
-  const bottomLinks = [
-    { label: "Privacy Policy", href: "/privacy" },
-    { label: "Terms of Service", href: "/terms" },
-    { label: "Cookie Policy", href: "/cookies" },
-    { label: "FAQ", href: "/faq" },
+    {
+      icon: "bi bi-facebook",
+      href: "https://www.facebook.com/PrinceHouseFilms",
+    },
   ];
 
   return (
-    <footer id="footer" className="phf-section footer-section">
-      <div className="glow-overlay"></div>
+    <footer className="phf-footer">
+      <div className="footer-glow" />
+
       <div className="container">
-        <div className="footer-content">
-          <div className="footer-column footer-logo">
+        {/* Brand */}
+        <div className="footer-main-grid">
+          {/* Brand */}
+          <motion.div
+            className="footer-brand"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
             <img src={logo} alt="Prince House Films" />
             <p>
-              Prince House Films is an award-winning production studio
-              specializing in cinematic storytelling, commercial filmmaking, and
-              digital content that captivates audiences and drives real results.
+              A full-service creative production company specializing in visual
+              storytelling.
             </p>
-          </div>
+          </motion.div>
 
-          {footerLinks.map((column, i) => (
-            <motion.div
-              key={i}
-              className="footer-column footer-links"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
-            >
-              <h3>{column.title}</h3>
-              <ul>
-                {column.links.map((link, j) => (
-                  <li key={j}>
-                    <a href={link.href}>
-                      <i className="bi bi-chevron-right"></i> {link.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-          ))}
-
+          {/* Info */}
           <motion.div
-            className="footer-column footer-contact"
+            className="footer-info"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
+            transition={{ delay: 0.1 }}
           >
-            <h3>Contact Info</h3>
-            <p>
-              <i className="bi bi-geo-alt"></i> Nairobi, Kenya
-            </p>
-            <p>
-              <i className="bi bi-envelope"></i> info@princehousefilms.com
-            </p>
-            <p>
-              <i className="bi bi-phone"></i> +254 701 914 626
-            </p>
-            <p>
-              <i className="bi bi-clock"></i> Mon - Fri: 9:00 AM - 6:00 PM
-            </p>
+            <h4>Contact</h4>
+            <span>
+              <i className="bi bi-geo-alt" /> Nairobi, Kenya
+            </span>
+            <span>
+              <i className="bi bi-envelope" /> info@princehousefilms.com
+            </span>
+            <span>
+              <i className="bi bi-phone" /> +254 701 914 626
+            </span>
+          </motion.div>
+
+          {/* Links */}
+          <motion.div
+            className="footer-links"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+          >
+            <h4>Explore</h4>
+            <a href="/">
+              <i className="bi bi-arrow-right-short" /> Home
+            </a>
+            <a href="/about">
+              <i className="bi bi-arrow-right-short" /> About
+            </a>
+            <a href="/services">
+              <i className="bi bi-arrow-right-short" /> Services
+            </a>
+            <a href="/portfolio">
+              <i className="bi bi-arrow-right-short" /> Portfolio
+            </a>
+            <a href="/contact">
+              <i className="bi bi-arrow-right-short" /> Contact
+            </a>
           </motion.div>
         </div>
 
+        {/* Socials */}
         <motion.div
-          className="footer-social"
+          className="footer-socials"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.6 }}
+          transition={{ delay: 0.3 }}
         >
-          <h4 className="social-title">Follow Our Journey</h4>
-          <div className="social-icons">
-            {socialLinks.map((social, i) => (
-              <motion.a
-                key={i}
-                href={social.href}
-                className="social-icon"
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-                initial={{ opacity: 0, scale: 0.5 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.3, delay: i * 0.05 }}
-              >
-                <i className={social.icon}></i>
-              </motion.a>
-            ))}
-          </div>
+          {socials.map((s, i) => (
+            <motion.a
+              key={i}
+              href={s.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ y: -4, scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <i className={s.icon} />
+            </motion.a>
+          ))}
         </motion.div>
 
+        {/* Bottom */}
         <div className="footer-bottom">
-          {/* <motion.div
-            className="footer-newsletter"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
-            <h3>Stay Updated</h3>
-            <p>
-              Subscribe to our newsletter for the latest projects and insights.
-            </p>
-            <form className="newsletter-form" onSubmit={handleSubmit}>
-              <input
-                type="email"
-                className="newsletter-input"
-                placeholder="Your email address"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-              <button type="submit" className="newsletter-button">
-                Subscribe
-              </button>
-            </form>
-          </motion.div>
-
-          <div className="footer-links-bottom">
-            {bottomLinks.map((link, i) => (
-              <a key={i} href={link.href}>
-                {link.label}
-              </a>
-            ))}
-          </div> */}
-
-          <p className="footer-copyright">
-            © {new Date().getFullYear()} Prince House Films. All rights
-            reserved.
-          </p>
+          © {new Date().getFullYear()} Prince House Films
         </div>
       </div>
     </footer>

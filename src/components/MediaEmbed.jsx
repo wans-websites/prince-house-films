@@ -8,10 +8,14 @@ const MediaEmbed = ({ item }) => {
           <iframe
             src={`https://player.cloudinary.com/embed/?cloud_name=${
               item.cloudName || "dlzstmm4e"
-            }&public_id=${item.embedPublicId}&player%5Bfluid%5D=true&player%5Bcontrols%5D=false&player%5Bshow_jump_controls%5D=false&player%5Bautoplay_mode%5D=on-scroll&player%5Bloop%5D=true&player%5Bmuted%5D=true`}
+            }&public_id=${item.embedPublicId}
+  &player[autoplay]=true
+  &player[muted]=true
+  &player[loop]=true
+  &player[controls]=false`}
             title={item.title}
             frameBorder="0"
-            allow="autoplay"
+            allow="autoplay; fullscreen"
             allowFullScreen
             style={{ width: "100%", height: "100%" }}
           />

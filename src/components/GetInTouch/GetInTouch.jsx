@@ -27,8 +27,8 @@ const GetInTouch = () => {
     {
       icon: <BiEnvelope />,
       title: "Email",
-      content: "princehousefilms@gmail.com",
-      link: "mailto:princehousefilms@gmail.com",
+      content: "info@princehousefilms.com",
+      link: "mailto:info@princehousefilms.com",
       linkText: "Email Us",
       external: false,
     },

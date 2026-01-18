@@ -4,7 +4,7 @@
   padding: 100px 20px;
   overflow: hidden;
   background: url(../../assets/img/about.png) center/cover no-repeat fixed;
-  height: 60vh;
+  height: auto;
 }
 .about-section::before {
   content: "";
