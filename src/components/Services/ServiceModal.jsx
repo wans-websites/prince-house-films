@@ -21,11 +21,9 @@ const ServiceModal = ({ isOpen, onClose, serviceData }) => {
 
   if (!isOpen || !serviceData) return null;
 
-  // https://www.instagram.com/princehouse_films/
-
   const getServiceContent = (serviceTitle) => {
     const contentMap = {
-      "Cinematic / Videography": [
+      "Creative Content": [
         {
           type: "cloudinary_video",
           embedPublicId: "IMG_9459_yplb1m",
@@ -57,24 +55,13 @@ const ServiceModal = ({ isOpen, onClose, serviceData }) => {
           title: "Another Project",
           platform: "Instagram",
         },
-      ],
-      "Creative Content": [
-        {
-          type: "cloudinary_video",
-          embedPublicId: "IMG_9458_iyqbut",
-          cloudName: "dlzstmm4e",
-          thumbnail:
-            "https://res.cloudinary.com/dlzstmm4e/video/upload/c_fill,w_400,h_500,so_0.5/e_blur:500,q_auto/IMG_9459_yplb1m.jpg",
-          redirectUrl: "https://www.instagram.com/princehouse_films/",
-          title: "Brand Commercial",
-          platform: "Instagram",
-        },
         {
           type: "cloudinary_video",
           embedPublicId: "IMG_9462_oxhb9t",
           cloudName: "dlzstmm4e",
           thumbnail: "your_thumbnail_url",
-          redirectUrl: "https://www.instagram.com/princehouse_films/",
+          redirectUrl:
+            "https://www.instagram.com/reel/DHIazr6oFDJ/?igsh=YzVud2F3Y3Y5cXdp",
           title: "Another Project",
           platform: "Instagram",
         },
@@ -83,7 +70,8 @@ const ServiceModal = ({ isOpen, onClose, serviceData }) => {
           embedPublicId: "IMG_9461_iktmk1",
           cloudName: "dlzstmm4e",
           thumbnail: "your_thumbnail_url",
-          redirectUrl: "https://www.instagram.com/princehouse_films/",
+          redirectUrl:
+            "https://www.instagram.com/reel/DGxFvJUoDQb/?igsh=MWU5eGxrdTZpejlmdQ==",
           title: "Another Project",
           platform: "Instagram",
         },
@@ -265,7 +253,7 @@ const ServiceModal = ({ isOpen, onClose, serviceData }) => {
 
           <motion.div
             className="service-modal"
-            data-service-type={isGraphicDesign ? "graphic-design" : "default"} // Add this line
+            data-service-type={isGraphicDesign ? "graphic-design" : "default"}
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}

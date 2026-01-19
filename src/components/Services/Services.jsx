@@ -3,7 +3,6 @@ import { useState } from "react";
 import "./Services.css";
 import ServiceModal from "./ServiceModal";
 import {
-  BiCameraMovie,
   BiPen,
   BiVideoRecording,
   BiSlideshow,
@@ -12,17 +11,9 @@ import {
 import img1 from "../../assets/img/services/creativeContent.gif";
 import event from "../../assets/img/services/event.gif";
 import motionGraphic from "../../assets/img/services/motion.gif";
-import cinematic from "../../assets/img/hero.gif";
 import graphic from "../../assets/img/services/graphic.png";
 
 const services = [
-  {
-    title: "Cinematic / Videography",
-    text: "",
-    icon: <BiCameraMovie />,
-    bgImage: cinematic,
-    hasBg: true,
-  },
   {
     title: "Creative Content",
     text: "Engaging digital content designed for social media, campaigns, and brand storytelling that captures attention.",
@@ -68,11 +59,11 @@ export default function Services() {
   };
 
   return (
-    <section id="services" className="phf-section whatwedo-section">
-      <div className="glow-overlay"></div>
-      <div className="container">
+    <section id="services" className="services-section">
+      <div className="services-glow-overlay"></div>
+      <div className="services-container">
         <motion.h2
-          className="section-title"
+          className="services-section-title"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -80,15 +71,15 @@ export default function Services() {
           Our Creative Services
         </motion.h2>
 
-        <div className="bento-container">
-          <div className="bento-grid">
+        <div className="services-bento-container">
+          <div className="services-bento-grid">
             {services.map((item, i) => (
               <motion.div
                 key={i}
-                className={`bento-item ${item.hasBg ? "has-bg" : ""} ${
-                  i === 1 || i === 4 ? "featured" : ""
+                className={`services-bento-item ${item.hasBg ? "services-has-bg" : ""} ${
+                  i === 0 || i === 3 ? "services-featured" : ""
                 }`}
-                style={{ "--bento-bg": `url(${item.bgImage})` }}
+                style={{ "--services-bento-bg": `url(${item.bgImage})` }}
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, delay: i * 0.05 }}
@@ -102,12 +93,12 @@ export default function Services() {
                   }
                 }}
               >
-                <div className="bento-content">
+                <div className="services-bento-content">
                   <div>
-                    <div className="bento-icon">{item.icon}</div>
-                    <h3 className="bento-title">{item.title}</h3>
+                    <div className="services-bento-icon">{item.icon}</div>
+                    <h3 className="services-bento-title">{item.title}</h3>
                   </div>
-                  <p className="bento-text">{item.text}</p>
+                  <p className="services-bento-text">{item.text}</p>
                 </div>
               </motion.div>
             ))}

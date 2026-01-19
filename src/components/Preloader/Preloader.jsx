@@ -171,7 +171,11 @@ const Preloader = () => {
                 animate="animate"
               >
                 {/* Logo img */}
-                <img src={logo} className="preloader-logo-img" />
+                <img
+                  src={logo}
+                  className="preloader-logo-img"
+                  alt="Princehouse Films Logo"
+                />
 
                 {/* Logo Icon */}
                 <div className="preloader-logo-icon">

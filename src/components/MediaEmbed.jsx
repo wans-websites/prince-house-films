@@ -129,7 +129,7 @@ const MediaEmbed = ({ item, index }) => {
 
       return (
         <div
-          className="service-modal-video-wrapper"
+          className="media-embed-video-wrapper"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
@@ -141,7 +141,7 @@ const MediaEmbed = ({ item, index }) => {
             loop
             playsInline
             preload="metadata"
-            className="cloudinary-video-iframe"
+            className="media-embed-cloudinary-video"
             style={{
               width: "100%",
               height: "100%",
@@ -173,7 +173,7 @@ const MediaEmbed = ({ item, index }) => {
                 justifyContent: "center",
               }}
             >
-              <div className="custom-play-button">
+              <div className="media-embed-play-button">
                 <svg
                   width="20"
                   height="20"
@@ -189,14 +189,14 @@ const MediaEmbed = ({ item, index }) => {
           {/* Play/Pause Overlay */}
           {!isPlaying && thumbnailLoaded && (
             <div
-              className="custom-play-button-overlay"
+              className="media-embed-play-button-overlay"
               onClick={handlePlayClick}
               style={{
                 opacity: isHovered ? 1 : 0.95,
                 transition: "opacity 0.3s ease",
               }}
             >
-              <div className="custom-play-button">
+              <div className="media-embed-play-button">
                 <svg
                   width="20"
                   height="20"
@@ -212,7 +212,7 @@ const MediaEmbed = ({ item, index }) => {
           {/* Pause indicator when playing and hovered */}
           {isPlaying && isHovered && (
             <div
-              className="custom-play-button-overlay"
+              className="media-embed-play-button-overlay"
               onClick={handlePlayClick}
               style={{
                 background: "rgba(0, 0, 0, 0.2)",
@@ -220,7 +220,7 @@ const MediaEmbed = ({ item, index }) => {
               }}
             >
               <div
-                className="custom-play-button"
+                className="media-embed-play-button"
                 style={{ background: "rgba(255, 255, 255, 0.9)" }}
               >
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="#ff2a26">
@@ -231,8 +231,11 @@ const MediaEmbed = ({ item, index }) => {
           )}
 
           {/* View More Button */}
-          <div className="view-more-button-container">
-            <button className="view-more-button" onClick={handleViewMoreClick}>
+          <div className="media-embed-view-more-button-container">
+            <button
+              className="media-embed-view-more-button"
+              onClick={handleViewMoreClick}
+            >
               View More
               <svg viewBox="0 0 24 24" fill="currentColor">
                 <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
@@ -245,7 +248,7 @@ const MediaEmbed = ({ item, index }) => {
     case "cloudinary_image":
       return (
         <div
-          className="service-modal-image-wrapper"
+          className="media-embed-image-wrapper"
           style={{ position: "relative", width: "100%", height: "100%" }}
         >
           <img
@@ -263,8 +266,11 @@ const MediaEmbed = ({ item, index }) => {
           />
 
           {/* View More Button for Images */}
-          <div className="view-more-button-container">
-            <button className="view-more-button" onClick={handleViewMoreClick}>
+          <div className="media-embed-view-more-button-container">
+            <button
+              className="media-embed-view-more-button"
+              onClick={handleViewMoreClick}
+            >
               View More
               <svg viewBox="0 0 24 24" fill="currentColor">
                 <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
@@ -277,7 +283,7 @@ const MediaEmbed = ({ item, index }) => {
     case "instagram_embed":
       return (
         <div
-          className="service-modal-instagram-wrapper"
+          className="media-embed-instagram-wrapper"
           style={{ position: "relative", width: "100%", height: "100%" }}
         >
           <iframe
@@ -296,8 +302,11 @@ const MediaEmbed = ({ item, index }) => {
           />
 
           {/* View More Button for Instagram */}
-          <div className="view-more-button-container">
-            <button className="view-more-button" onClick={handleViewMoreClick}>
+          <div className="media-embed-view-more-button-container">
+            <button
+              className="media-embed-view-more-button"
+              onClick={handleViewMoreClick}
+            >
               View More
               <svg viewBox="0 0 24 24" fill="currentColor">
                 <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
@@ -311,7 +320,7 @@ const MediaEmbed = ({ item, index }) => {
     default:
       return (
         <div
-          className="service-modal-image-wrapper"
+          className="media-embed-image-wrapper"
           style={{ position: "relative", width: "100%", height: "100%" }}
         >
           <img
@@ -329,8 +338,11 @@ const MediaEmbed = ({ item, index }) => {
           />
 
           {/* View More Button for Default Images */}
-          <div className="view-more-button-container">
-            <button className="view-more-button" onClick={handleViewMoreClick}>
+          <div className="media-embed-view-more-button-container">
+            <button
+              className="media-embed-view-more-button"
+              onClick={handleViewMoreClick}
+            >
               View More
               <svg viewBox="0 0 24 24" fill="currentColor">
                 <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />

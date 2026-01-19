@@ -259,8 +259,9 @@
   transition: transform 0.5s ease;
 }
 
-/* Custom Play Button Styles */
-.custom-play-button-overlay {
+/* ========== UPDATED: MEDIA-EMBED STYLES ========== */
+/* Custom Play Button Overlay Styles */
+.media-embed-play-button-overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -275,11 +276,11 @@
   transition: background-color 0.3s ease;
 }
 
-.custom-play-button-overlay:hover {
+.media-embed-play-button-overlay:hover {
   background: rgba(0, 0, 0, 0.4);
 }
 
-.custom-play-button {
+.media-embed-play-button {
   width: 52px;
   height: 52px;
   border-radius: 50%;
@@ -293,13 +294,13 @@
   overflow: hidden;
 }
 
-.custom-play-button:hover {
+.media-embed-play-button:hover {
   transform: scale(1.1);
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
   background: white;
 }
 
-.custom-play-button::before {
+.media-embed-play-button::before {
   content: "";
   position: absolute;
   top: 0;
@@ -311,11 +312,11 @@
   transition: opacity 0.3s ease;
 }
 
-.custom-play-button:hover::before {
+.media-embed-play-button:hover::before {
   opacity: 1;
 }
 
-.custom-play-button svg {
+.media-embed-play-button svg {
   position: relative;
   z-index: 1;
   fill: #ff2a26;
@@ -323,12 +324,12 @@
   margin-left: 3px;
 }
 
-.custom-play-button:hover svg {
+.media-embed-play-button:hover svg {
   fill: white;
 }
 
 /* View More Button Styles */
-.view-more-button-container {
+.media-embed-view-more-button-container {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -342,7 +343,7 @@
   pointer-events: auto;
 }
 
-.view-more-button {
+.media-embed-view-more-button {
   background: rgba(255, 255, 255, 0.12);
   backdrop-filter: blur(10px);
   color: white;
@@ -360,22 +361,24 @@
   justify-content: center;
 }
 
-.view-more-button:hover {
+.media-embed-view-more-button:hover {
   background: rgba(255, 42, 38, 0.9);
   border-color: rgba(255, 42, 38, 0.5);
   transform: translateY(-1px);
   box-shadow: 0 4px 16px rgba(255, 42, 38, 0.3);
 }
 
-.view-more-button svg {
+.media-embed-view-more-button svg {
   width: 16px;
   height: 16px;
   transition: transform 0.3s ease;
 }
 
-.view-more-button:hover svg {
+.media-embed-view-more-button:hover svg {
   transform: translateX(3px);
 }
+
+/* ========== END UPDATED STYLES ========== */
 
 /* Modal Footer */
 .service-modal-footer {
