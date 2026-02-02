@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { BiX } from "react-icons/bi";
+import { BiChevronRight, BiX } from "react-icons/bi";
 import "./ServiceModal.css";
 import MediaEmbed, { VideoPlayerProvider } from "../MediaEmbed";
 
@@ -238,6 +238,14 @@ const ServiceModal = ({ isOpen, onClose, serviceData }) => {
 
   const contentItems = getServiceContent(serviceData.title);
   const isGraphicDesign = serviceData.title === "Graphic Design";
+  console.log("serviceData.title: ", serviceData.title);
+
+  const showGlobalViewMore =
+    serviceData.title === "Creative Content" ||
+    serviceData.title === "Motion Graphics";
+
+  const instagramLink =
+    "https://www.instagram.com/princehouse_films?igsh=eHFqazhiZDlhbmZs";
 
   return (
     <AnimatePresence>
@@ -275,7 +283,7 @@ const ServiceModal = ({ isOpen, onClose, serviceData }) => {
               </button>
             </div>
 
-            {/* Modal Content Grid - Wrap with VideoPlayerProvider */}
+            {/* Modal Content Grid */}
             <VideoPlayerProvider>
               <div className="service-modal-grid">
                 {contentItems.map((item, index) => (
@@ -298,11 +306,26 @@ const ServiceModal = ({ isOpen, onClose, serviceData }) => {
             </VideoPlayerProvider>
 
             {/* Modal Footer */}
+            {/* Modal Footer */}
             <div className="service-modal-footer">
-              <p className="service-modal-footer-note">
-                Click the play button to preview, then "View More" for full
-                content
-              </p>
+              {showGlobalViewMore ? (
+                <div className="service-modal-footer-cta">
+                  <a
+                    href={instagramLink}
+                    target="_self"
+                    className="global-view-more-btn"
+                  >
+                    View Full Portfolio on Instagram{" "}
+                    <BiChevronRight size={24} />
+                  </a>
+                </div>
+              ) : (
+                <p className="service-modal-footer-note">
+                  {isGraphicDesign
+                    ? "Previewing design works"
+                    : "Click any item to preview full content"}
+                </p>
+              )}
             </div>
           </motion.div>
         </>

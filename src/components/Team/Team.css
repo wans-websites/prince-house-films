@@ -11,7 +11,8 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(
+  background:
+    radial-gradient(
       circle at 20% 50%,
       rgba(255, 4, 0, 0.08) 0%,
       transparent 50%
@@ -50,19 +51,22 @@
 
 /* Group Photo Section */
 .team-group-photo-section {
-  /* margin-bottom: 100px; */
+  display: flex;
+  justify-content: center;
 }
 
 .team-group-photo {
   position: relative;
-  height: 600px;
+  height: 80vh;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   border-radius: 30px;
   overflow: hidden;
-  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6),
+  box-shadow:
+    0 40px 80px rgba(0, 0, 0, 0.6),
     0 0 0 1px rgba(255, 255, 255, 0.05);
+  width: 96vw;
 }
 
 .photo-overlay {
@@ -142,7 +146,9 @@
 .team-member-card:hover {
   border-color: rgba(255, 4, 0, 0.2);
   transform: translateY(-10px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 4, 0, 0.1);
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(255, 4, 0, 0.1);
 }
 
 .member-number {
@@ -580,11 +586,14 @@
 @keyframes glow {
   0%,
   100% {
-    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6),
+    box-shadow:
+      0 40px 80px rgba(0, 0, 0, 0.6),
       0 0 0 1px rgba(255, 255, 255, 0.05);
   }
   50% {
-    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 4, 0, 0.1);
+    box-shadow:
+      0 40px 80px rgba(0, 0, 0, 0.8),
+      0 0 0 1px rgba(255, 4, 0, 0.1);
   }
 }
 

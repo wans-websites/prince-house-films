@@ -1,31 +1,17 @@
-import React from "react";
 import { motion } from "framer-motion";
 import "./Hero.css";
-import { BiCameraMovie, BiCheckShield, BiTimer } from "react-icons/bi";
+import heroVideo from "../../assets/vid/hero.mov";
 
 const Hero = () => {
-  const features = [
-    {
-      icon: <BiCameraMovie />,
-      title: "Cinematic Production",
-      description: "Hollywood-quality visuals",
-    },
-    {
-      icon: <BiCheckShield />,
-      title: "Guaranteed Quality",
-      description: "Broadcast-ready results",
-    },
-    {
-      icon: <BiTimer />,
-      title: "Fast Delivery",
-      description: "On-time, every time",
-    },
-  ];
-
   return (
     <section id="home" className="phf-section hero-section">
+      {/* VIDEO BACKGROUND */}
+      <video autoPlay muted loop playsInline className="hero-video-bg">
+        <source src={heroVideo} type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+
       <div className="container hero-content">
-        {/* MAIN TITLE ANIMATION */}
         <motion.h1
           className="hero-main-title"
           initial={{ opacity: 0, y: 40 }}
@@ -36,7 +22,6 @@ const Hero = () => {
           <span className="hero-highlight">meets strategy</span>
         </motion.h1>
 
-        {/* CTA BUTTON ANIMATION */}
         <motion.div
           className="hero-cta-buttons"
           initial={{ opacity: 0, y: 20 }}
@@ -53,8 +38,7 @@ const Hero = () => {
           </motion.a>
         </motion.div>
 
-        {/* FEATURES ANIMATION (STAGGERED) */}
-        <motion.div
+        {/* <motion.div
           className="hero-features"
           initial="hidden"
           animate="show"
@@ -87,7 +71,7 @@ const Hero = () => {
               </div>
             </motion.div>
           ))}
-        </motion.div>
+        </motion.div> */}
       </div>
     </section>
   );

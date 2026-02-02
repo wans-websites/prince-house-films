@@ -146,7 +146,12 @@
 }
 
 .partnerships-title-gradient {
-  background: linear-gradient(135deg, #ff2a26 0%, #00d4ff 50%, #9d4edd 100%);
+  background: linear-gradient(
+    135deg,
+    #ff2a26 0%,
+    #f1f7f8 50%,
+    rgb(243, 238, 246) 100%
+  );
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -294,7 +299,7 @@
 }
 
 .partnerships-types-grid {
-  display: grid;
+  display: none;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: 40px;
   perspective: 1000px;
@@ -311,7 +316,7 @@
   transition: all 0.3s ease;
   overflow: hidden;
   min-height: 300px;
-  max-width: 400px;
+  width: auto;
 }
 
 .partnerships-type-glow {
@@ -878,6 +883,7 @@
 
   .partnerships-types-grid {
     grid-template-columns: 1fr;
+    display: grid;
   }
 
   .partnerships-stats-grid {

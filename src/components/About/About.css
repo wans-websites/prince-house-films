@@ -5,6 +5,7 @@
   overflow: hidden;
   background: url(../../assets/img/about.png) center/cover no-repeat fixed;
   height: auto;
+  z-index: 1 !important;
 }
 .about-section::before {
   content: "";

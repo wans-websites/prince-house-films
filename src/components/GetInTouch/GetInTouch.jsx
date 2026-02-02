@@ -1,4 +1,3 @@
-import React from "react";
 import { motion } from "framer-motion";
 import "./GetInTouch.css";
 import {
@@ -10,7 +9,6 @@ import {
   BiLogoInstagram,
   BiLogoFacebook,
   BiLogoLinkedin,
-  BiLinkExternal,
 } from "react-icons/bi";
 import { FaTiktok } from "react-icons/fa";
 
@@ -35,8 +33,8 @@ const GetInTouch = () => {
     {
       icon: <BiPhone />,
       title: "Phone",
-      content: "+254 701 914 626",
-      link: "tel:+254701914626",
+      content: "+254 715 130 028",
+      link: "tel:+254 715 130 028",
       linkText: "Call Now",
       external: false,
     },
@@ -205,25 +203,6 @@ const GetInTouch = () => {
             </div>
 
             {/* Quick Contact Info */}
-            <div className="quick-contact-info">
-              <h4>Contact Summary</h4>
-              <div className="contact-info-grid">
-                <div className="contact-item">
-                  <span className="contact-label">📍 Nairobi, Kenya</span>
-                </div>
-                <div className="contact-item">
-                  <span className="contact-label">
-                    📧 info@princehousefilms.com
-                  </span>
-                </div>
-                <div className="contact-item">
-                  <span className="contact-label">📞 +254 701 914 626</span>
-                </div>
-                <div className="contact-item">
-                  <span className="contact-label">⏱️ 24-hour response</span>
-                </div>
-              </div>
-            </div>
           </motion.div>
         </div>
       </div>

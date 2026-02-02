@@ -5,14 +5,9 @@ import partners from "./partnerImages";
 
 import {
   BiBuilding,
-  BiMovie,
-  BiGlobe,
   BiChevronRight,
   BiRocket,
-  BiShieldAlt,
-  BiTrendingUp,
   BiStar,
-  BiSolidBolt, // Changed from BiZap to BiSolidBolt
   BiCheckCircle,
 } from "react-icons/bi";
 
@@ -31,32 +26,6 @@ const Partnerships = () => {
       ],
       color: "#FF2A26",
       accent: "#FF6B66",
-    },
-    {
-      icon: <BiMovie />,
-      title: "Production Collaboration",
-      description: "Joint film and documentary projects with shared resources",
-      features: [
-        "Equipment sharing",
-        "Talent collaboration",
-        "Post-production facilities",
-        "Distribution networks",
-      ],
-      color: "#00D4FF",
-      accent: "#66E6FF",
-    },
-    {
-      icon: <BiGlobe />,
-      title: "Distribution Partnerships",
-      description: "Content distribution through established media networks",
-      features: [
-        "Global reach",
-        "Multiple platforms",
-        "Revenue sharing",
-        "Marketing support",
-      ],
-      color: "#9D4EDD",
-      accent: "#B77AEB",
     },
   ];
 

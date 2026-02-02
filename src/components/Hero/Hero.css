@@ -7,14 +7,19 @@
   display: flex;
   align-items: center;
   padding-top: 100px;
-  /* background-image: url(../../assets/img/hero.gif); */
-  background-image: url(../../assets/img/services/videography.gif);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
   height: 100vh;
+  background-color: #000; /* Fallback color while video loads */
 }
+.hero-video-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* This makes the video behave like 'background-size: cover' */
+  z-index: 1;
+}
+
 .hero-section::before {
   content: "";
   position: absolute;
@@ -22,9 +27,9 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.1));
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.2));
+  z-index: 2; /* Higher than video */
 }
-
 /* CONTENT POSITIONING */
 .hero-content {
   position: relative;

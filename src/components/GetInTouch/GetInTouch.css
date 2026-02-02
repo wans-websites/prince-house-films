@@ -255,7 +255,7 @@
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  height: 100%;
+  min-height: 100% !important;
 }
 
 .cta-card-compact {
@@ -271,7 +271,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 65%;
+  justify-content: space-evenly;
+  min-height: 100%;
 }
 
 .cta-icon-compact {
@@ -292,7 +293,6 @@
 }
 
 .cta-content {
-  flex: 1;
   display: flex;
   flex-direction: column;
   width: 100%;

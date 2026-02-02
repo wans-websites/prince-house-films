@@ -613,3 +613,100 @@
     transform: none;
   }
 }
+
+/* Global Footer View More Button */
+.service-modal-footer-cta {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 0;
+}
+
+.global-view-more-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--color-primary, #ff2a26);
+  color: white;
+  padding: 12px 32px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 42, 38, 0.3);
+}
+
+.global-view-more-btn:hover {
+  background: white;
+  color: var(--color-primary, #ff2a26);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 42, 38, 0.4);
+}
+
+.global-view-more-btn svg {
+  transition: transform 0.3s ease;
+}
+
+.global-view-more-btn:hover svg {
+  transform: translateX(4px);
+}
+
+/* Optional: Hide individual buttons from MediaEmbed if you can't edit that file directly */
+.service-modal-grid .media-embed-view-more-button-container {
+  display: none !important;
+}
+
+/* FORCE HIDE individual buttons inside the grid items */
+.service-modal-grid-item .media-embed-view-more-button-container,
+.service-modal-grid-item .media-embed-view-more-button {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Ensure the background gradient overlay for individual buttons is also removed */
+.service-modal-grid-item .media-embed-view-more-button-container {
+  background: transparent !important;
+}
+
+/* Global Footer View More Button Styles */
+.service-modal-footer-cta {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0;
+}
+
+.global-view-more-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #ff2a26; /* Your primary red */
+  color: #ffffff;
+  padding: 10px 30px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 500;
+  /* font-size: 16px; */
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 15px rgba(255, 42, 38, 0.4);
+  border: 2px solid transparent;
+}
+
+.global-view-more-btn:hover {
+  background: transparent;
+  color: #ff2a26;
+  border-color: #ff2a26;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(255, 42, 38, 0.5);
+}
+
+.global-view-more-btn svg {
+  transition: transform 0.3s ease;
+}
+
+.global-view-more-btn:hover svg {
+  transform: translateX(5px);
+}
