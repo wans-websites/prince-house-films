@@ -1,13 +1,18 @@
 import { motion } from "framer-motion";
 import "./Hero.css";
-import heroVideo from "../../assets/vid/hero.mov";
+// import heroVideo from "../../assets/vid/hero.mov";
 
 const Hero = () => {
   return (
     <section id="home" className="phf-section hero-section">
       {/* VIDEO BACKGROUND */}
       <video autoPlay muted loop playsInline className="hero-video-bg">
-        <source src={heroVideo} type="video/mp4" />
+        <source
+          src={
+            "https://res.cloudinary.com/dlzstmm4e/video/upload/v1770377544/hero_tycjh1.mov"
+          }
+          type="video/mp4"
+        />
         Your browser does not support the video tag.
       </video>
 

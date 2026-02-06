@@ -188,7 +188,7 @@ const GetInTouch = () => {
                     <BiCalendar /> Book Now
                   </motion.a>
                   <motion.a
-                    href="tel:+254701914626"
+                    href="tel:+254715130028"
                     className="cta-btn-secondary"
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.97 }}

@@ -85,16 +85,7 @@ const ServiceModal = ({ isOpen, onClose, serviceData }) => {
           title: "Another Project",
           platform: "Instagram",
         },
-        {
-          type: "cloudinary_video",
-          embedPublicId: "IMG_9457_kpeuab",
-          cloudName: "dlzstmm4e",
-          thumbnail: "your_thumbnail_url",
-          redirectUrl:
-            "https://www.instagram.com/reel/DLCkr7xNWVZ/?igsh=MWhvMWcwdjJtNnVjcA==",
-          title: "Another Project",
-          platform: "Instagram",
-        },
+
         {
           type: "cloudinary_video",
           embedPublicId: "IMG_9463_buc6tr",
@@ -224,6 +215,16 @@ const ServiceModal = ({ isOpen, onClose, serviceData }) => {
         {
           type: "cloudinary_video",
           embedPublicId: "IMG_7951_g58a5f",
+          cloudName: "dlzstmm4e",
+          thumbnail: "your_thumbnail_url",
+          redirectUrl:
+            "https://www.instagram.com/reel/DSfPD9IDHeC/?igsh=NnNseDA4a3M1dTZh",
+          title: "Another Project",
+          platform: "Instagram",
+        },
+        {
+          type: "cloudinary_video",
+          embedPublicId: "IMG_9457_kpeuab",
           cloudName: "dlzstmm4e",
           thumbnail: "your_thumbnail_url",
           redirectUrl:
