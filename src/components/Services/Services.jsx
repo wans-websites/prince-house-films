@@ -9,9 +9,7 @@ import {
   BiPalette,
 } from "react-icons/bi";
 import img1 from "../../assets/img/services/creativeContent.gif";
-import event from "../../assets/img/services/event.gif";
 import motionGraphic from "../../assets/img/services/motion.gif";
-import graphic from "../../assets/img/services/graphic.png";
 
 const services = [
   {
@@ -32,14 +30,16 @@ const services = [
     title: "Graphic Design",
     text: "Visual identity, branding, and design systems that communicate your brand's essence effectively.",
     icon: <BiPalette />,
-    bgImage: graphic,
+    bgImage:
+      "https://res.cloudinary.com/dlzstmm4e/image/upload/v1772016318/graphic_o3iezn.png",
     hasBg: true,
   },
   {
     title: "Event Coverage",
     text: "Where Visual storytelling meets strategy",
     icon: <BiVideoRecording />,
-    bgImage: event,
+    bgImage:
+      "https://res.cloudinary.com/dlzstmm4e/image/upload/v1772016829/event_iuwskj.gif",
     hasBg: true,
   },
 ];
