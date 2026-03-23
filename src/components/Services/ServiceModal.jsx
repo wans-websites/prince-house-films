@@ -224,7 +224,7 @@ const ServiceModal = ({ isOpen, onClose, serviceData }) => {
         },
         {
           type: "cloudinary_video",
-          embedPublicId: "IMG_9457_kpeuab",
+          embedPublicId: "ezyZip-2_y7hvbg",
           cloudName: "dlzstmm4e",
           thumbnail: "your_thumbnail_url",
           redirectUrl:
@@ -232,6 +232,16 @@ const ServiceModal = ({ isOpen, onClose, serviceData }) => {
           title: "Another Project",
           platform: "Instagram",
         },
+        // {
+        //   type: "cloudinary_video",
+        //   embedPublicId: "IMG_9457_kpeuab",
+        //   cloudName: "dlzstmm4e",
+        //   thumbnail: "your_thumbnail_url",
+        //   redirectUrl:
+        //     "https://www.instagram.com/reel/DSfPD9IDHeC/?igsh=NnNseDA4a3M1dTZh",
+        //   title: "Another Project",
+        //   platform: "Instagram",
+        // },
       ],
     };
     return contentMap[serviceTitle] || [];
