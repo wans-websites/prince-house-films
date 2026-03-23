@@ -224,13 +224,18 @@ const ServiceModal = ({ isOpen, onClose, serviceData }) => {
         },
         {
           type: "cloudinary_video",
+<<<<<<< HEAD
           embedPublicId: "ezyZip_p3a45w",
+=======
+          embedPublicId: "ezyZip-2_y7hvbg",
+>>>>>>> bf08669 (chore: added a file)
           cloudName: "dlzstmm4e",
           thumbnail: "https://res.cloudinary.com/dlzstmm4e/video/upload/c_fill,w_400,h_300/ezyZip_p3a45w.jpg",
           redirectUrl: "https://www.instagram.com/reel/XXXXX/", // optional
           title: "Another Project",
           platform: "Instagram",
         },
+<<<<<<< HEAD
         {
           type: "cloudinary_video",
           embedPublicId: "ezyZip-2_y7hvbg", // just the public ID
@@ -240,6 +245,18 @@ const ServiceModal = ({ isOpen, onClose, serviceData }) => {
           title: "Another Project",
           platform: "Instagram",
         }
+=======
+        // {
+        //   type: "cloudinary_video",
+        //   embedPublicId: "IMG_9457_kpeuab",
+        //   cloudName: "dlzstmm4e",
+        //   thumbnail: "your_thumbnail_url",
+        //   redirectUrl:
+        //     "https://www.instagram.com/reel/DSfPD9IDHeC/?igsh=NnNseDA4a3M1dTZh",
+        //   title: "Another Project",
+        //   platform: "Instagram",
+        // },
+>>>>>>> bf08669 (chore: added a file)
       ],
     };
     return contentMap[serviceTitle] || [];

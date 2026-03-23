@@ -1,0 +1,420 @@
+[
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "title",
+        "type": "string",
+        "title": "Main Title"
+      },
+      {
+        "name": "highlightedText",
+        "type": "string"
+      },
+      {
+        "name": "ctaText",
+        "type": "string",
+        "title": "CTA Text"
+      },
+      {
+        "initialValue": "#contact",
+        "name": "ctaLink",
+        "type": "string",
+        "title": "CTA Link"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Video URL",
+              "value": "video"
+            },
+            {
+              "title": "Image",
+              "value": "image"
+            }
+          ],
+          "layout": "radio"
+        },
+        "initialValue": "video",
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "valid",
+                "constraint": [
+                  "video",
+                  "image"
+                ]
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "backgroundType",
+        "type": "string"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "hidden": "conditional",
+        "name": "backgroundVideoUrl",
+        "type": "url",
+        "title": "Background Video URL"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "hidden": "conditional",
+        "name": "backgroundImage",
+        "type": "image"
+      }
+    ],
+    "name": "hero",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "rows": 3,
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              },
+              {
+                "flag": "max",
+                "constraint": 220
+              }
+            ]
+          }
+        ],
+        "name": "text",
+        "type": "text",
+        "title": "Short Description"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Pen",
+              "value": "pen"
+            },
+            {
+              "title": "Slideshow",
+              "value": "slideshow"
+            },
+            {
+              "title": "Palette",
+              "value": "palette"
+            },
+            {
+              "title": "Video",
+              "value": "video"
+            }
+          ]
+        },
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "valid",
+                "constraint": [
+                  "pen",
+                  "slideshow",
+                  "palette",
+                  "video"
+                ]
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "icon",
+        "type": "string",
+        "title": "Icon Key"
+      },
+      {
+        "initialValue": false,
+        "name": "featured",
+        "type": "boolean"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              },
+              {
+                "flag": "min",
+                "constraint": 0
+              }
+            ]
+          }
+        ],
+        "name": "orderRank",
+        "type": "number",
+        "title": "Order"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Image",
+              "value": "image"
+            },
+            {
+              "title": "Video/GIF URL",
+              "value": "videoUrl"
+            }
+          ],
+          "layout": "radio"
+        },
+        "initialValue": "image",
+        "name": "backgroundType",
+        "type": "string"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "hidden": "conditional",
+        "name": "backgroundImage",
+        "type": "image"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "hidden": "conditional",
+        "name": "backgroundVideoUrl",
+        "type": "url",
+        "title": "Background Video/GIF URL"
+      },
+      {
+        "of": [
+          {
+            "type": "mediaItem"
+          }
+        ],
+        "name": "mediaItems",
+        "type": "array",
+        "title": "Modal Media Items"
+      }
+    ],
+    "name": "service",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Image",
+              "value": "image"
+            },
+            {
+              "title": "Video URL",
+              "value": "video"
+            }
+          ],
+          "layout": "radio"
+        },
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "valid",
+                "constraint": [
+                  "image",
+                  "video"
+                ]
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "type",
+        "type": "string",
+        "title": "Media Type"
+      },
+      {
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "hidden": "conditional",
+        "name": "image",
+        "type": "image",
+        "title": "Sanity Image"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "hidden": "conditional",
+        "name": "imageUrl",
+        "type": "url",
+        "title": "External Image URL"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "hidden": "conditional",
+        "name": "videoUrl",
+        "type": "url",
+        "title": "Video URL"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "name": "externalUrl",
+        "type": "url",
+        "title": "External Link"
+      }
+    ],
+    "name": "mediaItem",
+    "type": "object"
+  }
+]
