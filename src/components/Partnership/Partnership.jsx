@@ -1,3 +1,4 @@
+// src/components/Partnership/Partnership.jsx
 import { motion } from "framer-motion";
 import "./Partnerships.css";
 

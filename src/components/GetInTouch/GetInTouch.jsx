@@ -1,3 +1,4 @@
+// src/components/GetInTouch/GetInTouch.jsx
 import { motion } from "framer-motion";
 import "./GetInTouch.css";
 import {

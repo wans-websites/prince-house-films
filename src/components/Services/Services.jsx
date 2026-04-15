@@ -1,5 +1,6 @@
-import { motion } from "framer-motion";
-import { useState } from "react";
+// src/components/Services/Services.jsx
+
+import { useMemo, useState } from "react";
 import "./Services.css";
 import ServiceModal from "./ServiceModal";
 import {
@@ -8,107 +9,87 @@ import {
   BiSlideshow,
   BiPalette,
 } from "react-icons/bi";
-import img1 from "../../assets/img/services/creativeContent.gif";
-import motionGraphic from "../../assets/img/services/motion.gif";
+import { urlFor } from "../../lib/sanity";
+import creativeContentGif from "../../assets/img/services/creativeContent.gif";
+import motionGif from "../../assets/img/services/motion.gif";
 
-const services = [
-  {
-    title: "Creative Content",
-    text: "Engaging digital content designed for social media, campaigns, and brand storytelling that captures attention.",
-    icon: <BiPen />,
-    bgImage: img1,
-    hasBg: true,
-  },
-  {
-    title: "Motion Graphics",
-    text: "Dynamic animations, explainer videos, and cinematic title sequences that bring concepts to life.",
-    icon: <BiSlideshow />,
-    bgImage: motionGraphic,
-    hasBg: true,
-  },
-  {
-    title: "Graphic Design",
-    text: "Visual identity, branding, and design systems that communicate your brand's essence effectively.",
-    icon: <BiPalette />,
-    bgImage:
-      "https://res.cloudinary.com/dlzstmm4e/image/upload/v1772016318/graphic_o3iezn.png",
-    hasBg: true,
-  },
-  {
-    title: "Event Coverage",
-    text: "Where Visual storytelling meets strategy",
-    icon: <BiVideoRecording />,
-    bgImage:
-      "https://res.cloudinary.com/dlzstmm4e/image/upload/v1772016829/event_iuwskj.gif",
-    hasBg: true,
-  },
-];
+const iconMap = {
+  pen: <BiPen />,
+  slideshow: <BiSlideshow />,
+  palette: <BiPalette />,
+  video: <BiVideoRecording />,
+};
 
-export default function Services() {
+export default function Services({ services = [] }) {
   const [selectedService, setSelectedService] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleServiceClick = (service) => {
-    setSelectedService(service);
-    setIsModalOpen(true);
-  };
+  const mappedServices = useMemo(() => {
+    return services.map((item) => {
+      let bgImage = "";
 
-  const closeModal = () => {
-    setIsModalOpen(false);
-    setTimeout(() => setSelectedService(null), 300); // Clear after animation
-  };
+      if (item.title === "Creative Content") {
+        bgImage = creativeContentGif;
+      } else if (item.title === "Motion Graphics") {
+        bgImage = motionGif;
+      } else if (item.backgroundType === "image" && item.backgroundImage) {
+        bgImage = urlFor(item.backgroundImage)
+          .width(1200)
+          .height(900)
+          .fit("crop")
+          .url();
+      } else {
+        bgImage = item.backgroundVideoUrl || "";
+      }
+
+      return {
+        ...item,
+        iconElement: iconMap[item.icon] || <BiPen />,
+        bgImage,
+        hasBg: Boolean(bgImage),
+      };
+    });
+  }, [services]);
 
   return (
     <section id="services" className="services-section">
       <div className="services-glow-overlay"></div>
       <div className="services-container">
-        <motion.h2
-          className="services-section-title"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          Our Creative Services
-        </motion.h2>
+        <h2 className="services-section-title">Our Creative Services</h2>
 
         <div className="services-bento-container">
           <div className="services-bento-grid">
-            {services.map((item, i) => (
-              <motion.div
-                key={i}
+            {mappedServices.map((item) => (
+              <div
+                key={item._id}
                 className={`services-bento-item ${item.hasBg ? "services-has-bg" : ""} ${
-                  i === 0 || i === 3 ? "services-featured" : ""
+                  item.featured ? "services-featured" : ""
                 }`}
                 style={{ "--services-bento-bg": `url(${item.bgImage})` }}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: i * 0.05 }}
-                whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
-                onClick={() => handleServiceClick(item)}
+                onClick={() => setSelectedService(item)}
                 role="button"
                 tabIndex={0}
                 onKeyDown={(e) => {
                   if (e.key === "Enter" || e.key === " ") {
-                    handleServiceClick(item);
+                    setSelectedService(item);
                   }
                 }}
               >
                 <div className="services-bento-content">
                   <div>
-                    <div className="services-bento-icon">{item.icon}</div>
+                    <div className="services-bento-icon">
+                      {item.iconElement}
+                    </div>
                     <h3 className="services-bento-title">{item.title}</h3>
                   </div>
                   <p className="services-bento-text">{item.text}</p>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
 
-        {/* Service Modal */}
         <ServiceModal
-          isOpen={isModalOpen}
-          onClose={closeModal}
+          onClose={() => setSelectedService(null)}
           serviceData={selectedService}
         />
       </div>

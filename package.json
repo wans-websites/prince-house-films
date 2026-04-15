@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@sanity/client": "^7.21.0",
+    "@sanity/image-url": "^2.1.1",
     "@srexi/purecounterjs": "^1.5.0",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",
@@ -11,12 +13,14 @@
     "aos": "^2.3.4",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
+    "dotenv": "^17.4.2",
     "framer-motion": "^12.26.2",
     "glightbox": "^3.3.1",
     "isotope-layout": "^3.0.6",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-icons": "^5.5.0",
+    "react-router-dom": "^7.14.1",
     "react-scripts": "5.0.1",
     "swiper": "^12.0.3",
     "web-vitals": "^2.1.4"

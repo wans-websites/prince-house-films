@@ -1,91 +1,46 @@
-import React, { useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+// src/components/Services/ServiceModal.jsx
+
+import { useEffect, useMemo } from "react";
 import { BiChevronRight, BiX } from "react-icons/bi";
 import "./ServiceModal.css";
 import MediaEmbed, { VideoPlayerProvider } from "../MediaEmbed";
 
-const ServiceModal = ({ isOpen, onClose, serviceData }) => {
+const ServiceModal = ({ onClose, serviceData }) => {
   useEffect(() => {
+    if (!serviceData) return;
+
     const handleEsc = (e) => {
       if (e.key === "Escape") onClose();
     };
-    if (isOpen) {
-      document.addEventListener("keydown", handleEsc);
-      document.body.style.overflow = "hidden";
-    }
+
+    document.addEventListener("keydown", handleEsc);
+    document.body.style.overflow = "hidden";
+
     return () => {
       document.removeEventListener("keydown", handleEsc);
       document.body.style.overflow = "auto";
     };
-  }, [isOpen, onClose]);
+  }, [serviceData, onClose]);
 
-  if (!isOpen || !serviceData) return null;
+  const contentItems = useMemo(() => {
+    if (!serviceData?.mediaItems?.length) return [];
 
-  const getServiceContent = (serviceTitle) => {
-    const contentMap = {
-      "Creative Content": [
-        {
-          type: "cloudinary_video",
-          embedPublicId: "IMG_9459_yplb1m",
-          cloudName: "dlzstmm4e",
-          thumbnail:
-            "https://res.cloudinary.com/dlzstmm4e/video/upload/c_fill,w_400,h_500,so_0.5/e_blur:500,q_auto/IMG_9459_yplb1m.jpg",
-          redirectUrl:
-            "https://www.instagram.com/reel/DAyOtJ7IZj4/?igsh=N3ZjajVlNjVrY3Ro",
-          title: "Brand Commercial",
-          platform: "Instagram",
-        },
-        {
-          type: "cloudinary_video",
-          embedPublicId: "IMG_9460_in27nw",
-          cloudName: "dlzstmm4e",
-          thumbnail: "your_thumbnail_url",
-          redirectUrl:
-            "https://www.instagram.com/reel/DBLWhicogNb/?igsh=djNyYmltZjZqdzZz",
-          title: "Another Project",
-          platform: "Instagram",
-        },
-        {
-          type: "cloudinary_video",
-          embedPublicId: "IMG_9458_iyqbut",
-          cloudName: "dlzstmm4e",
-          thumbnail: "your_thumbnail_url",
-          redirectUrl:
-            "https://www.instagram.com/reel/C5f0e85oSK-/?igsh=MXNhbmxubGNiYWhqbQ==",
-          title: "Another Project",
-          platform: "Instagram",
-        },
-        {
-          type: "cloudinary_video",
-          embedPublicId: "IMG_9462_oxhb9t",
-          cloudName: "dlzstmm4e",
-          thumbnail: "your_thumbnail_url",
-          redirectUrl:
-            "https://www.instagram.com/reel/DHIazr6oFDJ/?igsh=YzVud2F3Y3Y5cXdp",
-          title: "Another Project",
-          platform: "Instagram",
-        },
-        {
-          type: "cloudinary_video",
-          embedPublicId: "IMG_9461_iktmk1",
-          cloudName: "dlzstmm4e",
-          thumbnail: "your_thumbnail_url",
-          redirectUrl:
-            "https://www.instagram.com/reel/DGxFvJUoDQb/?igsh=MWU5eGxrdTZpejlmdQ==",
-          title: "Another Project",
-          platform: "Instagram",
-        },
-        {
-          type: "cloudinary_video",
-          embedPublicId: "IMG_2492_nrejko",
-          cloudName: "dlzstmm4e",
-          thumbnail: "your_thumbnail_url",
-          redirectUrl:
-            "https://www.instagram.com/reel/DReIWw6jJVS/?igsh=YzZiZWJnMmVwaHRy",
-          title: "Another Project",
-          platform: "Instagram",
-        },
+    return serviceData.mediaItems.map((item) => ({
+      type:
+        item.type === "video"
+          ? "external_video"
+          : item.image
+            ? "sanity_image"
+            : "external_image",
+      title: item.title || "",
+      image: item.image || null,
+      imageUrl: item.imageUrl || "",
+      videoUrl: item.videoUrl || "",
+      redirectUrl: item.externalUrl || "",
+    }));
+  }, [serviceData]);
 
+<<<<<<< HEAD
         {
           type: "cloudinary_video",
           embedPublicId: "IMG_9463_buc6tr",
@@ -269,94 +224,64 @@ const ServiceModal = ({ isOpen, onClose, serviceData }) => {
   const showGlobalViewMore =
     serviceData.title === "Creative Content" ||
     serviceData.title === "Motion Graphics";
+=======
+  if (!serviceData) return null;
+>>>>>>> 3580417 (add sanity to hero and services)
 
   const instagramLink =
     "https://www.instagram.com/princehouse_films?igsh=eHFqazhiZDlhbmZs";
 
   return (
-    <AnimatePresence>
-      {isOpen && (
-        <>
-          <motion.div
-            className="service-modal-backdrop"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={onClose}
-          />
+    <>
+      <div className="service-modal-backdrop" onClick={onClose} />
 
-          <motion.div
-            className="service-modal"
-            data-service-type={isGraphicDesign ? "graphic-design" : "default"}
-            initial={{ opacity: 0, scale: 0.9, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            transition={{ type: "spring", damping: 25, stiffness: 300 }}
-          >
-            {/* Modal Header */}
-            <div className="service-modal-header">
-              <div className="service-modal-header-left">
-                <div className="service-modal-icon">{serviceData.icon}</div>
-                <div>
-                  <h2 className="service-modal-title">{serviceData.title}</h2>
-                  <p className="service-modal-subtitle">
-                    {contentItems.length} visual contents
-                  </p>
+      <div className="service-modal">
+        <div className="service-modal-header">
+          <div className="service-modal-header-left">
+            <div className="service-modal-icon">{serviceData.iconElement}</div>
+            <div>
+              <h2 className="service-modal-title">{serviceData.title}</h2>
+              <p className="service-modal-subtitle">
+                {contentItems.length} visual contents
+              </p>
+            </div>
+          </div>
+
+          <button className="service-modal-close-button" onClick={onClose}>
+            <BiX size={24} />
+          </button>
+        </div>
+
+        <VideoPlayerProvider>
+          <div className="service-modal-grid">
+            {contentItems.map((item, index) => (
+              <div
+                key={`${serviceData._id}-${index}`}
+                className="service-modal-grid-item"
+                data-item-type={item.type}
+              >
+                <div className="service-modal-thumbnail">
+                  <MediaEmbed item={item} index={index} />
                 </div>
               </div>
-              <button className="service-modal-close-button" onClick={onClose}>
-                <BiX size={24} />
-              </button>
-            </div>
+            ))}
+          </div>
+        </VideoPlayerProvider>
 
-            {/* Modal Content Grid */}
-            <VideoPlayerProvider>
-              <div className="service-modal-grid">
-                {contentItems.map((item, index) => (
-                  <motion.div
-                    key={index}
-                    className="service-modal-grid-item"
-                    data-item-type={item.type}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.05 }}
-                    whileHover={{ scale: 0.99 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    <div className="service-modal-thumbnail">
-                      <MediaEmbed item={item} index={index} />
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </VideoPlayerProvider>
-
-            {/* Modal Footer */}
-            {/* Modal Footer */}
-            <div className="service-modal-footer">
-              {showGlobalViewMore ? (
-                <div className="service-modal-footer-cta">
-                  <a
-                    href={instagramLink}
-                    target="_self"
-                    className="global-view-more-btn"
-                  >
-                    View Full Portfolio on Instagram{" "}
-                    <BiChevronRight size={24} />
-                  </a>
-                </div>
-              ) : (
-                <p className="service-modal-footer-note">
-                  {isGraphicDesign
-                    ? "Previewing design works"
-                    : "Click any item to preview full content"}
-                </p>
-              )}
-            </div>
-          </motion.div>
-        </>
-      )}
-    </AnimatePresence>
+        <div className="service-modal-footer">
+          <div className="service-modal-footer-cta">
+            <a
+              href={instagramLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="global-view-more-btn"
+            >
+              View Full Portfolio on Instagram <BiChevronRight size={24} />
+            </a>
+          </div>
+        </div>
+      </div>
+    </>
   );
 };
 
