@@ -1,3 +1,4 @@
+// src/components/About/About.jsx
 import { useRef } from "react";
 import { motion } from "framer-motion";
 import "./About.css";

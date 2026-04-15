@@ -1,3 +1,4 @@
+// src/components/Header/Header.jsx
 import React, { useState, useEffect } from "react";
 import "./Header.css";
 import logo from "../../assets/img/phf_word_logo.png";
@@ -33,7 +34,7 @@ const Header = ({ isSticky }) => {
       let current = "";
       sections.forEach((section) => {
         const sectionTop = section.offsetTop;
-        const sectionHeight = section.clientHeight;
+        // const sectionHeight = section.clientHeight;
         if (window.scrollY >= sectionTop - 200) {
           current = section.getAttribute("id");
         }

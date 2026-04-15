@@ -1,8 +1,11 @@
+/* src/components/Footer/Footer.css */
+
 .phf-footer {
   position: relative;
-  padding: 20px 0 0px;
+  padding: 24px 0 18px;
   background: linear-gradient(180deg, #0a0a0a, #050505);
   overflow: hidden;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .footer-glow {
@@ -18,92 +21,29 @@
   pointer-events: none;
 }
 
-.footer-brand {
-  text-align: center;
+.footer-socials {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 22px;
+  margin-bottom: 18px;
+  position: relative;
+  z-index: 2;
 }
 
 .footer-socials img {
   height: 64px;
-  margin-bottom: 18px;
+  margin-bottom: 0;
 }
 
-.footer-brand p {
-  font-size: 15px;
-  color: rgba(255, 255, 255, 0.6);
-  max-width: 420px;
-  margin: 0 auto;
-}
-
-.footer-divider {
-  width: 80px;
-  height: 2px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    var(--color-primary),
-    transparent
-  );
-  margin: 0 auto 70px;
-}
-
-.footer-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 80px;
-  max-width: 800px;
-  margin: 0 auto 70px;
-}
-
-.footer-info,
-.footer-links {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.footer-info h4,
-.footer-links h4 {
-  font-size: 14px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--color-primary);
-  margin-bottom: 10px;
-}
-
-.footer-info span,
-.footer-links a {
+.footer-social-icons {
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 15px;
-  color: rgba(255, 255, 255, 0.65);
 }
 
-.footer-info i,
-.footer-links i {
-  font-size: 16px;
-  color: rgba(255, 255, 255, 0.35);
-  transition: all 0.3s ease;
-}
-.footer-links a:hover i {
-  color: var(--color-primary);
-  transform: translateX(4px);
-}
-
-.footer-info span:hover i {
-  color: var(--color-primary);
-}
-
-.footer-socials {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 26px;
-  margin-bottom: 30px;
-}
-
-.footer-socials a {
+.footer-social-icons a {
   width: 46px;
   height: 46px;
   border-radius: 50%;
@@ -116,91 +56,48 @@
   transition: all 0.35s ease;
 }
 
-.footer-socials a:hover {
+.footer-social-icons a:hover {
   background: var(--color-primary);
   border-color: transparent;
   color: white;
   box-shadow: 0 10px 30px rgba(220, 31, 41, 0.4);
 }
 
+.footer-legal-links {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.footer-legal-links a {
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  transition: color 0.3s ease;
+}
+
+.footer-legal-links a:hover {
+  color: var(--color-primary);
+}
+
 .footer-bottom {
+  position: relative;
+  z-index: 2;
   text-align: center;
   font-size: 13px;
   color: rgba(255, 255, 255, 0.4);
 }
 
-.footer-main-grid {
-  display: grid;
-  grid-template-columns: 1.3fr 1fr 1fr;
-  gap: 80px;
-  max-width: 1100px;
-  margin: 0 auto 80px;
-  align-items: start;
-}
-
-/* Brand alignment for desktop */
-.footer-brand {
-  text-align: left;
-}
-
-.footer-socials img {
-  height: 64px;
-  margin-bottom: 16px;
-}
-
-.footer-brand p {
-  margin: 0;
-}
-
-/* Responsive */
 @media (max-width: 768px) {
-  .footer-grid {
-    grid-template-columns: 1fr;
-    gap: 50px;
-    text-align: center;
-  }
-  .footer-info span,
-  .footer-links a {
+  .footer-socials {
     justify-content: center;
-  }
-}
-
-.footer-main-grid {
-  display: grid;
-  grid-template-columns: 1.3fr 1fr 1fr;
-  gap: 80px;
-  max-width: 1100px;
-  margin: 0 auto 80px;
-  padding: 0 20px; /* mobile safety */
-  align-items: start;
-}
-
-/* Tablet */
-@media (max-width: 1024px) {
-  .footer-main-grid {
-    grid-template-columns: 1fr 1fr;
-    gap: 50px;
-  }
-
-  .footer-brand {
-    grid-column: 1 / -1; /* brand spans full row */
-  }
-}
-
-/* Mobile */
-@media (max-width: 768px) {
-  .footer-main-grid {
-    grid-template-columns: 1fr;
-    gap: 40px;
     text-align: center;
   }
 
-  .footer-brand {
-    text-align: center;
-  }
-
-  .footer-info span,
-  .footer-links a {
-    justify-content: center;
+  .footer-socials img {
+    width: auto;
   }
 }

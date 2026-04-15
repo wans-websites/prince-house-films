@@ -1,3 +1,4 @@
+// src/components/Team/Team.jsx
 import { motion } from "framer-motion";
 import "./Team.css";
 
