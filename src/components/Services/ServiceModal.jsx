@@ -4,6 +4,7 @@ import { useEffect, useMemo } from "react";
 import { BiChevronRight, BiX } from "react-icons/bi";
 import "./ServiceModal.css";
 import MediaEmbed, { VideoPlayerProvider } from "../MediaEmbed";
+import ErrorBoundary from "../ErrorBoundary";
 
 const ServiceModal = ({ onClose, serviceData }) => {
   useEffect(() => {
@@ -49,7 +50,7 @@ const ServiceModal = ({ onClose, serviceData }) => {
     <>
       <div className="service-modal-backdrop" onClick={onClose} />
 
-      <div className="service-modal">
+      <div className="service-modal" key={serviceData._id}>
         <div className="service-modal-header">
           <div className="service-modal-header-left">
             <div className="service-modal-icon">{serviceData.iconElement}</div>
@@ -68,17 +69,24 @@ const ServiceModal = ({ onClose, serviceData }) => {
 
         <VideoPlayerProvider>
           <div className="service-modal-grid">
-            {contentItems.map((item, index) => (
-              <div
-                key={`${serviceData._id}-${index}`}
-                className="service-modal-grid-item"
-                data-item-type={item.type}
-              >
-                <div className="service-modal-thumbnail">
-                  <MediaEmbed item={item} index={index} />
+            <ErrorBoundary>
+              {contentItems.map((item, index) => (
+                <div
+                  key={`${serviceData._id}-${index}-${
+                    item.videoUrl ||
+                    item.imageUrl ||
+                    item.image?._ref ||
+                    "img"
+                  }`}
+                  className="service-modal-grid-item"
+                  data-item-type={item.type}
+                >
+                  <div className="service-modal-thumbnail">
+                    <MediaEmbed item={item} index={index} />
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </ErrorBoundary>
           </div>
         </VideoPlayerProvider>
 

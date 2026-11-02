@@ -10,6 +10,7 @@ import {
   BiPalette,
 } from "react-icons/bi";
 import { urlFor } from "../../lib/sanity";
+import { getYouTubeId } from "../../lib/mediaUtils";
 import creativeContentGif from "../../assets/img/services/creativeContent.gif";
 import motionGif from "../../assets/img/services/motion.gif";
 
@@ -18,6 +19,13 @@ const iconMap = {
   slideshow: <BiSlideshow />,
   palette: <BiPalette />,
   video: <BiVideoRecording />,
+};
+
+const YOUTUBE_THUMB = (url) => {
+  const id = getYouTubeId(url);
+  // hqdefault.jpg always exists for every public YouTube video; maxresdefault
+  // 404s for many uploads and would render blank inside a CSS background.
+  return id ? `https://i.ytimg.com/vi/${id}/hqdefault.jpg` : "";
 };
 
 export default function Services({ services = [] }) {
@@ -38,7 +46,10 @@ export default function Services({ services = [] }) {
           .fit("crop")
           .url();
       } else {
-        bgImage = item.backgroundVideoUrl || "";
+        const raw = item.backgroundVideoUrl || "";
+        // YouTube watch/shorts/youtu.be URLs are HTML pages, not images — swap to
+        // the static thumbnail so the bento card actually shows something.
+        bgImage = YOUTUBE_THUMB(raw) || raw;
       }
 
       return {

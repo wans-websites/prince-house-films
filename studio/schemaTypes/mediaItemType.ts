@@ -42,6 +42,7 @@ export const mediaItemType = defineType({
       name: 'videoUrl',
       title: 'Video URL',
       type: 'url',
+      description: 'YouTube, Vimeo, or direct video file URL (mp4, webm, etc.)',
       hidden: ({parent}) => parent?.type !== 'video',
     }),
     defineField({
