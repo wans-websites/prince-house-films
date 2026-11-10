@@ -12,65 +12,28 @@ import {
   BiLogoLinkedin,
 } from "react-icons/bi";
 import { FaTiktok } from "react-icons/fa";
+import { useSanityData } from "../../lib/useSanityData";
+import { getInTouchQuery } from "../../lib/queries";
+import { fallbackGetInTouch } from "../../lib/fallbacks";
+
+const contactIconMap = {
+  map: <BiMap />,
+  envelope: <BiEnvelope />,
+  phone: <BiPhone />,
+};
+
+const socialIconMap = {
+  BiLogoInstagram: <BiLogoInstagram />,
+  BiLogoFacebook: <BiLogoFacebook />,
+  FaTiktok: <FaTiktok />,
+  BiLogoLinkedin: <BiLogoLinkedin />,
+};
 
 const GetInTouch = () => {
-  const contactInfo = [
-    {
-      icon: <BiMap />,
-      title: "Location",
-      content: "Nairobi, Kenya",
-      link: "https://maps.google.com/?q=Nairobi+Kenya",
-      linkText: "Directions",
-      external: true,
-    },
-    {
-      icon: <BiEnvelope />,
-      title: "Email",
-      content: "info@princehousefilms.com",
-      link: "mailto:info@princehousefilms.com",
-      linkText: "Email Us",
-      external: false,
-    },
-    {
-      icon: <BiPhone />,
-      title: "Phone",
-      content: "+254 715 130 028",
-      link: "tel:+254 715 130 028",
-      linkText: "Call Now",
-      external: false,
-    },
-  ];
+  const { data } = useSanityData(getInTouchQuery, {}, fallbackGetInTouch);
 
-  const socialMedia = [
-    {
-      platform: "Instagram",
-      handle: "@princehouse_films",
-      icon: <BiLogoInstagram />,
-      link: "https://instagram.com/princehouse_films",
-      color: "#E1306C",
-    },
-    {
-      platform: "Facebook",
-      handle: "Prince House Films",
-      icon: <BiLogoFacebook />,
-      link: "https://facebook.com/PrinceHouseFilms",
-      color: "#1877F2",
-    },
-    {
-      platform: "TikTok",
-      handle: "@princehousefilms",
-      icon: <FaTiktok />,
-      link: "https://tiktok.com/@princehousefilms",
-      color: "#000000",
-    },
-    {
-      platform: "LinkedIn",
-      handle: "Prince House Films",
-      icon: <BiLogoLinkedin />,
-      link: "https://linkedin.com/company/prince-house-films",
-      color: "#0A66C2",
-    },
-  ];
+  const contactInfo = data.contactDetails || [];
+  const socialMedia = data.socials || [];
 
   return (
     <section id="contact" className="phf-section getintouch-section">
@@ -82,10 +45,9 @@ const GetInTouch = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="section-title">Have a Project In Mind?</h2>
+          <h2 className="section-title">{data.sectionTitle}</h2>
           <p className="section-subtitle">
-            Ready to bring your vision to life? Connect with us through any
-            channel.
+            {data.intro}
           </p>
         </motion.div>
 
@@ -106,7 +68,9 @@ const GetInTouch = () => {
                     transition: { duration: 0.2 },
                   }}
                 >
-                  <div className="compact-icon">{info.icon}</div>
+                  <div className="compact-icon">
+                    {contactIconMap[info.iconKey]}
+                  </div>
                   <div className="compact-content">
                     <h3>{info.title}</h3>
                     <p>{info.content}</p>
@@ -132,26 +96,26 @@ const GetInTouch = () => {
             >
               <div className="social-header">
                 <BiChat className="social-header-icon" />
-                <h3>Follow Us</h3>
+                <h3>{data.socialsHeading}</h3>
               </div>
               <div className="social-grid-compact">
                 {socialMedia.map((social, index) => (
-                  <motion.a
-                    key={index}
-                    href={social.link}
-                    className="social-item-compact"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    style={{ "--social-color": social.color }}
-                  >
-                    <div
-                      className="social-icon-compact"
-                      style={{ color: social.color }}
+                    <motion.a
+                      key={index}
+                      href={social.url}
+                      className="social-item-compact"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      style={{ "--social-color": social.color }}
                     >
-                      {social.icon}
-                    </div>
+                      <div
+                        className="social-icon-compact"
+                        style={{ color: social.color }}
+                      >
+                        {socialIconMap[social.iconClass]}
+                      </div>
                     <span className="social-platform-compact">
                       {social.platform}
                     </span>
@@ -173,32 +137,32 @@ const GetInTouch = () => {
                 <BiCalendar />
               </div>
               <div className="cta-content">
-                <h3 className="cta-title-compact">Free 30-Min Consultation</h3>
+                <h3 className="cta-title-compact">{data.ctaTitle}</h3>
                 <p className="cta-desc-compact">
-                  Discuss your project with our creative director
+                  {data.ctaDescription}
                 </p>
                 <div className="cta-buttons-compact">
                   <motion.a
-                    href="https://calendly.com/princehousefilms/consultation"
+                    href={data.consultationUrl}
                     className="cta-btn-primary"
                     target="_blank"
                     rel="noopener noreferrer"
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.97 }}
                   >
-                    <BiCalendar /> Book Now
+                    <BiCalendar /> {data.bookNowLabel}
                   </motion.a>
                   <motion.a
-                    href="tel:+254715130028"
+                    href={data.callUrl}
                     className="cta-btn-secondary"
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.97 }}
                   >
-                    <BiPhone /> Call
+                    <BiPhone /> {data.callLabel}
                   </motion.a>
                 </div>
                 <div className="cta-note">
-                  <BiChat /> 24-hour response
+                  <BiChat /> {data.ctaNote}
                 </div>
               </div>
             </div>
