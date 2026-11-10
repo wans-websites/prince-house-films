@@ -9,30 +9,21 @@ import {
   BiGroup,
   BiAward,
 } from "react-icons/bi";
+import { useSanityData } from "../../lib/useSanityData";
+import { objectivesQuery } from "../../lib/queries";
+import { fallbackObjectives } from "../../lib/fallbacks";
+
+const valueIconMap = {
+  bulb: <BiBulb />,
+  heart: <BiHeart />,
+  "trending-up": <BiTrendingUp />,
+  group: <BiGroup />,
+};
 
 export default function Objectives() {
-  const values = [
-    {
-      icon: <BiBulb />,
-      title: "Innovation",
-      desc: "Pushing creative boundaries with fresh ideas and cutting-edge techniques",
-    },
-    {
-      icon: <BiHeart />,
-      title: "Passion",
-      desc: "Driven by genuine love for storytelling and visual excellence",
-    },
-    {
-      icon: <BiTrendingUp />,
-      title: "Excellence",
-      desc: "Uncompromising quality in every frame and every project",
-    },
-    {
-      icon: <BiGroup />,
-      title: "Collaboration",
-      desc: "Partnering closely with clients to achieve shared vision",
-    },
-  ];
+  const { data } = useSanityData(objectivesQuery, {}, fallbackObjectives);
+
+  const values = data.values;
 
   return (
     <section className="phf-section objectives-section" id="approach">
@@ -44,12 +35,10 @@ export default function Objectives() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          Our Vision & Mission
+          {data.sectionTitle}
         </motion.h2>
         <p className="section-subtitle">
-          At Prince House Films, we're driven by more than just producing
-          content. We're committed to creating meaningful visual stories that
-          inspire action and leave lasting impact.
+          {data.intro}
         </p>
 
         <div className="vision-mission-grid">
@@ -66,13 +55,9 @@ export default function Objectives() {
             <div className="card-icon">
               <BiTargetLock />
             </div>
-            <h3 className="card-title">Our Vision</h3>
+            <h3 className="card-title">{data.vision.title}</h3>
             <p className="card-text">
-              To become Africa's foremost creative production powerhouse,
-              revolutionizing visual storytelling through innovation, cultural
-              authenticity, and cinematic excellence. We envision a future where
-              African narratives dominate global screens, inspiring generations
-              and shaping perceptions worldwide.
+              {data.vision.body}
             </p>
           </motion.div>
 
@@ -89,13 +74,9 @@ export default function Objectives() {
             <div className="card-icon">
               <BiRocket />
             </div>
-            <h3 className="card-title">Our Mission</h3>
+            <h3 className="card-title">{data.mission.title}</h3>
             <p className="card-text">
-              To empower brands, organizations, and individuals with compelling
-              visual stories that drive growth, foster emotional connections,
-              and inspire meaningful action. Through technical mastery, creative
-              innovation, and collaborative partnerships, we transform concepts
-              into captivating cinematic experiences.
+              {data.mission.body}
             </p>
           </motion.div>
         </div>
@@ -115,7 +96,7 @@ export default function Objectives() {
               margin: "80px 0 40px",
             }}
           >
-            Our Core Values
+            {data.valuesHeading}
           </h3>
 
           <div className="values-grid">
@@ -131,9 +112,11 @@ export default function Objectives() {
                   transition: { duration: 0.2 },
                 }}
               >
-                <div className="value-icon">{value.icon}</div>
+                <div className="value-icon">
+                  {valueIconMap[value.iconKey]}
+                </div>
                 <h4 className="value-title">{value.title}</h4>
-                <p className="value-desc">{value.desc}</p>
+                <p className="value-desc">{value.description}</p>
               </motion.div>
             ))}
           </div>
