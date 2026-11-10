@@ -13,6 +13,9 @@ import { urlFor } from "../../lib/sanity";
 import { getYouTubeId } from "../../lib/mediaUtils";
 import creativeContentGif from "../../assets/img/services/creativeContent.gif";
 import motionGif from "../../assets/img/services/motion.gif";
+import { useSanityData } from "../../lib/useSanityData";
+import { servicesSectionQuery } from "../../lib/queries";
+import { fallbackServicesSection } from "../../lib/fallbacks";
 
 const iconMap = {
   pen: <BiPen />,
@@ -30,14 +33,27 @@ const YOUTUBE_THUMB = (url) => {
 
 export default function Services({ services = [] }) {
   const [selectedService, setSelectedService] = useState(null);
+  const { data: sectionData } = useSanityData(
+    servicesSectionQuery,
+    {},
+    fallbackServicesSection
+  );
 
   const mappedServices = useMemo(() => {
     return services.map((item) => {
       let bgImage = "";
 
-      if (item.title === "Creative Content") {
+      // Title-match preserved as fallback for docs that haven't
+      // filled localFallbackKey yet (existing docs have 'none').
+      const fallbackKey =
+        item.localFallbackKey && item.localFallbackKey !== "none"
+          ? item.localFallbackKey
+          : item.title === "Creative Content" ? "creative"
+          : item.title === "Motion Graphics" ? "motion"
+          : "none";
+      if (fallbackKey === "creative") {
         bgImage = creativeContentGif;
-      } else if (item.title === "Motion Graphics") {
+      } else if (fallbackKey === "motion") {
         bgImage = motionGif;
       } else if (item.backgroundType === "image" && item.backgroundImage) {
         bgImage = urlFor(item.backgroundImage)
@@ -65,7 +81,7 @@ export default function Services({ services = [] }) {
     <section id="services" className="services-section">
       <div className="services-glow-overlay"></div>
       <div className="services-container">
-        <h2 className="services-section-title">Our Creative Services</h2>
+        <h2 className="services-section-title">{sectionData.sectionTitle}</h2>
 
         <div className="services-bento-container">
           <div className="services-bento-grid">

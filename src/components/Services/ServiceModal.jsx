@@ -5,6 +5,9 @@ import { BiChevronRight, BiX } from "react-icons/bi";
 import "./ServiceModal.css";
 import MediaEmbed, { VideoPlayerProvider } from "../MediaEmbed";
 import ErrorBoundary from "../ErrorBoundary";
+import { useSanityData } from "../../lib/useSanityData";
+import { siteSettingsQuery } from "../../lib/queries";
+import { fallbackSiteSettings } from "../../lib/fallbacks";
 
 const ServiceModal = ({ onClose, serviceData }) => {
   useEffect(() => {
@@ -22,6 +25,12 @@ const ServiceModal = ({ onClose, serviceData }) => {
       document.body.style.overflow = "auto";
     };
   }, [serviceData, onClose]);
+
+  const { data: settings } = useSanityData(
+    siteSettingsQuery,
+    {},
+    fallbackSiteSettings
+  );
 
   const contentItems = useMemo(() => {
     if (!serviceData?.mediaItems?.length) return [];
@@ -42,9 +51,6 @@ const ServiceModal = ({ onClose, serviceData }) => {
   }, [serviceData]);
 
   if (!serviceData) return null;
-
-  const instagramLink =
-    "https://www.instagram.com/princehouse_films?igsh=eHFqazhiZDlhbmZs";
 
   return (
     <>
@@ -93,12 +99,12 @@ const ServiceModal = ({ onClose, serviceData }) => {
         <div className="service-modal-footer">
           <div className="service-modal-footer-cta">
             <a
-              href={instagramLink}
+              href={settings.instagramUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="global-view-more-btn"
             >
-              View Full Portfolio on Instagram <BiChevronRight size={24} />
+              {settings.instagramCtaLabel} <BiChevronRight size={24} />
             </a>
           </div>
         </div>
