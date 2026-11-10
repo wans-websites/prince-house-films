@@ -9,18 +9,41 @@ import {
   BiStar,
   BiWorld,
 } from "react-icons/bi";
+import { useSanityData } from "../../lib/useSanityData";
+import { countsQuery } from "../../lib/queries";
+import { fallbackCounts } from "../../lib/fallbacks";
+
+const statIconMap = {
+  "camera-movie": <BiCameraMovie />,
+  trophy: <BiTrophy />,
+  globe: <BiGlobe />,
+  happy: <BiHappy />,
+};
+const statColorMap = {
+  "camera-movie": "var(--color-primary)",
+  trophy: "var(--color-cyan)",
+  globe: "var(--color-green)",
+  happy: "var(--color-purple)",
+};
+const achievementIconMap = {
+  star: <BiStar />,
+  world: <BiWorld />,
+};
 
 const Counts = () => {
-  const [counts, setCounts] = useState({
-    years: 0,
-    projects: 0,
-    clients: 0,
-    satisfaction: 0,
-  });
+  const [counts, setCounts] = useState({});
 
   const sectionRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
   const counted = useRef(false);
+  const { data } = useSanityData(countsQuery, {}, fallbackCounts);
+
+  const stats = (data.stats || []).map(stat => ({
+    ...stat,
+    number: counts[stat.key] || 0,
+  }));
+
+  const achievements = data.achievements || [];
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -47,7 +70,14 @@ const Counts = () => {
   }, []);
 
   useEffect(() => {
-    if (isVisible) {
+    if (isVisible && !counted.current) {
+      const initial = {};
+      (data.stats || []).forEach(stat => {
+        initial[stat.key] = 0;
+      });
+      setCounts(initial);
+      counted.current = true;
+
       const animateCounter = (start, end, duration, key) => {
         let startTimestamp = null;
         const step = (timestamp) => {
@@ -62,64 +92,12 @@ const Counts = () => {
         window.requestAnimationFrame(step);
       };
 
-      animateCounter(0, 10, 2000, "years");
-      animateCounter(0, 200, 2500, "projects");
-      animateCounter(0, 150, 2200, "clients");
-      animateCounter(0, 98, 1800, "satisfaction");
+      const durations = [2000, 2500, 2200, 1800];
+      (data.stats || []).forEach((stat, i) => {
+        animateCounter(0, stat.number, durations[i] || 2000, stat.key);
+      });
     }
-  }, [isVisible]);
-
-  const stats = [
-    {
-      key: "years",
-      number: counts.years,
-      suffix: "+",
-      label: "Years of Excellence",
-      description: "A decade of cinematic storytelling mastery",
-      color: "var(--color-primary)",
-      icon: <BiCameraMovie />,
-    },
-    {
-      key: "projects",
-      number: counts.projects,
-      suffix: "+",
-      label: "Projects Completed",
-      description: "Successful film and video productions",
-      color: "var(--color-cyan)",
-      icon: <BiTrophy />,
-    },
-    {
-      key: "clients",
-      number: counts.clients,
-      suffix: "+",
-      label: "Happy Clients",
-      description: "Brands and organizations served globally",
-      color: "var(--color-green)",
-      icon: <BiGlobe />,
-    },
-    {
-      key: "satisfaction",
-      number: counts.satisfaction,
-      suffix: "%",
-      label: "Client Satisfaction",
-      description: "Consistent 5-star reviews and referrals",
-      color: "var(--color-purple)",
-      icon: <BiHappy />,
-    },
-  ];
-
-  const achievements = [
-    {
-      icon: <BiStar />,
-      title: "Premium Quality",
-      description: "Broadcast standard",
-    },
-    {
-      icon: <BiWorld />,
-      title: "Global Reach",
-      description: "International projects",
-    },
-  ];
+  }, [isVisible, data]);
 
   return (
     <section
@@ -135,7 +113,7 @@ const Counts = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          Our Impact in Numbers
+          {data.sectionTitle}
         </motion.h2>
 
         {/* <p className="section-subtitle">
@@ -148,7 +126,7 @@ const Counts = () => {
             <motion.div
               key={stat.key}
               className="stat-item phf-card"
-              style={{ "--stat-color": stat.color }}
+              style={{ "--stat-color": statColorMap[stat.iconKey] }}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
@@ -157,7 +135,9 @@ const Counts = () => {
                 transition: { duration: 0.2 },
               }}
             >
-              <div className="stat-icon">{stat.icon}</div>
+              <div className="stat-icon">
+                {statIconMap[stat.iconKey]}
+              </div>
               <h3 className="stat-number" data-suffix={stat.suffix}>
                 {stat.number}
               </h3>
@@ -185,7 +165,9 @@ const Counts = () => {
                 transition: { duration: 0.2 },
               }}
             >
-              <div className="badge-icon">{achievement.icon}</div>
+              <div className="badge-icon">
+                {achievementIconMap[achievement.iconKey]}
+              </div>
               <div className="badge-text">
                 <h4>{achievement.title}</h4>
                 <p>{achievement.description}</p>
