@@ -67,4 +67,78 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 ### `npm run build` fails to minify
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify]
+
+## Editing Content via Sanity
+
+This site's content is managed in Sanity CMS. All text, images, links, and section content are editable without code changes.
+
+### Accessing Sanity Studio
+
+```bash
+cd studio
+npx sanity dev
+```
+
+Studio runs at `http://localhost:3333`.
+
+### Page Sections (Singletons)
+
+Edit once, appears once on the site. Available in the "Page Sections" list:
+
+- **Site Settings** — Brand name, logo, contact email/phone/address, social links, site URL
+- **Header** — Logo, navigation links, mobile menu ARIA labels
+- **Preloader** — Logo, loading text, status labels, background video
+- **Hero** — Headline, highlighted text, CTA label/link, background media
+- **About** — Section title, body text, CTA label/link
+- **Our Creative Process (Approach)** — Section title, process steps, showcase items, note quote
+- **Our Vision & Mission (Objectives)** — Section title, intro, vision/mission cards, core values
+- **Our Impact in Numbers (Counts)** — Section title, animated stats, achievement badges
+- **Why Choose Us** — Section title, intro, reason cards, comparison columns, footer stats
+- **Services Section** — Section heading (service cards are managed as collection items)
+- **Portfolio Section** — Section title, filter categories
+- **Gallery Section** — Section title, intro, filter categories, view-more link
+- **Team Section** — Section title, intro, group photo
+- **Partnership Section** — Badge label, section title, intro, partner logos, partnership types, action button
+- **Get In Touch** — Section title, intro, contact details, social links, CTA buttons
+- **Footer** — Logo, social links, privacy policy link, copyright text
+- **Privacy Policy** — Page title, dates, full rich-text body
+- **Error Boundary** — Media load fallback message
+
+### Collections (Repeatable Items)
+
+Add, remove, and reorder items. Available in the "Collections" list:
+
+- **Services** — Service cards for the bento grid
+- **Approach Steps** — Process step items
+- **Portfolio Categories** — Filter labels
+- **Portfolio Items** — Portfolio card entries with cover image, client, year, duration, awards
+- **Gallery Categories** — Filter labels
+- **Gallery Items** — Gallery card entries with cover image, date, location, media type
+- **Partner Logos** — Partner logo images with names and URLs
+- **Contact Details** — Contact card entries (Location, Email, Phone)
+
+### Image Uploads & Hotspots
+
+Upload images via Sanity's asset panel. Use the hotspot editor to set the focal point for cropped images.
+
+### Ordering
+
+Collection items have an `Order` field. Lower numbers appear first. Drag to reorder in Studio.
+
+### Adding New Content
+
+- **Portfolio Item:** Create a new "Portfolio Items" document, set cover image (Sanity upload or external URL), add alt text, client, year, duration, awards, and category.
+- **Service:** Create a new "Services" document, set title, description, icon key, background media, and modal media items.
+- **Partner:** Create a new "Partner Logos" document, upload logo image, set name and alt text.
+
+### Content Reference
+
+See `CONTENT_MAP.md` for a complete field-by-field mapping of site locations to Studio fields.
+
+### Known Content Notes
+
+- Header nav label "partnerships" is lowercase (pre-existing, preserved as-is)
+- `hero-singleton` and the 4 original `service-*` docs are Studio-managed and not overwritten by the seed script
+- ErrorBoundary fallback text is stored in CMS but not yet consumed (class component limitation)
+- `public/index.html` SEO meta tags are static and not yet driven by Sanity(https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
