@@ -6,6 +6,10 @@ export const serviceType = defineType({
   name: 'service',
   title: 'Service',
   type: 'document',
+  groups: [
+    {name: 'content', title: 'Content', default: true},
+    {name: 'media', title: 'Media'},
+  ],
   fields: [
     defineField({
       name: 'title',
@@ -77,6 +81,21 @@ export const serviceType = defineType({
       title: 'Modal Media Items',
       type: 'array',
       of: [defineArrayMember({type: 'mediaItem'})],
+    }),
+    defineField({
+      name: 'localFallbackKey',
+      title: 'Local Fallback (Developer)',
+      type: 'string',
+      group: 'media',
+      options: {
+        list: [
+          {title: 'None', value: 'none'},
+          {title: 'Creative Content Gif', value: 'creative'},
+          {title: 'Motion Graphics Gif', value: 'motion'},
+        ],
+      },
+      initialValue: 'none',
+      description: 'Internal: selects a local gif fallback in the Services component. Do NOT change unless instructed.',
     }),
   ],
   orderings: [
