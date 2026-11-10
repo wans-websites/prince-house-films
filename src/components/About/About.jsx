@@ -2,9 +2,13 @@
 import { useRef } from "react";
 import { motion } from "framer-motion";
 import "./About.css";
+import { useSanityData } from "../../lib/useSanityData";
+import { aboutQuery } from "../../lib/queries";
+import { fallbackAbout } from "../../lib/fallbacks";
 
 const About = () => {
   const containerRef = useRef(null);
+  const { data } = useSanityData(aboutQuery, {}, fallbackAbout);
 
   return (
     <section id="about" className="about-section" ref={containerRef}>
@@ -14,20 +18,15 @@ const About = () => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
       >
-        Who We Are
+        {data.title}
       </motion.h2>
 
       <div className="container about-main text-center">
         <p>
-          Prince House Films is a full-service creative production company
-          specializing in visual storytelling. We help brands, businesses and
-          organizations bring their ideas to life through high-quality video
-          production, creative content, and digital media solutions. With a
-          passion for excellence and innovation, we transform concepts into
-          powerful visuals that inspire, engage, and connect with audiences
+          {data.body}
         </p>
-        <a href="#contact" className="cta-button">
-          Work With Us
+        <a href={data.ctaLink} className="cta-button">
+          {data.ctaText}
         </a>
       </div>
     </section>
