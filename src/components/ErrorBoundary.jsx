@@ -1,3 +1,7 @@
+// TODO: errorBoundary.fallbackText is stored in CMS but not
+// consumed (class component; hooks unavailable). See
+// CONTENT_MAP.md. Migration requires class -> hooks refactor —
+// deferred.
 // src/components/ErrorBoundary.jsx
 
 import { Component } from "react";
