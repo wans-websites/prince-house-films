@@ -9,108 +9,37 @@ import {
   BiGlobe,
   BiAward,
 } from "react-icons/bi";
+import { useSanityData } from "../../lib/useSanityData";
+import {
+  portfolioSectionQuery,
+  portfolioItemsQuery,
+} from "../../lib/queries";
+import {
+  fallbackPortfolioSection,
+  fallbackPortfolioItems,
+} from "../../lib/fallbacks";
 
 const Portfolio = () => {
   const [activeFilter, setActiveFilter] = useState("all");
   const [activeItem, setActiveItem] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
+  const { data: section } = useSanityData(
+    portfolioSectionQuery,
+    {},
+    fallbackPortfolioSection
+  );
+  const { data: items } = useSanityData(
+    portfolioItemsQuery,
+    {},
+    fallbackPortfolioItems
+  );
 
-  const filters = [
-    { id: "all", label: "All Projects" },
-    { id: "commercial", label: "Commercial" },
-    { id: "documentary", label: "Documentary" },
-    { id: "corporate", label: "Corporate" },
-    { id: "social", label: "Social Media" },
-    { id: "events", label: "Events" },
-  ];
+  const filters = (section.categories || []).map((cat) => ({
+    id: cat.label === "All Projects" ? "all" : cat.label.toLowerCase(),
+    label: cat.label,
+  }));
 
-  const portfolioItems = [
-    {
-      id: 1,
-      title: "Wildlife Conservation Documentary",
-      category: "documentary",
-      description: "Award-winning documentary on African wildlife conservation",
-      image:
-        "https://images.unsplash.com/photo-1550358864-518f202c02ba?q=80&w=1200",
-      client: "National Geographic",
-      year: "2023",
-      duration: "45 min",
-      awards: ["Best Documentary 2023", "Wildlife Film Festival Winner"],
-      details:
-        "This groundbreaking documentary took us across 5 African countries over 18 months. We captured never-before-seen footage of endangered species and worked closely with conservation experts to tell a compelling story about biodiversity preservation.",
-    },
-    {
-      id: 2,
-      title: "Tech Startup Brand Film",
-      category: "commercial",
-      description: "Corporate brand film for Silicon Valley tech startup",
-      image:
-        "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w-1200",
-      client: "TechNova Inc.",
-      year: "2024",
-      duration: "3 min",
-      awards: ["Best Brand Film", "Marketing Excellence Award"],
-      details:
-        "A sleek, futuristic brand film that established TechNova's identity in the competitive AI market. We utilized advanced CGI and motion graphics to visualize complex tech concepts.",
-    },
-    {
-      id: 3,
-      title: "Music Festival Coverage",
-      category: "events",
-      description: "Multi-camera live coverage of major music festival",
-      image:
-        "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w-1200",
-      client: "MTV Africa",
-      year: "2023",
-      duration: "120 min",
-      awards: ["Best Event Coverage", "Live Production Award"],
-      details:
-        "Complete live production coverage of Africa's largest music festival. We deployed 12 camera crews, drone teams, and mobile production units to capture every moment.",
-    },
-    {
-      id: 4,
-      title: "Corporate Training Series",
-      category: "corporate",
-      description:
-        "12-part training video series for multinational corporation",
-      image:
-        "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=1200",
-      client: "GlobalCorp",
-      year: "2024",
-      duration: "6 hours total",
-      awards: ["Excellence in Corporate Media"],
-      details:
-        "Comprehensive training program filmed across 8 countries. Each episode was customized for local markets while maintaining consistent branding and messaging.",
-    },
-    {
-      id: 5,
-      title: "Social Media Campaign",
-      category: "social",
-      description: "Viral social media campaign for fashion brand",
-      image:
-        "https://images.pexels.com/photos/147413/twitter-facebook-together-exchange-of-information-147413.jpeg",
-      client: "UrbanStyle",
-      year: "2024",
-      duration: "30 sec episodes",
-      awards: ["Viral Campaign Award", "Social Media Excellence"],
-      details:
-        "A 30-day social media campaign that generated over 50 million views. We produced 30 unique 30-second episodes, each with tailored content for different platforms.",
-    },
-    {
-      id: 6,
-      title: "Product Launch Film",
-      category: "commercial",
-      description: "Cinematic product launch for luxury automotive brand",
-      image:
-        "https://images.unsplash.com/photo-1489824904134-891ab64532f1?q=80&w=1200",
-      client: "Luxury Motors",
-      year: "2023",
-      duration: "5 min",
-      awards: ["Best Automotive Film", "Cinematography Award"],
-      details:
-        "A cinematic masterpiece shot over 3 continents. We captured the new luxury vehicle in stunning locations from Swiss Alps to Dubai deserts.",
-    },
-  ];
+  const portfolioItems = items || [];
 
   const filteredItems =
     activeFilter === "all"
@@ -147,7 +76,7 @@ const Portfolio = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          Our Portolio
+          {section.sectionTitle}
         </motion.h2>
         {/* 
         <p className="section-subtitle">
@@ -186,6 +115,8 @@ const Portfolio = () => {
             >
               <div
                 className="portfolio-image"
+                role="img"
+                aria-label={item.coverAlt || item.title}
                 style={{ backgroundImage: `url(${item.image})` }}
               />
 
