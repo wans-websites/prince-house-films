@@ -11,70 +11,25 @@ import {
   BiVideo,
 } from "react-icons/bi";
 import { FaCrown, FaUsers } from "react-icons/fa";
+import { useSanityData } from "../../lib/useSanityData";
+import { whyUsQuery } from "../../lib/queries";
+import { fallbackWhyUs } from "../../lib/fallbacks";
 
-const advantages = [
-  {
-    icon: <BiStar />,
-    title: "Creative Excellence",
-    description:
-      "We don't just produce content—we craft cinematic experiences. Our team of award-winning creatives brings fresh perspectives, innovative ideas, and artistic vision to every project.",
-    color: "var(--color-primary)",
-    features: [
-      "Award-winning creative team",
-      "Innovative storytelling approaches",
-      "Artistic cinematic vision",
-      "Fresh perspectives on every project",
-    ],
-  },
-  {
-    icon: <BiCheckShield />,
-    title: "Professional Quality",
-    description:
-      "Broadcast-level production standards with state-of-the-art equipment. From 8K cinema cameras to professional lighting and sound, we deliver premium quality that stands out.",
-    color: "var(--color-cyan)",
-    features: [
-      "State-of-the-art equipment",
-      "Broadcast-level production standards",
-      "Professional-grade post-production",
-      "Quality assurance at every stage",
-    ],
-  },
-  {
-    icon: <BiTime />,
-    title: "Timely Delivery",
-    description:
-      "Efficient workflows and deadline-driven processes ensure your project is delivered on time, every time. We respect your timeline while maintaining our quality standards.",
-    color: "var(--color-green)",
-    features: [
-      "Efficient production workflows",
-      "Deadline-driven project management",
-      "Clear milestone tracking",
-      "On-time delivery guarantee",
-    ],
-  },
-  {
-    icon: <BiUserVoice />,
-    title: "Client-Centered Approach",
-    description:
-      "Your vision is our priority. We maintain transparent communication, welcome your feedback, and ensure you're involved in every creative decision throughout the process.",
-    color: "var(--color-purple)",
-    features: [
-      "Transparent communication",
-      "Collaborative decision-making",
-      "Regular progress updates",
-      "Flexible to client feedback",
-    ],
-  },
-];
-
-const stats = [
-  { number: "200+", label: "Projects Completed" },
-  { number: "98%", label: "Client Satisfaction" },
-  { number: "50+", label: "Industry Awards" },
-  { number: "24/7", label: "Support Available" },
-];
+const reasonColorMap = {
+  star: "var(--color-primary)",
+  "check-shield": "var(--color-cyan)",
+  time: "var(--color-green)",
+  "user-voice": "var(--color-purple)",
+};
 
 export default function WhyUs() {
+  const { data } = useSanityData(whyUsQuery, {}, fallbackWhyUs);
+
+  const reasons = data.reasons || [];
+  const usItems = (data.comparisonUsItems || []).map(i => i.text);
+  const othersItems = (data.comparisonOthersItems || []).map(i => i.text);
+  const footerStats = data.footerStats || [];
+
   return (
     <section className="phf-section whyus-section">
       <div className="glow-overlay"></div>
@@ -85,20 +40,18 @@ export default function WhyUs() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          Why Choose Prince House Films
+          {data.sectionTitle}
         </motion.h2>
         <p className="section-subtitle">
-          In a crowded market of content creators, we stand apart through our
-          unique blend of cinematic artistry, technical excellence, and
-          client-focused partnership. Here's what makes us different.
+          {data.intro}
         </p>
 
         <div className="advantages-grid">
-          {advantages.map((advantage, i) => (
+          {reasons.map((reason, i) => (
             <motion.div
               key={i}
               className="advantage-card phf-card"
-              style={{ "--card-color": advantage.color }}
+              style={{ "--card-color": reasonColorMap[reason.iconKey] }}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
@@ -107,12 +60,12 @@ export default function WhyUs() {
                 transition: { duration: 0.2 },
               }}
             >
-              {/* <div className="advantage-icon">{advantage.icon}</div> */}
-              <h3 className="advantage-title">{advantage.title}</h3>
-              <p className="advantage-description">{advantage.description}</p>
+              {/* <div className="advantage-icon">{reason.icon}</div> */}
+              <h3 className="advantage-title">{reason.title}</h3>
+              <p className="advantage-description">{reason.description}</p>
 
               <div className="advantage-features">
-                {advantage.features.map((feature, j) => (
+                {reason.features.map((feature, j) => (
                   <div key={j} className="feature-item">
                     <i className="bi bi-check-circle-fill"></i>
                     <span>{feature}</span>
@@ -130,63 +83,35 @@ export default function WhyUs() {
           transition={{ delay: 0.4 }}
         >
           <h3 className="comparison-title">
-            The Prince House Films Difference
+            {data.comparisonHeading}
           </h3>
 
           <div className="comparison-grid">
             <div className="comparison-column us-column">
               <h4 style={{ "--column-color": "var(--color-primary)" }}>
-                With Us
+                {data.comparisonUsLabel}
               </h4>
               <div className="comparison-list">
-                <div className="comparison-item">
-                  <i className="bi bi-check-circle-fill"></i>
-                  <span>Strategic creative planning for maximum impact</span>
-                </div>
-                <div className="comparison-item">
-                  <i className="bi bi-check-circle-fill"></i>
-                  <span>Cinematic production quality on every project</span>
-                </div>
-                <div className="comparison-item">
-                  <i className="bi bi-check-circle-fill"></i>
-                  <span>Dedicated project manager and creative team</span>
-                </div>
-                <div className="comparison-item">
-                  <i className="bi bi-check-circle-fill"></i>
-                  <span>Comprehensive post-production with color grading</span>
-                </div>
-                <div className="comparison-item">
-                  <i className="bi bi-check-circle-fill"></i>
-                  <span>Ongoing support and performance analysis</span>
-                </div>
+                {usItems.map((text, i) => (
+                  <div key={i} className="comparison-item">
+                    <i className="bi bi-check-circle-fill"></i>
+                    <span>{text}</span>
+                  </div>
+                ))}
               </div>
             </div>
 
             <div className="comparison-column others-column">
               <h4 style={{ "--column-color": "var(--color-gray)" }}>
-                With Others
+                {data.comparisonOthersLabel}
               </h4>
               <div className="comparison-list">
-                <div className="comparison-item">
-                  <i className="bi bi-x-circle"></i>
-                  <span>Basic video production without strategy</span>
-                </div>
-                <div className="comparison-item">
-                  <i className="bi bi-x-circle"></i>
-                  <span>Standard quality with limited creative input</span>
-                </div>
-                <div className="comparison-item">
-                  <i className="bi bi-x-circle"></i>
-                  <span>Minimal communication and support</span>
-                </div>
-                <div className="comparison-item">
-                  <i className="bi bi-x-circle"></i>
-                  <span>Basic editing without cinematic polish</span>
-                </div>
-                <div className="comparison-item">
-                  <i className="bi bi-x-circle"></i>
-                  <span>Project ends at delivery with no follow-up</span>
-                </div>
+                {othersItems.map((text, i) => (
+                  <div key={i} className="comparison-item">
+                    <i className="bi bi-x-circle"></i>
+                    <span>{text}</span>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
@@ -198,7 +123,7 @@ export default function WhyUs() {
           whileInView={{ opacity: 1 }}
           transition={{ delay: 0.6 }}
         >
-          {stats.map((stat, i) => (
+          {footerStats.map((stat, i) => (
             <motion.div
               key={i}
               className="stat-item"
