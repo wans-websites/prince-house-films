@@ -13,7 +13,6 @@ import {
   fallbackPartners,
   fallbackPartnershipTypes,
 } from "../../lib/fallbacks";
-import { urlFor } from "../../lib/sanity";
 
 import {
   BiBuilding,
@@ -101,7 +100,7 @@ const Partnerships = () => {
                 <div className="partnerships-carousel-card">
                   <div className="partnerships-carousel-glow"></div>
                   <img
-                    src={partner.logo ? urlFor(partner.logo).url() : ""}
+                    src={partner.img}
                     alt={partner.logoAlt}
                     loading="lazy"
                   />

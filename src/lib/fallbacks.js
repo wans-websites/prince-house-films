@@ -3,6 +3,20 @@
 // Values are copied EXACTLY from the current component files (AUDIT.md §2).
 // When Sanity returns null/undefined/error, components render these so the
 // UI is pixel-identical to the pre-migration site.
+import partner1 from "../assets/img/partners/cocacola.jpeg";
+import partner2 from "../assets/img/partners/darling.png";
+import partner3 from "../assets/img/partners/delish.png";
+import partner4 from "../assets/img/partners/drmatress.png";
+import partner5 from "../assets/img/partners/eabl.jpeg";
+import partner6 from "../assets/img/partners/furnitureplace.png";
+import partner7 from "../assets/img/partners/lcwaikiki.png";
+import partner8 from "../assets/img/partners/megagrowth.png";
+import partner9 from "../assets/img/partners/orient.png";
+import partner10 from "../assets/img/partners/prestige.png";
+import partner11 from "../assets/img/partners/sarit.png";
+import partner12 from "../assets/img/partners/titi.png";
+import partner13 from "../assets/img/partners/tworivers.png";
+import partner14 from "../assets/img/partners/vspa.png";
 // Do NOT "improve" or restructure these values.
 
 export const fallbackSiteSettings = {
@@ -614,20 +628,20 @@ export const fallbackPartnershipSection = {
 };
 
 export const fallbackPartners = [
-  { order: 1, name: "Coca Cola", logo: null, logoAlt: "Coca Cola logo", url: null },
-  { order: 2, name: "Darling", logo: null, logoAlt: "Darling logo", url: null },
-  { order: 3, name: "Delish", logo: null, logoAlt: "Delish logo", url: null },
-  { order: 4, name: "Dr. Mattress", logo: null, logoAlt: "Dr. Mattress logo", url: null },
-  { order: 5, name: "EABL", logo: null, logoAlt: "EABL logo", url: null },
-  { order: 6, name: "Furniture Place", logo: null, logoAlt: "Furniture Place logo", url: null },
-  { order: 7, name: "LC Waikiki", logo: null, logoAlt: "LC Waikiki logo", url: null },
-  { order: 8, name: "Mega Growth", logo: null, logoAlt: "Mega Growth logo", url: null },
-  { order: 9, name: "Orient", logo: null, logoAlt: "Orient logo", url: null },
-  { order: 10, name: "Prestige", logo: null, logoAlt: "Prestige logo", url: null },
-  { order: 11, name: "Sarit", logo: null, logoAlt: "Sarit logo", url: null },
-  { order: 12, name: "Titi", logo: null, logoAlt: "Titi logo", url: null },
-  { order: 13, name: "Two Rivers", logo: null, logoAlt: "Two Rivers logo", url: null },
-  { order: 14, name: "V Spa", logo: null, logoAlt: "V Spa logo", url: null },
+  { order: 1, name: "Coca Cola", img: partner1, logoAlt: "Coca Cola logo", url: null },
+  { order: 2, name: "Darling", img: partner2, logoAlt: "Darling logo", url: null },
+  { order: 3, name: "Delish", img: partner3, logoAlt: "Delish logo", url: null },
+  { order: 4, name: "Dr. Mattress", img: partner4, logoAlt: "Dr. Mattress logo", url: null },
+  { order: 5, name: "EABL", img: partner5, logoAlt: "EABL logo", url: null },
+  { order: 6, name: "Furniture Place", img: partner6, logoAlt: "Furniture Place logo", url: null },
+  { order: 7, name: "LC Waikiki", img: partner7, logoAlt: "LC Waikiki logo", url: null },
+  { order: 8, name: "Mega Growth", img: partner8, logoAlt: "Mega Growth logo", url: null },
+  { order: 9, name: "Orient", img: partner9, logoAlt: "Orient logo", url: null },
+  { order: 10, name: "Prestige", img: partner10, logoAlt: "Prestige logo", url: null },
+  { order: 11, name: "Sarit", img: partner11, logoAlt: "Sarit logo", url: null },
+  { order: 12, name: "Titi", img: partner12, logoAlt: "Titi logo", url: null },
+  { order: 13, name: "Two Rivers", img: partner13, logoAlt: "Two Rivers logo", url: null },
+  { order: 14, name: "V Spa", img: partner14, logoAlt: "V Spa logo", url: null },
 ];
 
 export const fallbackPartnershipTypes = [

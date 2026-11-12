@@ -231,6 +231,7 @@ Cross-referenced with `AUDIT.md` §2 and `SCHEMA_PLAN.md` §F.
 | Action button label | Partnership Section | actionButtonLabel | String |
 | Partner name | Partnership Section → partners[] | name | String, required |
 | Partner logo | Partnership Section → partners[] | logo | Image, hotspot |
+| Partner logo URL (returned as `img`) | partnersQuery → `"img": logo.asset->url` | String URL | Query projects Sanity image to URL string; component reads `partner.img` |
 | Partner logo alt | Partnership Section → partners[] | logoAlt | String, required |
 | Partner logo order | Partnership Section → partners[] | order | Number |
 | Partner URL | Partnership Section → partners[] | url | URL, optional |
@@ -319,3 +320,4 @@ The following documents exist in Sanity Studio but are NOT managed by the seed s
 - Team members collection exists but no members are rendered on the site (group photo only)
 - `portfolioData.js` in `src/data/` is unused, kept as fallback seed source only
 - `partnerImages.jsx` in `src/components/Partnership/` is unused, kept as fallback seed source only
+- **Phone format divergence:** GetInTouch displays "+254 715 130 028" while PrivacyPolicy displays "0715130028". Both are the same number in different display formats. PrivacyPolicy phone is intentionally left hardcoded (not migrated to siteSettings) to preserve pixel-identical rendering. Unifying the formats is a content decision, deferred.

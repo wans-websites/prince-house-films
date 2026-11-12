@@ -256,9 +256,10 @@ export const partnershipSectionQuery = `
 
 export const partnersQuery = `
   *[_type == "partner"] | order(order asc){
+    _id,
     order,
     name,
-    logo,
+    "img": logo.asset->url,
     logoAlt,
     url
   }
