@@ -2,10 +2,15 @@
 import React, { useState, useEffect } from "react";
 import "./Header.css";
 import logo from "../../assets/img/phf_word_logo.png";
+import { useSanityData } from "../../lib/useSanityData";
+import { headerQuery } from "../../lib/queries";
+import { fallbackHeader } from "../../lib/fallbacks";
+import { urlFor } from "../../lib/sanity";
 
 const Header = ({ isSticky }) => {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [activeLink, setActiveLink] = useState("home");
+  const { data } = useSanityData(headerQuery, {}, fallbackHeader);
 
   const toggleMobileNav = () => {
     setMobileNavOpen(!mobileNavOpen);
@@ -17,14 +22,7 @@ const Header = ({ isSticky }) => {
     document.body.style.overflow = "auto";
   };
 
-  const navItems = [
-    { id: "home", label: "Home", path: "/" },
-    { id: "about", label: "Who We Are", path: "/about" },
-    { id: "services", label: "What We Do", path: "/services" },
-    { id: "partnerships", label: "partnerships", path: "/partnerships" },
-    { id: "team", label: "The Team", path: "/team" },
-    { id: "contact", label: "Contact", path: "/contact" },
-  ];
+  const navItems = data.navLinks;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -56,7 +54,7 @@ const Header = ({ isSticky }) => {
       <header id="header" className={`header ${isSticky ? "sticked" : ""}`}>
         <div className="container-fluid d-flex align-items-center justify-content-between">
           <a href="/" className="logo d-flex align-items-center me-auto">
-            <img src={logo} alt="Prince House Films" />
+            <img src={data.logo ? urlFor(data.logo).url() : logo} alt={data.logoAlt} />
           </a>
 
           <nav
@@ -100,7 +98,7 @@ const Header = ({ isSticky }) => {
                 mobileNavOpen ? "bi-x" : "bi-list"
               } mobile-nav-toggle`}
               onClick={toggleMobileNav}
-              aria-label={mobileNavOpen ? "Close menu" : "Open menu"}
+              aria-label={mobileNavOpen ? data.menuCloseAria : data.menuOpenAria}
             ></i>
           </div>
         </div>

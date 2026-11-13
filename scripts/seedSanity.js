@@ -40,6 +40,133 @@ async function upsert(doc, label) {
 async function seed() {
   console.log("Seeding Sanity...");
 
+  // --- portfolioCategory ---
+  const portfolioCategories = [
+    {
+      _id: "portfolioCategory-all",
+      _type: "portfolioCategory",
+      order: 1,
+      label: "All Projects",
+    },
+    {
+      _id: "portfolioCategory-commercial",
+      _type: "portfolioCategory",
+      order: 2,
+      label: "Commercial",
+    },
+    {
+      _id: "portfolioCategory-documentary",
+      _type: "portfolioCategory",
+      order: 3,
+      label: "Documentary",
+    },
+    {
+      _id: "portfolioCategory-corporate",
+      _type: "portfolioCategory",
+      order: 4,
+      label: "Corporate",
+    },
+    {
+      _id: "portfolioCategory-social",
+      _type: "portfolioCategory",
+      order: 5,
+      label: "Social Media",
+    },
+    {
+      _id: "portfolioCategory-events",
+      _type: "portfolioCategory",
+      order: 6,
+      label: "Events",
+    },
+  ];
+  for (const cat of portfolioCategories) {
+    await upsert(cat, `portfolioCategory/${cat._id}`);
+  }
+
+  // --- galleryCategory ---
+  const galleryCategories = [
+    {
+      _id: "galleryCategory-all",
+      _type: "galleryCategory",
+      order: 1,
+      label: "All",
+    },
+    {
+      _id: "galleryCategory-behind-scenes",
+      _type: "galleryCategory",
+      order: 2,
+      label: "Behind the Scenes",
+    },
+    {
+      _id: "galleryCategory-production",
+      _type: "galleryCategory",
+      order: 3,
+      label: "Production",
+    },
+    {
+      _id: "galleryCategory-events",
+      _type: "galleryCategory",
+      order: 4,
+      label: "Events",
+    },
+    {
+      _id: "galleryCategory-locations",
+      _type: "galleryCategory",
+      order: 5,
+      label: "Locations",
+    },
+    {
+      _id: "galleryCategory-equipment",
+      _type: "galleryCategory",
+      order: 6,
+      label: "Equipment",
+    },
+  ];
+  for (const cat of galleryCategories) {
+    await upsert(cat, `galleryCategory/${cat._id}`);
+  }
+
+  // --- contactDetail ---
+  const contactDetails = [
+    {
+      _id: "contactDetail-location",
+      _type: "contactDetail",
+      order: 1,
+      title: "Location",
+      content: "Nairobi, Kenya",
+      link: "https://maps.google.com/?q=Nairobi+Kenya",
+      linkText: "Directions",
+      external: true,
+      iconKey: "map",
+    },
+    {
+      _id: "contactDetail-email",
+      _type: "contactDetail",
+      order: 2,
+      title: "Email",
+      content: "info@princehousefilms.com",
+      link: "mailto:info@princehousefilms.com",
+      linkText: "Email Us",
+      external: false,
+      iconKey: "envelope",
+    },
+    {
+      _id: "contactDetail-phone",
+      _type: "contactDetail",
+      order: 3,
+      title: "Phone",
+      content: "+254 715 130 028",
+      link: "tel:+254 715 130 028",
+      linkText: "Call Now",
+      external: false,
+      iconKey: "phone",
+    },
+  ];
+
+  for (const cd of contactDetails) {
+    await upsert(cd, `contactDetail/${cd._id}`);
+  }
+
   // =========================================================================
   // SINGLETONS (Page Sections)
   // =========================================================================
@@ -59,7 +186,7 @@ async function seed() {
         "https://www.instagram.com/princehouse_films?igsh=eHFqazhiZDlhbmZs",
       instagramCtaLabel: "View Full Portfolio on Instagram",
     },
-    "siteSettings/siteSettings"
+    "siteSettings/siteSettings",
   );
 
   await upsert(
@@ -84,12 +211,17 @@ async function seed() {
           path: "/partnerships",
         },
         { _key: "nav-team", id: "team", label: "The Team", path: "/team" },
-        { _key: "nav-contact", id: "contact", label: "Contact", path: "/contact" },
+        {
+          _key: "nav-contact",
+          id: "contact",
+          label: "Contact",
+          path: "/contact",
+        },
       ],
       menuOpenAria: "Open menu",
       menuCloseAria: "Close menu",
     },
-    "header/header"
+    "header/header",
   );
 
   await upsert(
@@ -106,7 +238,7 @@ async function seed() {
       ],
       backgroundVideoUrl: "/assets/img/WildNowLogovideo.mp4",
     },
-    "preloader/preloader"
+    "preloader/preloader",
   );
 
   await upsert(
@@ -114,12 +246,11 @@ async function seed() {
       _id: "about",
       _type: "about",
       title: "Who We Are",
-      body:
-        "Prince House Films is a full-service creative production company specializing in visual storytelling. We help brands, businesses and organizations bring their ideas to life through high-quality video production, creative content, and digital media solutions. With a passion for excellence and innovation, we transform concepts into powerful visuals that inspire, engage, and connect with audiences",
+      body: "Prince House Films is a full-service creative production company specializing in visual storytelling. We help brands, businesses and organizations bring their ideas to life through high-quality video production, creative content, and digital media solutions. With a passion for excellence and innovation, we transform concepts into powerful visuals that inspire, engage, and connect with audiences",
       ctaLink: "#contact",
       ctaText: "Work With Us",
     },
-    "about/about"
+    "about/about",
   );
 
   await upsert(
@@ -229,7 +360,7 @@ async function seed() {
         "Every great film begins with a great story. Our process ensures your story is told with the creativity, precision, and passion it deserves.",
       processNoteAttribution: "— Prince House Films Team",
     },
-    "approach/approach"
+    "approach/approach",
   );
 
   await upsert(
@@ -241,13 +372,11 @@ async function seed() {
         "At Prince House Films, we're driven by more than just producing content. We're committed to creating meaningful visual stories that inspire action and leave lasting impact.",
       vision: {
         title: "Our Vision",
-        body:
-          "To become Africa's foremost creative production powerhouse, revolutionizing visual storytelling through innovation, cultural authenticity, and cinematic excellence. We envision a future where African narratives dominate global screens, inspiring generations and shaping perceptions worldwide.",
+        body: "To become Africa's foremost creative production powerhouse, revolutionizing visual storytelling through innovation, cultural authenticity, and cinematic excellence. We envision a future where African narratives dominate global screens, inspiring generations and shaping perceptions worldwide.",
       },
       mission: {
         title: "Our Mission",
-        body:
-          "To empower brands, organizations, and individuals with compelling visual stories that drive growth, foster emotional connections, and inspire meaningful action. Through technical mastery, creative innovation, and collaborative partnerships, we transform concepts into captivating cinematic experiences.",
+        body: "To empower brands, organizations, and individuals with compelling visual stories that drive growth, foster emotional connections, and inspire meaningful action. Through technical mastery, creative innovation, and collaborative partnerships, we transform concepts into captivating cinematic experiences.",
       },
       valuesHeading: "Our Core Values",
       values: [
@@ -263,26 +392,29 @@ async function seed() {
           _key: "value-2",
           order: 2,
           title: "Passion",
-          description: "Driven by genuine love for storytelling and visual excellence",
+          description:
+            "Driven by genuine love for storytelling and visual excellence",
           iconKey: "heart",
         },
         {
           _key: "value-3",
           order: 3,
           title: "Excellence",
-          description: "Uncompromising quality in every frame and every project",
+          description:
+            "Uncompromising quality in every frame and every project",
           iconKey: "trending-up",
         },
         {
           _key: "value-4",
           order: 4,
           title: "Collaboration",
-          description: "Partnering closely with clients to achieve shared vision",
+          description:
+            "Partnering closely with clients to achieve shared vision",
           iconKey: "group",
         },
       ],
     },
-    "objectives/objectives"
+    "objectives/objectives",
   );
 
   await upsert(
@@ -345,7 +477,7 @@ async function seed() {
         },
       ],
     },
-    "counts/counts"
+    "counts/counts",
   );
 
   await upsert(
@@ -417,7 +549,10 @@ async function seed() {
       comparisonUsLabel: "With Us",
       comparisonOthersLabel: "With Others",
       comparisonUsItems: [
-        { _key: "us-1", text: "Strategic creative planning for maximum impact" },
+        {
+          _key: "us-1",
+          text: "Strategic creative planning for maximum impact",
+        },
         { _key: "us-2", text: "Cinematic production quality on every project" },
         { _key: "us-3", text: "Dedicated project manager and creative team" },
         {
@@ -443,7 +578,10 @@ async function seed() {
           _key: "others-4",
           text: "Basic editing without cinematic polish",
         },
-        { _key: "others-5", text: "Project ends at delivery with no follow-up" },
+        {
+          _key: "others-5",
+          text: "Project ends at delivery with no follow-up",
+        },
       ],
       footerStats: [
         { _key: "fs-1", order: 1, number: "200+", label: "Projects Completed" },
@@ -452,7 +590,7 @@ async function seed() {
         { _key: "fs-4", order: 4, number: "24/7", label: "Support Available" },
       ],
     },
-    "whyUs/whyUs"
+    "whyUs/whyUs",
   );
 
   await upsert(
@@ -461,7 +599,7 @@ async function seed() {
       _type: "servicesSection",
       sectionTitle: "Our Creative Services",
     },
-    "servicesSection/servicesSection"
+    "servicesSection/servicesSection",
   );
 
   await upsert(
@@ -478,7 +616,7 @@ async function seed() {
         { _type: "reference", _ref: "portfolioCategory-events" },
       ],
     },
-    "portfolioSection/portfolioSection"
+    "portfolioSection/portfolioSection",
   );
 
   await upsert(
@@ -499,7 +637,7 @@ async function seed() {
       viewMoreLink: "/full-gallery",
       viewMoreLabel: "View More in Gallery",
     },
-    "gallerySection/gallerySection"
+    "gallerySection/gallerySection",
   );
 
   await upsert(
@@ -513,7 +651,7 @@ async function seed() {
       groupPhotoTitle: "The Creative Minds",
       groupPhotoDescription: "United by passion, driven by innovation",
     },
-    "teamSection/teamSection"
+    "teamSection/teamSection",
   );
 
   await upsert(
@@ -526,7 +664,7 @@ async function seed() {
         "Building lasting relationships that drive creative excellence and mutual success",
       actionButtonLabel: "Explore Partnership",
     },
-    "partnershipSection/partnershipSection"
+    "partnershipSection/partnershipSection",
   );
 
   await upsert(
@@ -584,7 +722,7 @@ async function seed() {
       callLabel: "Call",
       ctaNote: "24-hour response",
     },
-    "getInTouch/getInTouch"
+    "getInTouch/getInTouch",
   );
 
   await upsert(
@@ -627,7 +765,7 @@ async function seed() {
       privacyLabel: "Privacy Policy",
       copyrightText: "Prince House Films",
     },
-    "footer/footer"
+    "footer/footer",
   );
 
   await upsert(
@@ -707,7 +845,12 @@ async function seed() {
           style: "normal",
           listItem: "bullet",
           children: [
-            { _key: "pp-6-c1", _type: "span", text: "Email address", marks: [] },
+            {
+              _key: "pp-6-c1",
+              _type: "span",
+              text: "Email address",
+              marks: [],
+            },
           ],
         },
         {
@@ -725,7 +868,12 @@ async function seed() {
           style: "normal",
           listItem: "bullet",
           children: [
-            { _key: "pp-8-c1", _type: "span", text: "Business name", marks: [] },
+            {
+              _key: "pp-8-c1",
+              _type: "span",
+              text: "Business name",
+              marks: [],
+            },
           ],
         },
         {
@@ -979,7 +1127,12 @@ async function seed() {
           style: "normal",
           listItem: "bullet",
           children: [
-            { _key: "pp-27-c1", _type: "span", text: "Payment processors", marks: [] },
+            {
+              _key: "pp-27-c1",
+              _type: "span",
+              text: "Payment processors",
+              marks: [],
+            },
           ],
         },
         {
@@ -1002,7 +1155,12 @@ async function seed() {
           style: "normal",
           listItem: "bullet",
           children: [
-            { _key: "pp-29-c1", _type: "span", text: "Analytics services", marks: [] },
+            {
+              _key: "pp-29-c1",
+              _type: "span",
+              text: "Analytics services",
+              marks: [],
+            },
           ],
         },
         {
@@ -1038,7 +1196,12 @@ async function seed() {
           _type: "block",
           style: "h2",
           children: [
-            { _key: "pp-32-c1", _type: "span", text: "5. Data Security", marks: [] },
+            {
+              _key: "pp-32-c1",
+              _type: "span",
+              text: "5. Data Security",
+              marks: [],
+            },
           ],
         },
         {
@@ -1085,7 +1248,12 @@ async function seed() {
           _type: "block",
           style: "h2",
           children: [
-            { _key: "pp-36-c1", _type: "span", text: "7. Your Rights", marks: [] },
+            {
+              _key: "pp-36-c1",
+              _type: "span",
+              text: "7. Your Rights",
+              marks: [],
+            },
           ],
         },
         {
@@ -1107,7 +1275,12 @@ async function seed() {
           style: "normal",
           listItem: "bullet",
           children: [
-            { _key: "pp-38-c1", _type: "span", text: "Access your personal data", marks: [] },
+            {
+              _key: "pp-38-c1",
+              _type: "span",
+              text: "Access your personal data",
+              marks: [],
+            },
           ],
         },
         {
@@ -1116,7 +1289,12 @@ async function seed() {
           style: "normal",
           listItem: "bullet",
           children: [
-            { _key: "pp-39-c1", _type: "span", text: "Correct inaccurate data", marks: [] },
+            {
+              _key: "pp-39-c1",
+              _type: "span",
+              text: "Correct inaccurate data",
+              marks: [],
+            },
           ],
         },
         {
@@ -1165,7 +1343,12 @@ async function seed() {
           _type: "block",
           style: "h2",
           children: [
-            { _key: "pp-43-c1", _type: "span", text: "8. Retention of Data", marks: [] },
+            {
+              _key: "pp-43-c1",
+              _type: "span",
+              text: "8. Retention of Data",
+              marks: [],
+            },
           ],
         },
         {
@@ -1186,7 +1369,12 @@ async function seed() {
           _type: "block",
           style: "h2",
           children: [
-            { _key: "pp-45-c1", _type: "span", text: "9. Children's Privacy", marks: [] },
+            {
+              _key: "pp-45-c1",
+              _type: "span",
+              text: "9. Children's Privacy",
+              marks: [],
+            },
           ],
         },
         {
@@ -1207,7 +1395,12 @@ async function seed() {
           _type: "block",
           style: "h2",
           children: [
-            { _key: "pp-47-c1", _type: "span", text: "10. Changes to This Policy", marks: [] },
+            {
+              _key: "pp-47-c1",
+              _type: "span",
+              text: "10. Changes to This Policy",
+              marks: [],
+            },
           ],
         },
         {
@@ -1225,7 +1418,7 @@ async function seed() {
         },
       ],
     },
-    "privacyPolicy/privacyPolicy"
+    "privacyPolicy/privacyPolicy",
   );
 
   await upsert(
@@ -1234,7 +1427,7 @@ async function seed() {
       _type: "errorBoundary",
       fallbackText: "Couldn't load this media. Try another item.",
     },
-    "errorBoundary/errorBoundary"
+    "errorBoundary/errorBoundary",
   );
 
   // =========================================================================
@@ -1251,7 +1444,12 @@ async function seed() {
       title: "Discovery & Strategy",
       description:
         "We begin by deeply understanding your vision, audience, and objectives. Through collaborative workshops and research, we develop a comprehensive creative strategy that aligns with your goals.",
-      features: ["Creative Brief", "Audience Analysis", "Goal Setting", "Strategy Development"],
+      features: [
+        "Creative Brief",
+        "Audience Analysis",
+        "Goal Setting",
+        "Strategy Development",
+      ],
       iconKey: "search-alt",
     },
     {
@@ -1262,7 +1460,12 @@ async function seed() {
       title: "Concept & Planning",
       description:
         "Our creative team transforms strategy into compelling concepts. We develop scripts, storyboards, shot lists, and production plans.",
-      features: ["Script Writing", "Storyboarding", "Pre-Visualization", "Production Planning"],
+      features: [
+        "Script Writing",
+        "Storyboarding",
+        "Pre-Visualization",
+        "Production Planning",
+      ],
       iconKey: "pencil",
     },
     {
@@ -1273,7 +1476,12 @@ async function seed() {
       title: "Production & Filming",
       description:
         "Using professional cinema cameras, advanced lighting, and expert crew, we capture stunning visuals.",
-      features: ["Cinematic Capture", "Professional Lighting", "Audio Recording", "Direction"],
+      features: [
+        "Cinematic Capture",
+        "Professional Lighting",
+        "Audio Recording",
+        "Direction",
+      ],
       iconKey: "camera",
     },
     {
@@ -1295,38 +1503,17 @@ async function seed() {
       title: "Delivery & Impact",
       description:
         "We deliver final assets in all required formats and provide distribution guidance.",
-      features: ["Final Delivery", "Format Optimization", "Distribution Strategy", "Performance Analysis"],
+      features: [
+        "Final Delivery",
+        "Format Optimization",
+        "Distribution Strategy",
+        "Performance Analysis",
+      ],
       iconKey: "play-circle",
     },
   ];
   for (const step of approachSteps) {
     await upsert(step, `approachStep/${step._id}`);
-  }
-
-  // --- portfolioCategory ---
-  const portfolioCategories = [
-    { _id: "portfolioCategory-all", _type: "portfolioCategory", order: 1, label: "All Projects" },
-    { _id: "portfolioCategory-commercial", _type: "portfolioCategory", order: 2, label: "Commercial" },
-    { _id: "portfolioCategory-documentary", _type: "portfolioCategory", order: 3, label: "Documentary" },
-    { _id: "portfolioCategory-corporate", _type: "portfolioCategory", order: 4, label: "Corporate" },
-    { _id: "portfolioCategory-social", _type: "portfolioCategory", order: 5, label: "Social Media" },
-    { _id: "portfolioCategory-events", _type: "portfolioCategory", order: 6, label: "Events" },
-  ];
-  for (const cat of portfolioCategories) {
-    await upsert(cat, `portfolioCategory/${cat._id}`);
-  }
-
-  // --- galleryCategory ---
-  const galleryCategories = [
-    { _id: "galleryCategory-all", _type: "galleryCategory", order: 1, label: "All" },
-    { _id: "galleryCategory-behind-scenes", _type: "galleryCategory", order: 2, label: "Behind the Scenes" },
-    { _id: "galleryCategory-production", _type: "galleryCategory", order: 3, label: "Production" },
-    { _id: "galleryCategory-events", _type: "galleryCategory", order: 4, label: "Events" },
-    { _id: "galleryCategory-locations", _type: "galleryCategory", order: 5, label: "Locations" },
-    { _id: "galleryCategory-equipment", _type: "galleryCategory", order: 6, label: "Equipment" },
-  ];
-  for (const cat of galleryCategories) {
-    await upsert(cat, `galleryCategory/${cat._id}`);
   }
 
   // --- portfolioItem ---
@@ -1337,11 +1524,13 @@ async function seed() {
       order: 1,
       title: "Wildlife Conservation Documentary",
       category: "documentary",
-      shortDescription: "Award-winning documentary on African wildlife conservation",
+      shortDescription:
+        "Award-winning documentary on African wildlife conservation",
       details:
         "This groundbreaking documentary took us across 5 African countries over 18 months. We captured never-before-seen footage of endangered species and worked closely with conservation experts to tell a compelling story about biodiversity preservation.",
       coverImage: null,
-      coverImageUrl: "https://images.unsplash.com/photo-1550358864-518f202c02ba?q=80&w=1200",
+      coverImageUrl:
+        "https://images.unsplash.com/photo-1550358864-518f202c02ba?q=80&w=1200",
       coverAlt: "Wildlife Conservation Documentary",
       client: "National Geographic",
       year: "2023",
@@ -1359,7 +1548,8 @@ async function seed() {
       details:
         "A sleek, futuristic brand film that established TechNova's identity in the competitive AI market. We utilized advanced CGI and motion graphics to visualize complex tech concepts.",
       coverImage: null,
-      coverImageUrl: "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w-1200",
+      coverImageUrl:
+        "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w-1200",
       coverAlt: "Tech Startup Brand Film",
       client: "TechNova Inc.",
       year: "2024",
@@ -1377,7 +1567,8 @@ async function seed() {
       details:
         "Complete live production coverage of Africa's largest music festival. We deployed 12 camera crews, drone teams, and mobile production units to capture every moment.",
       coverImage: null,
-      coverImageUrl: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w-1200",
+      coverImageUrl:
+        "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w-1200",
       coverAlt: "Music Festival Coverage",
       client: "MTV Africa",
       year: "2023",
@@ -1391,11 +1582,13 @@ async function seed() {
       order: 4,
       title: "Corporate Training Series",
       category: "corporate",
-      shortDescription: "12-part training video series for multinational corporation",
+      shortDescription:
+        "12-part training video series for multinational corporation",
       details:
         "Comprehensive training program filmed across 8 countries. Each episode was customized for local markets while maintaining consistent branding and messaging.",
       coverImage: null,
-      coverImageUrl: "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=1200",
+      coverImageUrl:
+        "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=1200",
       coverAlt: "Corporate Training Series",
       client: "GlobalCorp",
       year: "2024",
@@ -1413,7 +1606,8 @@ async function seed() {
       details:
         "A 30-day social media campaign that generated over 50 million views. We produced 30 unique 30-second episodes, each with tailored content for different platforms.",
       coverImage: null,
-      coverImageUrl: "https://images.pexels.com/photos/147413/twitter-facebook-together-exchange-of-information-147413.jpeg",
+      coverImageUrl:
+        "https://images.pexels.com/photos/147413/twitter-facebook-together-exchange-of-information-147413.jpeg",
       coverAlt: "Social Media Campaign",
       client: "UrbanStyle",
       year: "2024",
@@ -1431,7 +1625,8 @@ async function seed() {
       details:
         "A cinematic masterpiece shot over 3 continents. We captured the new luxury vehicle in stunning locations from Swiss Alps to Dubai deserts.",
       coverImage: null,
-      coverImageUrl: "https://images.unsplash.com/photo-1489824904134-891ab64532f1?q=80&w=1200",
+      coverImageUrl:
+        "https://images.unsplash.com/photo-1489824904134-891ab64532f1?q=80&w=1200",
       coverAlt: "Product Launch Film",
       client: "Luxury Motors",
       year: "2023",
@@ -1454,7 +1649,8 @@ async function seed() {
       category: "behind-scenes",
       description: "Capturing rare wildlife moments in Maasai Mara",
       coverImage: null,
-      coverImageUrl: "https://images.unsplash.com/photo-1550358864-518f202c02ba?q=80&w=1200",
+      coverImageUrl:
+        "https://images.unsplash.com/photo-1550358864-518f202c02ba?q=80&w=1200",
       coverAlt: "Wildlife Documentary Shoot",
       date: "2023",
       location: "Maasai Mara, Kenya",
@@ -1468,7 +1664,8 @@ async function seed() {
       category: "production",
       description: "Professional studio setup for commercial shoot",
       coverImage: null,
-      coverImageUrl: "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1200",
+      coverImageUrl:
+        "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1200",
       coverAlt: "Studio Production Setup",
       date: "2024",
       location: "Nairobi Studio",
@@ -1482,7 +1679,8 @@ async function seed() {
       category: "events",
       description: "Multi-camera setup for live festival broadcast",
       coverImage: null,
-      coverImageUrl: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=1200",
+      coverImageUrl:
+        "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=1200",
       coverAlt: "Music Festival Coverage",
       date: "2023",
       location: "Carnivore Grounds, Nairobi",
@@ -1496,7 +1694,8 @@ async function seed() {
       category: "locations",
       description: "Shooting in challenging mountain terrain",
       coverImage: null,
-      coverImageUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=1200",
+      coverImageUrl:
+        "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=1200",
       coverAlt: "Mountain Documentary Location",
       date: "2023",
       location: "Mount Kenya",
@@ -1510,7 +1709,8 @@ async function seed() {
       category: "equipment",
       description: "Professional cinema camera rig for film shoot",
       coverImage: null,
-      coverImageUrl: "https://images.unsplash.com/photo-1563297007-0686b7003af7?q=80&w=1200",
+      coverImageUrl:
+        "https://images.unsplash.com/photo-1563297007-0686b7003af7?q=80&w=1200",
       coverAlt: "Cinema Camera Setup",
       date: "2024",
       location: "Production Set",
@@ -1524,7 +1724,8 @@ async function seed() {
       category: "events",
       description: "Live streaming setup for corporate conference",
       coverImage: null,
-      coverImageUrl: "https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=1200",
+      coverImageUrl:
+        "https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=1200",
       coverAlt: "Corporate Event Coverage",
       date: "2024",
       location: "KICC, Nairobi",
@@ -1538,7 +1739,8 @@ async function seed() {
       category: "production",
       description: "Color grading and editing workstation",
       coverImage: null,
-      coverImageUrl: "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?q=80&w=1200",
+      coverImageUrl:
+        "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?q=80&w=1200",
       coverAlt: "Post-Production Suite",
       date: "2024",
       location: "Post-Production Studio",
@@ -1552,7 +1754,8 @@ async function seed() {
       category: "equipment",
       description: "Aerial shots for commercial production",
       coverImage: null,
-      coverImageUrl: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?q=80&w=1200",
+      coverImageUrl:
+        "https://images.unsplash.com/photo-1578662996442-48f60103fc96?q=80&w=1200",
       coverAlt: "Drone Cinematography",
       date: "2023",
       location: "Coastal Region",
@@ -1566,7 +1769,8 @@ async function seed() {
       category: "behind-scenes",
       description: "Professional interview lighting and audio setup",
       coverImage: null,
-      coverImageUrl: "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=1200",
+      coverImageUrl:
+        "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=1200",
       coverAlt: "Interview Setup",
       date: "2024",
       location: "Documentary Set",
@@ -1579,63 +1783,135 @@ async function seed() {
 
   // --- partner ---
   const partners = [
-    { _id: "partner-cocacola", _type: "partner", order: 1, name: "Coca Cola", logo: null, logoAlt: "Coca Cola logo", url: null },
-    { _id: "partner-darling", _type: "partner", order: 2, name: "Darling", logo: null, logoAlt: "Darling logo", url: null },
-    { _id: "partner-delish", _type: "partner", order: 3, name: "Delish", logo: null, logoAlt: "Delish logo", url: null },
-    { _id: "partner-drmattress", _type: "partner", order: 4, name: "Dr. Mattress", logo: null, logoAlt: "Dr. Mattress logo", url: null },
-    { _id: "partner-eabl", _type: "partner", order: 5, name: "EABL", logo: null, logoAlt: "EABL logo", url: null },
-    { _id: "partner-furnitureplace", _type: "partner", order: 6, name: "Furniture Place", logo: null, logoAlt: "Furniture Place logo", url: null },
-    { _id: "partner-lcwaikiki", _type: "partner", order: 7, name: "LC Waikiki", logo: null, logoAlt: "LC Waikiki logo", url: null },
-    { _id: "partner-megagrowth", _type: "partner", order: 8, name: "Mega Growth", logo: null, logoAlt: "Mega Growth logo", url: null },
-    { _id: "partner-orient", _type: "partner", order: 9, name: "Orient", logo: null, logoAlt: "Orient logo", url: null },
-    { _id: "partner-prestige", _type: "partner", order: 10, name: "Prestige", logo: null, logoAlt: "Prestige logo", url: null },
-    { _id: "partner-sarit", _type: "partner", order: 11, name: "Sarit", logo: null, logoAlt: "Sarit logo", url: null },
-    { _id: "partner-titi", _type: "partner", order: 12, name: "Titi", logo: null, logoAlt: "Titi logo", url: null },
-    { _id: "partner-tworivers", _type: "partner", order: 13, name: "Two Rivers", logo: null, logoAlt: "Two Rivers logo", url: null },
-    { _id: "partner-vspa", _type: "partner", order: 14, name: "V Spa", logo: null, logoAlt: "V Spa logo", url: null },
+    {
+      _id: "partner-cocacola",
+      _type: "partner",
+      order: 1,
+      name: "Coca Cola",
+      logo: null,
+      logoAlt: "Coca Cola logo",
+      url: null,
+    },
+    {
+      _id: "partner-darling",
+      _type: "partner",
+      order: 2,
+      name: "Darling",
+      logo: null,
+      logoAlt: "Darling logo",
+      url: null,
+    },
+    {
+      _id: "partner-delish",
+      _type: "partner",
+      order: 3,
+      name: "Delish",
+      logo: null,
+      logoAlt: "Delish logo",
+      url: null,
+    },
+    {
+      _id: "partner-drmattress",
+      _type: "partner",
+      order: 4,
+      name: "Dr. Mattress",
+      logo: null,
+      logoAlt: "Dr. Mattress logo",
+      url: null,
+    },
+    {
+      _id: "partner-eabl",
+      _type: "partner",
+      order: 5,
+      name: "EABL",
+      logo: null,
+      logoAlt: "EABL logo",
+      url: null,
+    },
+    {
+      _id: "partner-furnitureplace",
+      _type: "partner",
+      order: 6,
+      name: "Furniture Place",
+      logo: null,
+      logoAlt: "Furniture Place logo",
+      url: null,
+    },
+    {
+      _id: "partner-lcwaikiki",
+      _type: "partner",
+      order: 7,
+      name: "LC Waikiki",
+      logo: null,
+      logoAlt: "LC Waikiki logo",
+      url: null,
+    },
+    {
+      _id: "partner-megagrowth",
+      _type: "partner",
+      order: 8,
+      name: "Mega Growth",
+      logo: null,
+      logoAlt: "Mega Growth logo",
+      url: null,
+    },
+    {
+      _id: "partner-orient",
+      _type: "partner",
+      order: 9,
+      name: "Orient",
+      logo: null,
+      logoAlt: "Orient logo",
+      url: null,
+    },
+    {
+      _id: "partner-prestige",
+      _type: "partner",
+      order: 10,
+      name: "Prestige",
+      logo: null,
+      logoAlt: "Prestige logo",
+      url: null,
+    },
+    {
+      _id: "partner-sarit",
+      _type: "partner",
+      order: 11,
+      name: "Sarit",
+      logo: null,
+      logoAlt: "Sarit logo",
+      url: null,
+    },
+    {
+      _id: "partner-titi",
+      _type: "partner",
+      order: 12,
+      name: "Titi",
+      logo: null,
+      logoAlt: "Titi logo",
+      url: null,
+    },
+    {
+      _id: "partner-tworivers",
+      _type: "partner",
+      order: 13,
+      name: "Two Rivers",
+      logo: null,
+      logoAlt: "Two Rivers logo",
+      url: null,
+    },
+    {
+      _id: "partner-vspa",
+      _type: "partner",
+      order: 14,
+      name: "V Spa",
+      logo: null,
+      logoAlt: "V Spa logo",
+      url: null,
+    },
   ];
   for (const p of partners) {
     await upsert(p, `partner/${p._id}`);
-  }
-
-  // --- contactDetail ---
-  const contactDetails = [
-    {
-      _id: "contactDetail-location",
-      _type: "contactDetail",
-      order: 1,
-      title: "Location",
-      content: "Nairobi, Kenya",
-      link: "https://maps.google.com/?q=Nairobi+Kenya",
-      linkText: "Directions",
-      external: true,
-      iconKey: "map",
-    },
-    {
-      _id: "contactDetail-email",
-      _type: "contactDetail",
-      order: 2,
-      title: "Email",
-      content: "info@princehousefilms.com",
-      link: "mailto:info@princehousefilms.com",
-      linkText: "Email Us",
-      external: false,
-      iconKey: "envelope",
-    },
-    {
-      _id: "contactDetail-phone",
-      _type: "contactDetail",
-      order: 3,
-      title: "Phone",
-      content: "+254 715 130 028",
-      link: "tel:+254 715 130 028",
-      linkText: "Call Now",
-      external: false,
-      iconKey: "phone",
-    },
-  ];
-  for (const cd of contactDetails) {
-    await upsert(cd, `contactDetail/${cd._id}`);
   }
 
   console.log("Seeding complete.");
