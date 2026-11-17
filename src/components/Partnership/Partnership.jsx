@@ -3,11 +3,7 @@ import { motion } from "framer-motion";
 import "./Partnerships.css";
 
 import { useSanityData } from "../../lib/useSanityData";
-import {
-  partnershipSectionQuery,
-  partnersQuery,
-  partnershipTypesQuery,
-} from "../../lib/queries";
+import { partnershipSectionQuery, partnersQuery } from "../../lib/queries";
 import {
   fallbackPartnershipSection,
   fallbackPartners,
@@ -31,14 +27,10 @@ const Partnerships = () => {
   const { data: section } = useSanityData(
     partnershipSectionQuery,
     {},
-    fallbackPartnershipSection
+    fallbackPartnershipSection,
   );
   const { data: partners } = useSanityData(partnersQuery, {}, fallbackPartners);
-  const { data: types } = useSanityData(
-    partnershipTypesQuery,
-    {},
-    fallbackPartnershipTypes
-  );
+  const types = section.partnershipTypes || fallbackPartnershipTypes;
 
   return (
     <section id="partnerships" className="partnerships-section">
@@ -71,7 +63,9 @@ const Partnerships = () => {
             viewport={{ once: true }}
           >
             Our Valued{" "}
-            <span className="partnerships-title-gradient">{section.sectionTitle}</span>
+            <span className="partnerships-title-gradient">
+              {section.sectionTitle}
+            </span>
           </motion.h2>
           <motion.p
             className="partnerships-subtitle"
@@ -99,11 +93,7 @@ const Partnerships = () => {
               >
                 <div className="partnerships-carousel-card">
                   <div className="partnerships-carousel-glow"></div>
-                  <img
-                    src={partner.img}
-                    alt={partner.logoAlt}
-                    loading="lazy"
-                  />
+                  <img src={partner.img} alt={partner.logoAlt} loading="lazy" />
                   <div className="partnerships-carousel-overlay">
                     <span>{partner.name}</span>
                   </div>

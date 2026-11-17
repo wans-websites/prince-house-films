@@ -176,7 +176,6 @@ async function seed() {
       _id: "siteSettings",
       _type: "siteSettings",
       brandName: "Prince House Films",
-      logo: null,
       logoAlt: "Prince House Films",
       siteUrl: "https://www.princehousefilms.com",
       email: "info@princehousefilms.com",
@@ -193,7 +192,7 @@ async function seed() {
     {
       _id: "header",
       _type: "header",
-      logo: null,
+
       logoAlt: "Prince House Films",
       navLinks: [
         { _key: "nav-home", id: "home", label: "Home", path: "/" },
@@ -228,7 +227,7 @@ async function seed() {
     {
       _id: "preloader",
       _type: "preloader",
-      logo: null,
+
       logoAlt: "Princehouse Films Logo",
       loadingText: "Loading",
       loadingDetails: [
@@ -608,12 +607,32 @@ async function seed() {
       _type: "portfolioSection",
       sectionTitle: "Our Portolio",
       categories: [
-        { _type: "reference", _ref: "portfolioCategory-all" },
-        { _type: "reference", _ref: "portfolioCategory-commercial" },
-        { _type: "reference", _ref: "portfolioCategory-documentary" },
-        { _type: "reference", _ref: "portfolioCategory-corporate" },
-        { _type: "reference", _ref: "portfolioCategory-social" },
-        { _type: "reference", _ref: "portfolioCategory-events" },
+        { _key: "pc-all", _type: "reference", _ref: "portfolioCategory-all" },
+        {
+          _key: "pc-com",
+          _type: "reference",
+          _ref: "portfolioCategory-commercial",
+        },
+        {
+          _key: "pc-doc",
+          _type: "reference",
+          _ref: "portfolioCategory-documentary",
+        },
+        {
+          _key: "pc-corp",
+          _type: "reference",
+          _ref: "portfolioCategory-corporate",
+        },
+        {
+          _key: "pc-soc",
+          _type: "reference",
+          _ref: "portfolioCategory-social",
+        },
+        {
+          _key: "pc-eve",
+          _type: "reference",
+          _ref: "portfolioCategory-events",
+        },
       ],
     },
     "portfolioSection/portfolioSection",
@@ -627,12 +646,28 @@ async function seed() {
       intro:
         "Take a look at the passion, precision, and creativity that goes into every Prince House Films production. From breathtaking locations to intricate setups.",
       categories: [
-        { _type: "reference", _ref: "galleryCategory-all" },
-        { _type: "reference", _ref: "galleryCategory-behind-scenes" },
-        { _type: "reference", _ref: "galleryCategory-production" },
-        { _type: "reference", _ref: "galleryCategory-events" },
-        { _type: "reference", _ref: "galleryCategory-locations" },
-        { _type: "reference", _ref: "galleryCategory-equipment" },
+        { _key: "gc-all", _type: "reference", _ref: "galleryCategory-all" },
+        {
+          _key: "gc-bts",
+          _type: "reference",
+          _ref: "galleryCategory-behind-scenes",
+        },
+        {
+          _key: "gc-prod",
+          _type: "reference",
+          _ref: "galleryCategory-production",
+        },
+        { _key: "gc-eve", _type: "reference", _ref: "galleryCategory-events" },
+        {
+          _key: "gc-loc",
+          _type: "reference",
+          _ref: "galleryCategory-locations",
+        },
+        {
+          _key: "gc-eq",
+          _type: "reference",
+          _ref: "galleryCategory-equipment",
+        },
       ],
       viewMoreLink: "/full-gallery",
       viewMoreLabel: "View More in Gallery",
@@ -647,7 +682,7 @@ async function seed() {
       sectionTitle: "Meet Our Creative Team",
       intro:
         "A passionate collective of storytellers, cinematographers, and innovators",
-      groupPhoto: null,
+
       groupPhotoTitle: "The Creative Minds",
       groupPhotoDescription: "United by passion, driven by innovation",
     },
@@ -675,9 +710,9 @@ async function seed() {
       intro:
         "Ready to bring your vision to life? Connect with us through any channel.",
       contactDetails: [
-        { _type: "reference", _ref: "contactDetail-location" },
-        { _type: "reference", _ref: "contactDetail-email" },
-        { _type: "reference", _ref: "contactDetail-phone" },
+        { _key: "cd-loc", _type: "reference", _ref: "contactDetail-location" },
+        { _key: "cd-email", _type: "reference", _ref: "contactDetail-email" },
+        { _key: "cd-phone", _type: "reference", _ref: "contactDetail-phone" },
       ],
       socialsHeading: "Follow Us",
       socials: [
@@ -729,7 +764,7 @@ async function seed() {
     {
       _id: "footer",
       _type: "footer",
-      logo: null,
+
       logoAlt: "Prince House Films",
       socials: [
         {
@@ -1528,7 +1563,7 @@ async function seed() {
         "Award-winning documentary on African wildlife conservation",
       details:
         "This groundbreaking documentary took us across 5 African countries over 18 months. We captured never-before-seen footage of endangered species and worked closely with conservation experts to tell a compelling story about biodiversity preservation.",
-      coverImage: null,
+
       coverImageUrl:
         "https://images.unsplash.com/photo-1550358864-518f202c02ba?q=80&w=1200",
       coverAlt: "Wildlife Conservation Documentary",
@@ -1547,7 +1582,7 @@ async function seed() {
       shortDescription: "Corporate brand film for Silicon Valley tech startup",
       details:
         "A sleek, futuristic brand film that established TechNova's identity in the competitive AI market. We utilized advanced CGI and motion graphics to visualize complex tech concepts.",
-      coverImage: null,
+
       coverImageUrl:
         "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w-1200",
       coverAlt: "Tech Startup Brand Film",
@@ -1566,7 +1601,7 @@ async function seed() {
       shortDescription: "Multi-camera live coverage of major music festival",
       details:
         "Complete live production coverage of Africa's largest music festival. We deployed 12 camera crews, drone teams, and mobile production units to capture every moment.",
-      coverImage: null,
+
       coverImageUrl:
         "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w-1200",
       coverAlt: "Music Festival Coverage",
@@ -1586,7 +1621,7 @@ async function seed() {
         "12-part training video series for multinational corporation",
       details:
         "Comprehensive training program filmed across 8 countries. Each episode was customized for local markets while maintaining consistent branding and messaging.",
-      coverImage: null,
+
       coverImageUrl:
         "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=1200",
       coverAlt: "Corporate Training Series",
@@ -1605,7 +1640,7 @@ async function seed() {
       shortDescription: "Viral social media campaign for fashion brand",
       details:
         "A 30-day social media campaign that generated over 50 million views. We produced 30 unique 30-second episodes, each with tailored content for different platforms.",
-      coverImage: null,
+
       coverImageUrl:
         "https://images.pexels.com/photos/147413/twitter-facebook-together-exchange-of-information-147413.jpeg",
       coverAlt: "Social Media Campaign",
@@ -1624,7 +1659,7 @@ async function seed() {
       shortDescription: "Cinematic product launch for luxury automotive brand",
       details:
         "A cinematic masterpiece shot over 3 continents. We captured the new luxury vehicle in stunning locations from Swiss Alps to Dubai deserts.",
-      coverImage: null,
+
       coverImageUrl:
         "https://images.unsplash.com/photo-1489824904134-891ab64532f1?q=80&w=1200",
       coverAlt: "Product Launch Film",
@@ -1648,7 +1683,7 @@ async function seed() {
       title: "Wildlife Documentary Shoot",
       category: "behind-scenes",
       description: "Capturing rare wildlife moments in Maasai Mara",
-      coverImage: null,
+
       coverImageUrl:
         "https://images.unsplash.com/photo-1550358864-518f202c02ba?q=80&w=1200",
       coverAlt: "Wildlife Documentary Shoot",
@@ -1663,7 +1698,7 @@ async function seed() {
       title: "Studio Production Setup",
       category: "production",
       description: "Professional studio setup for commercial shoot",
-      coverImage: null,
+
       coverImageUrl:
         "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1200",
       coverAlt: "Studio Production Setup",
@@ -1678,7 +1713,7 @@ async function seed() {
       title: "Music Festival Coverage",
       category: "events",
       description: "Multi-camera setup for live festival broadcast",
-      coverImage: null,
+
       coverImageUrl:
         "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=1200",
       coverAlt: "Music Festival Coverage",
@@ -1693,7 +1728,7 @@ async function seed() {
       title: "Mountain Documentary Location",
       category: "locations",
       description: "Shooting in challenging mountain terrain",
-      coverImage: null,
+
       coverImageUrl:
         "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=1200",
       coverAlt: "Mountain Documentary Location",
@@ -1708,7 +1743,7 @@ async function seed() {
       title: "Cinema Camera Setup",
       category: "equipment",
       description: "Professional cinema camera rig for film shoot",
-      coverImage: null,
+
       coverImageUrl:
         "https://images.unsplash.com/photo-1563297007-0686b7003af7?q=80&w=1200",
       coverAlt: "Cinema Camera Setup",
@@ -1723,7 +1758,7 @@ async function seed() {
       title: "Corporate Event Coverage",
       category: "events",
       description: "Live streaming setup for corporate conference",
-      coverImage: null,
+
       coverImageUrl:
         "https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=1200",
       coverAlt: "Corporate Event Coverage",
@@ -1738,7 +1773,7 @@ async function seed() {
       title: "Post-Production Suite",
       category: "production",
       description: "Color grading and editing workstation",
-      coverImage: null,
+
       coverImageUrl:
         "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?q=80&w=1200",
       coverAlt: "Post-Production Suite",
@@ -1753,7 +1788,7 @@ async function seed() {
       title: "Drone Cinematography",
       category: "equipment",
       description: "Aerial shots for commercial production",
-      coverImage: null,
+
       coverImageUrl:
         "https://images.unsplash.com/photo-1578662996442-48f60103fc96?q=80&w=1200",
       coverAlt: "Drone Cinematography",
@@ -1768,7 +1803,7 @@ async function seed() {
       title: "Interview Setup",
       category: "behind-scenes",
       description: "Professional interview lighting and audio setup",
-      coverImage: null,
+
       coverImageUrl:
         "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=1200",
       coverAlt: "Interview Setup",
@@ -1788,7 +1823,7 @@ async function seed() {
       _type: "partner",
       order: 1,
       name: "Coca Cola",
-      logo: null,
+
       logoAlt: "Coca Cola logo",
       url: null,
     },
@@ -1797,7 +1832,7 @@ async function seed() {
       _type: "partner",
       order: 2,
       name: "Darling",
-      logo: null,
+
       logoAlt: "Darling logo",
       url: null,
     },
@@ -1806,7 +1841,7 @@ async function seed() {
       _type: "partner",
       order: 3,
       name: "Delish",
-      logo: null,
+
       logoAlt: "Delish logo",
       url: null,
     },
@@ -1815,7 +1850,7 @@ async function seed() {
       _type: "partner",
       order: 4,
       name: "Dr. Mattress",
-      logo: null,
+
       logoAlt: "Dr. Mattress logo",
       url: null,
     },
@@ -1824,7 +1859,7 @@ async function seed() {
       _type: "partner",
       order: 5,
       name: "EABL",
-      logo: null,
+
       logoAlt: "EABL logo",
       url: null,
     },
@@ -1833,7 +1868,7 @@ async function seed() {
       _type: "partner",
       order: 6,
       name: "Furniture Place",
-      logo: null,
+
       logoAlt: "Furniture Place logo",
       url: null,
     },
@@ -1842,7 +1877,7 @@ async function seed() {
       _type: "partner",
       order: 7,
       name: "LC Waikiki",
-      logo: null,
+
       logoAlt: "LC Waikiki logo",
       url: null,
     },
@@ -1851,7 +1886,7 @@ async function seed() {
       _type: "partner",
       order: 8,
       name: "Mega Growth",
-      logo: null,
+
       logoAlt: "Mega Growth logo",
       url: null,
     },
@@ -1860,7 +1895,7 @@ async function seed() {
       _type: "partner",
       order: 9,
       name: "Orient",
-      logo: null,
+
       logoAlt: "Orient logo",
       url: null,
     },
@@ -1869,7 +1904,7 @@ async function seed() {
       _type: "partner",
       order: 10,
       name: "Prestige",
-      logo: null,
+
       logoAlt: "Prestige logo",
       url: null,
     },
@@ -1878,7 +1913,7 @@ async function seed() {
       _type: "partner",
       order: 11,
       name: "Sarit",
-      logo: null,
+
       logoAlt: "Sarit logo",
       url: null,
     },
@@ -1887,7 +1922,7 @@ async function seed() {
       _type: "partner",
       order: 12,
       name: "Titi",
-      logo: null,
+
       logoAlt: "Titi logo",
       url: null,
     },
@@ -1896,7 +1931,7 @@ async function seed() {
       _type: "partner",
       order: 13,
       name: "Two Rivers",
-      logo: null,
+
       logoAlt: "Two Rivers logo",
       url: null,
     },
@@ -1905,7 +1940,7 @@ async function seed() {
       _type: "partner",
       order: 14,
       name: "V Spa",
-      logo: null,
+
       logoAlt: "V Spa logo",
       url: null,
     },
