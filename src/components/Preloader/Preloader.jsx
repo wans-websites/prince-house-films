@@ -2,11 +2,16 @@ import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import "./Preloader.css";
 import logo from "../../assets/img/phf_logo.png";
+import { useSanityData } from "../../lib/useSanityData";
+import { preloaderQuery } from "../../lib/queries";
+import { fallbackPreloader } from "../../lib/fallbacks";
+import { urlFor } from "../../lib/sanity";
 
 const Preloader = () => {
   const [progress, setProgress] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
   const [showVideo, setShowVideo] = useState(false);
+  const { data } = useSanityData(preloaderQuery, {}, fallbackPreloader);
 
   useEffect(() => {
     // Progress simulation
@@ -172,9 +177,9 @@ const Preloader = () => {
               >
                 {/* Logo img */}
                 <img
-                  src={logo}
+                  src={data.logo ? urlFor(data.logo).url() : logo}
                   className="preloader-logo-img"
-                  alt="Princehouse Films Logo"
+                  alt={data.logoAlt}
                 />
 
                 {/* Logo Icon */}
@@ -229,7 +234,7 @@ const Preloader = () => {
                 <span className="preloader-loading-dot preloader-loading-dot-3">
                   •
                 </span>
-                <span>Loading </span>
+                <span>{data.loadingText}{" "}</span>
                 <span className="preloader-loading-dot preloader-loading-dot-4">
                   •
                 </span>
@@ -282,7 +287,7 @@ const Preloader = () => {
               <div className="preloader-loading-details">
                 <div className="preloader-loading-detail">
                   <span className="preloader-loading-label">
-                    Initializing Visuals
+                    {data.loadingDetails[0].label}
                   </span>
                   <span className="preloader-loading-status">
                     {progress > 20 ? "✓" : progress > 10 ? "⚡" : "..."}
@@ -290,7 +295,7 @@ const Preloader = () => {
                 </div>
                 <div className="preloader-loading-detail">
                   <span className="preloader-loading-label">
-                    Loading Assets
+                    {data.loadingDetails[1].label}
                   </span>
                   <span className="preloader-loading-status">
                     {progress > 50 ? "✓" : progress > 30 ? "⚡" : "..."}
@@ -298,7 +303,7 @@ const Preloader = () => {
                 </div>
                 <div className="preloader-loading-detail">
                   <span className="preloader-loading-label">
-                    Preparing Experience
+                    {data.loadingDetails[2].label}
                   </span>
                   <span className="preloader-loading-status">
                     {progress > 80 ? "✓" : progress > 60 ? "⚡" : "..."}
@@ -309,7 +314,7 @@ const Preloader = () => {
 
             {/* Video Background (if enabled) */}
             <AnimatePresence>
-              {showVideo && (
+              {showVideo && data.backgroundVideoUrl && (
                 <motion.div
                   className="preloader-video-container"
                   initial={{ opacity: 0 }}
@@ -324,7 +329,7 @@ const Preloader = () => {
                     playsInline
                   >
                     <source
-                      src="/assets/img/WildNowLogovideo.mp4"
+                      src={data.backgroundVideoUrl}
                       type="video/mp4"
                     />
                   </video>

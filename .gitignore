@@ -17,7 +17,17 @@
 .env.development.local
 .env.test.local
 .env.production.local
+.env
 
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+build
+build.zip
+
+backup-20261119-pre-migration.tar.gz
+
+# Sanity production backups and exports
+/backups/
+*.tar.gz

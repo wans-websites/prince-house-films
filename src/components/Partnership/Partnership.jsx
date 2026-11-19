@@ -2,7 +2,13 @@
 import { motion } from "framer-motion";
 import "./Partnerships.css";
 
-import partners from "./partnerImages";
+import { useSanityData } from "../../lib/useSanityData";
+import { partnershipSectionQuery, partnersQuery } from "../../lib/queries";
+import {
+  fallbackPartnershipSection,
+  fallbackPartners,
+  fallbackPartnershipTypes,
+} from "../../lib/fallbacks";
 
 import {
   BiBuilding,
@@ -12,23 +18,19 @@ import {
   BiCheckCircle,
 } from "react-icons/bi";
 
+const typeIconMap = {
+  building: <BiBuilding />,
+  rocket: <BiRocket />,
+};
+
 const Partnerships = () => {
-  const partnershipTypes = [
-    {
-      icon: <BiBuilding />,
-      title: "Brand Partnerships",
-      description:
-        "Long-term collaborations with brands for consistent content production",
-      features: [
-        "Monthly content production",
-        "Brand integration",
-        "Performance analytics",
-        "Strategic planning",
-      ],
-      color: "#FF2A26",
-      accent: "#FF6B66",
-    },
-  ];
+  const { data: section } = useSanityData(
+    partnershipSectionQuery,
+    {},
+    fallbackPartnershipSection,
+  );
+  const { data: partners } = useSanityData(partnersQuery, {}, fallbackPartners);
+  const types = section.partnershipTypes || fallbackPartnershipTypes;
 
   return (
     <section id="partnerships" className="partnerships-section">
@@ -51,7 +53,7 @@ const Partnerships = () => {
         >
           <div className="partnerships-badge">
             <BiRocket className="partnerships-badge-icon" />
-            <span>Strategic Alliances</span>
+            <span>{section.badgeLabel}</span>
           </div>
           <motion.h2
             className="partnerships-title"
@@ -61,7 +63,9 @@ const Partnerships = () => {
             viewport={{ once: true }}
           >
             Our Valued{" "}
-            <span className="partnerships-title-gradient">Partnerships</span>
+            <span className="partnerships-title-gradient">
+              {section.sectionTitle}
+            </span>
           </motion.h2>
           <motion.p
             className="partnerships-subtitle"
@@ -70,8 +74,7 @@ const Partnerships = () => {
             transition={{ delay: 0.4, duration: 0.8 }}
             viewport={{ once: true }}
           >
-            Building lasting relationships that drive creative excellence and
-            mutual success
+            {section.intro}
           </motion.p>
         </motion.div>
 
@@ -90,11 +93,7 @@ const Partnerships = () => {
               >
                 <div className="partnerships-carousel-card">
                   <div className="partnerships-carousel-glow"></div>
-                  <img
-                    src={partner.img}
-                    alt={`${partner.name} logo`}
-                    loading="lazy"
-                  />
+                  <img src={partner.img} alt={partner.logoAlt} loading="lazy" />
                   <div className="partnerships-carousel-overlay">
                     <span>{partner.name}</span>
                   </div>
@@ -107,7 +106,7 @@ const Partnerships = () => {
         {/* Enhanced Partnership Types - 3D Card Effect */}
         <div className="partnerships-types-wrapper">
           <div className="partnerships-types-grid">
-            {partnershipTypes.map((type, i) => (
+            {types.map((type, i) => (
               <motion.div
                 key={i}
                 className="partnerships-type-card"
@@ -144,7 +143,7 @@ const Partnerships = () => {
                   }}
                 >
                   <div className="partnerships-type-icon-wrapper">
-                    {type.icon}
+                    {typeIconMap[type.iconKey] || typeIconMap.building}
                     <div className="partnerships-type-icon-ring"></div>
                     <div className="partnerships-type-icon-dots">
                       {[...Array(8)].map((_, dotIndex) => (
@@ -202,7 +201,7 @@ const Partnerships = () => {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  <span>Explore Partnership</span>
+                  <span>{section.actionButtonLabel}</span>
                   <BiChevronRight className="partnerships-type-action-icon" />
                   <div className="partnerships-type-action-sparkle">
                     <BiStar />

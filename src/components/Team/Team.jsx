@@ -1,11 +1,16 @@
 // src/components/Team/Team.jsx
 import { motion } from "framer-motion";
 import "./Team.css";
+import { useSanityData } from "../../lib/useSanityData";
+import { teamQuery } from "../../lib/queries";
+import { fallbackTeam } from "../../lib/fallbacks";
+import { urlFor } from "../../lib/sanity";
 
 // Import your landscape group photo here
 import teamGroupPhoto from "../../assets/img/team.jpg";
 
 const Team = () => {
+  const { data } = useSanityData(teamQuery, {}, fallbackTeam);
   return (
     <section id="team" className="team-section-single">
       <div className="team-glow-overlay"></div>
@@ -18,11 +23,8 @@ const Team = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="team-title">Meet Our Creative Team</h2>
-          <p className="team-subtitle">
-            A passionate collective of storytellers, cinematographers, and
-            innovators
-          </p>
+          <h2 className="team-title">{data.sectionTitle}</h2>
+          <p className="team-subtitle">{data.intro}</p>
         </motion.div>
 
         {/* Main Group Photo */}
@@ -34,7 +36,7 @@ const Team = () => {
         >
           <div
             className="team-group-photo"
-            style={{ backgroundImage: `url(${teamGroupPhoto})` }}
+            style={{ backgroundImage: `url(${data.groupPhoto ? urlFor(data.groupPhoto).url() : teamGroupPhoto})` }}
           >
             <div className="photo-overlay">
               <div className="photo-content">
@@ -44,7 +46,7 @@ const Team = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.3 }}
                 >
-                  The Creative Minds
+                  {data.groupPhotoTitle}
                 </motion.h3>
                 <motion.p
                   className="photo-description"
@@ -52,7 +54,7 @@ const Team = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.4 }}
                 >
-                  United by passion, driven by innovation
+                  {data.groupPhotoDescription}
                 </motion.p>
               </div>
             </div>

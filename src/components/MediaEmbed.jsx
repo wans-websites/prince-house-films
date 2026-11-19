@@ -40,6 +40,18 @@ const MediaEmbed = ({ item, index }) => {
 
   const isPlaying = playingVideoId === videoId;
 
+  // Resolve the poster image URL: Sanity asset takes priority over external URL.
+  const posterUrl =
+    item.videoPoster
+      ? urlFor(item.videoPoster).url()
+      : item.videoPosterUrl || "";
+
+  // Resolve the video source: Sanity asset takes priority over external URL.
+  const videoSource =
+    item.videoFile
+      ? urlFor(item.videoFile).url()
+      : item.videoUrl || "";
+
   // Release the native media pipeline before React removes the <video> node.
   // Without this, a video that is still loading when unmounted can leave the
   // DOM out of sync and React 18 throws removeChild NotFoundError.
@@ -60,7 +72,11 @@ const MediaEmbed = ({ item, index }) => {
   // Defer play until mounted and guard against detached refs.
   useEffect(() => {
     const vid = videoRef.current;
-    if (!vid || item.type !== "external_video") return;
+    if (
+      !vid ||
+      (item.type !== "external_video" && item.type !== "sanity_video")
+    )
+      return;
     if (isPlaying) {
       const p = vid.play();
       if (p?.catch) p.catch(() => {});
@@ -104,7 +120,7 @@ const MediaEmbed = ({ item, index }) => {
       >
         <img
           src={imageUrl}
-          alt={item.title || "Content"}
+          alt={item.alt || item.title || "Content"}
           loading="lazy"
           style={{
             width: "100%",
@@ -138,7 +154,7 @@ const MediaEmbed = ({ item, index }) => {
       >
         <img
           src={item.imageUrl}
-          alt={item.title || "Content"}
+          alt={item.alt || item.title || "Content"}
           loading="lazy"
           style={{
             width: "100%",
@@ -149,6 +165,82 @@ const MediaEmbed = ({ item, index }) => {
             left: 0,
           }}
         />
+
+        {item.redirectUrl && (
+          <div className="media-embed-view-more-button-container">
+            <button
+              className="media-embed-view-more-button"
+              onClick={handleViewMoreClick}
+            >
+              View More
+            </button>
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  if (item.type === "sanity_video" && videoSource) {
+    return (
+      <div
+        className="media-embed-video-wrapper"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        style={{ position: "relative", width: "100%", height: "100%" }}
+      >
+        <video
+          key={`video-${videoSource}`}
+          ref={videoRef}
+          src={videoSource}
+          poster={posterUrl || undefined}
+          loop
+          playsInline
+          preload="metadata"
+          className="media-embed-cloudinary-video"
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            position: "absolute",
+            inset: 0,
+          }}
+        />
+
+        {!isPlaying && posterUrl && (
+          <div
+            className="media-embed-poster-overlay"
+            style={{
+              position: "absolute",
+              inset: 0,
+              backgroundImage: `url(${posterUrl})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              zIndex: 10,
+              cursor: "pointer",
+            }}
+            onClick={handlePlayClick}
+          />
+        )}
+
+        {!isPlaying && !posterUrl && (
+          <div
+            className="media-embed-play-button-overlay"
+            onClick={handlePlayClick}
+            style={{ opacity: isHovered ? 1 : 0.95 }}
+          >
+            <div className="media-embed-play-button">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </div>
+          </div>
+        )}
 
         {item.redirectUrl && (
           <div className="media-embed-view-more-button-container">
@@ -181,7 +273,7 @@ const MediaEmbed = ({ item, index }) => {
 
     // YouTube / Vimeo → thumbnail + iframe
     if (provider === "youtube" || provider === "vimeo") {
-      const thumb = getVideoThumbnail(item.videoUrl, provider);
+      const thumb = posterUrl || getVideoThumbnail(item.videoUrl, provider);
       const fallbackThumb =
         provider === "youtube" && thumb
           ? thumb.replace("maxresdefault", "hqdefault")
@@ -214,7 +306,7 @@ const MediaEmbed = ({ item, index }) => {
             <>
               <img
                 src={thumb}
-                alt={item.title || "Video thumbnail"}
+                alt={item.alt || item.title || "Video thumbnail"}
                 loading="lazy"
                 onError={(e) => {
                   if (fallbackThumb && e.currentTarget.src !== fallbackThumb) {
@@ -253,7 +345,7 @@ const MediaEmbed = ({ item, index }) => {
       );
     }
 
-    // Direct video (mp4/webm/cloudinary/etc.) — keep existing behavior + Bug-1 safety
+    // Direct video (mp4/webm/cloudinary/etc.) — keep existing behavior + poster support
     return (
       <div
         className="media-embed-video-wrapper"
@@ -262,9 +354,10 @@ const MediaEmbed = ({ item, index }) => {
         style={{ position: "relative", width: "100%", height: "100%" }}
       >
         <video
-          key={`video-${item.videoUrl}`}
+          key={`video-${videoSource}`}
           ref={videoRef}
-          src={item.videoUrl}
+          src={videoSource}
+          poster={posterUrl || undefined}
           loop
           playsInline
           preload="metadata"
@@ -278,7 +371,23 @@ const MediaEmbed = ({ item, index }) => {
           }}
         />
 
-        {!isPlaying && (
+        {!isPlaying && posterUrl && (
+          <div
+            className="media-embed-poster-overlay"
+            style={{
+              position: "absolute",
+              inset: 0,
+              backgroundImage: `url(${posterUrl})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              zIndex: 10,
+              cursor: "pointer",
+            }}
+            onClick={handlePlayClick}
+          />
+        )}
+
+        {!isPlaying && !posterUrl && (
           <div
             className="media-embed-play-button-overlay"
             onClick={handlePlayClick}
