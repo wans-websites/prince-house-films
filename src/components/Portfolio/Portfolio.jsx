@@ -20,6 +20,10 @@ import {
 } from "../../lib/fallbacks";
 import MediaEmbed from "../MediaEmbed";
 
+// Cards must stay visible once revealed: without `once`, a card that scrolls
+// back out of view animates to opacity 0 and leaves an empty grid cell behind.
+const REVEAL = { once: true, amount: 0.15 };
+
 const Portfolio = () => {
   const [activeFilter, setActiveFilter] = useState("all");
   const [activeItem, setActiveItem] = useState(null);
@@ -35,10 +39,12 @@ const Portfolio = () => {
     fallbackPortfolioItems
   );
 
-  const filters = (section.categories || []).map((cat) => ({
-    id: cat.label === "All Projects" ? "all" : cat.label.toLowerCase(),
-    label: cat.label,
-  }));
+  const filters = (section.categories || [])
+    .filter((cat) => cat && cat.label)
+    .map((cat) => ({
+      id: cat.label === "All Projects" ? "all" : cat.label.toLowerCase(),
+      label: cat.label,
+    }));
 
   const portfolioItems = items || [];
 
@@ -50,22 +56,39 @@ const Portfolio = () => {
   const openModal = (item) => {
     setActiveItem(item);
     setModalOpen(true);
-    document.body.style.overflow = "hidden";
   };
 
   const closeModal = () => {
     setModalOpen(false);
-    document.body.style.overflow = "auto";
+    setActiveItem(null);
   };
 
+  // Lock page scrolling while the modal is open and restore the previous value
+  // on close, including when the component unmounts mid-open.
   useEffect(() => {
+    if (!modalOpen) return undefined;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previous;
+    };
+  }, [modalOpen]);
+
+  useEffect(() => {
+    if (!modalOpen) return undefined;
     const handleEscape = (e) => {
       if (e.key === "Escape") closeModal();
     };
-
     window.addEventListener("keydown", handleEscape);
     return () => window.removeEventListener("keydown", handleEscape);
-  }, []);
+  }, [modalOpen]);
+
+  const handleCardKeyDown = (event, item) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      openModal(item);
+    }
+  };
 
   return (
     <section id="portfolio" className="phf-section portfolio-section">
@@ -75,24 +98,21 @@ const Portfolio = () => {
           className="section-title"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
+          viewport={REVEAL}
           transition={{ duration: 0.6 }}
         >
           {section.sectionTitle}
         </motion.h2>
-        {/* 
-        <p className="section-subtitle">
-          Explore our award-winning portfolio of films, documentaries,
-          commercials, and digital content that showcases our creative vision
-          and technical excellence.
-        </p> */}
 
         <div className="portfolio-filters">
           {filters.map((filter) => (
             <button
               key={filter.id}
+              type="button"
               className={`filter-btn ${
                 activeFilter === filter.id ? "active" : ""
               }`}
+              aria-pressed={activeFilter === filter.id}
               onClick={() => setActiveFilter(filter.id)}
             >
               {filter.label}
@@ -105,92 +125,40 @@ const Portfolio = () => {
             <motion.div
               key={item.id}
               className="portfolio-item phf-card"
-              initial={{ opacity: 0, scale: 0.9 }}
+              initial={{ opacity: 0, scale: 0.96 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.4, delay: i * 0.1 }}
+              viewport={REVEAL}
+              transition={{ duration: 0.4, delay: Math.min(i, 5) * 0.06 }}
               whileHover={{
                 scale: 1.02,
                 transition: { duration: 0.2 },
               }}
+              role="button"
+              tabIndex={0}
+              aria-label={`View ${item.title} project details`}
               onClick={() => openModal(item)}
+              onKeyDown={(event) => handleCardKeyDown(event, item)}
             >
               <div
                 className="portfolio-image"
                 role="img"
                 aria-label={item.coverAlt || item.title}
-                style={{ backgroundImage: `url(${item.image})` }}
+                style={{ backgroundImage: `url("${item.image}")` }}
               />
 
               <div className="portfolio-overlay">
                 <span className="portfolio-category">{item.category}</span>
                 <h3 className="portfolio-title">{item.title}</h3>
                 <p className="portfolio-description">{item.description}</p>
-                <a
-                  href="#"
-                  className="portfolio-link"
-                  onClick={(e) => e.preventDefault()}
-                >
+                <span className="portfolio-link">
                   View Project <i className="bi bi-arrow-right"></i>
-                </a>
+                </span>
               </div>
             </motion.div>
           ))}
         </div>
-        {/* 
-        <motion.div
-          className="section-cta"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ delay: 0.8 }}
-          style={{ marginTop: "80px", textAlign: "center" }}
-        >
-          <p
-            style={{
-              color: "var(--color-gray)",
-              fontSize: "18px",
-              marginBottom: "30px",
-              maxWidth: "600px",
-              marginLeft: "auto",
-              marginRight: "auto",
-            }}
-          >
-            Want to see more? Explore our complete portfolio of over 200
-            successful projects.
-          </p>
-
-          <a
-            href="/full-portfolio"
-            className="cta-button"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "10px",
-              padding: "16px 42px",
-              background:
-                "linear-gradient(90deg, var(--color-primary), var(--color-primary-dark))",
-              color: "white",
-              textDecoration: "none",
-              borderRadius: "50px",
-              fontWeight: "600",
-              fontSize: "16px",
-              transition: "all 0.3s ease",
-              boxShadow: "0 10px 30px rgba(255, 4, 0, 0.3)",
-            }}
-            onMouseEnter={(e) => {
-              e.target.style.transform = "translateY(-3px)";
-              e.target.style.boxShadow = "0 15px 35px rgba(255, 4, 0, 0.4)";
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.transform = "translateY(0)";
-              e.target.style.boxShadow = "0 10px 30px rgba(255, 4, 0, 0.3)";
-            }}
-          >
-            View Full Portfolio <i className="bi bi-collection"></i>
-          </a>
-        </motion.div> */}
       </div>
 
-      {/* Modal */}
       <AnimatePresence>
         {modalOpen && activeItem && (
           <motion.div
@@ -199,6 +167,9 @@ const Portfolio = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={closeModal}
+            role="dialog"
+            aria-modal="true"
+            aria-label={`${activeItem.title} project details`}
           >
             <motion.div
               className="modal-content"
@@ -207,40 +178,34 @@ const Portfolio = () => {
               exit={{ scale: 0.9 }}
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="modal-close" onClick={closeModal}>
+              <button
+                type="button"
+                className="modal-close"
+                onClick={closeModal}
+                aria-label="Close project details"
+              >
                 <i className="bi bi-x"></i>
-              </div>
+              </button>
 
               <div className="modal-body">
                 <div
                   className="modal-image"
-                  style={{ backgroundImage: `url(${activeItem.image})` }}
+                  style={{ backgroundImage: `url("${activeItem.image}")` }}
                 />
-
-                {activeItem.mediaItems && activeItem.mediaItems.length > 0 && (
-                  <div
-                    className="modal-media-items"
-                    style={{ marginTop: "20px", display: "flex", flexWrap: "wrap", gap: "10px" }}
-                  >
-                    {activeItem.mediaItems.map((media, idx) => (
-                      <div
-                        key={media._key}
-                        className="modal-media-item"
-                        style={{
-                          width: "calc(50% - 5px)",
-                          aspectRatio: "1",
-                          position: "relative",
-                        }}
-                      >
-                        <MediaEmbed item={media} index={idx} />
-                      </div>
-                    ))}
-                  </div>
-                )}
 
                 <div className="modal-info">
                   <h3>{activeItem.title}</h3>
                   <p>{activeItem.details}</p>
+
+                  {activeItem.mediaItems && activeItem.mediaItems.length > 0 && (
+                    <div className="modal-media-items">
+                      {activeItem.mediaItems.map((media, idx) => (
+                        <div key={media._key} className="modal-media-item">
+                          <MediaEmbed item={media} index={idx} />
+                        </div>
+                      ))}
+                    </div>
+                  )}
 
                   <div className="modal-details">
                     <div className="detail-item">
@@ -278,15 +243,9 @@ const Portfolio = () => {
                   {activeItem.awards && activeItem.awards.length > 0 && (
                     <div className="modal-awards">
                       <h4>
-                        <BiAward /> Awards & Recognition
+                        <BiAward /> Awards &amp; Recognition
                       </h4>
-                      <ul
-                        style={{
-                          color: "rgba(255, 255, 255, 0.7)",
-                          fontSize: "14px",
-                          paddingLeft: "20px",
-                        }}
-                      >
+                      <ul>
                         {activeItem.awards.map((award, i) => (
                           <li key={i}>{award}</li>
                         ))}
@@ -296,33 +255,7 @@ const Portfolio = () => {
 
                   <a
                     href={`/project/${activeItem.id}`}
-                    className="cta-button"
-                    style={{
-                      display: "inline-flex",
-                      alignItems: "center",
-                      gap: "10px",
-                      padding: "12px 32px",
-                      background:
-                        "linear-gradient(90deg, var(--color-primary), var(--color-primary-dark))",
-                      color: "white",
-                      textDecoration: "none",
-                      borderRadius: "50px",
-                      fontWeight: "600",
-                      fontSize: "15px",
-                      transition: "all 0.3s ease",
-                      boxShadow: "0 8px 25px rgba(255, 4, 0, 0.3)",
-                      marginTop: "30px",
-                    }}
-                    onMouseEnter={(e) => {
-                      e.target.style.transform = "translateY(-2px)";
-                      e.target.style.boxShadow =
-                        "0 12px 30px rgba(255, 4, 0, 0.4)";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.target.style.transform = "translateY(0)";
-                      e.target.style.boxShadow =
-                        "0 8px 25px rgba(255, 4, 0, 0.3)";
-                    }}
+                    className="cta-button modal-cta"
                   >
                     <BiPlayCircle /> Watch Film
                   </a>

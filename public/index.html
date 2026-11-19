@@ -488,15 +488,11 @@
 
     <!-- Vendor JS Files - Defer Loading -->
     <script>
-      // Preloader removal script
+      // The preloader element is owned by React (see Preloader.jsx), so it must
+      // not be removed here: detaching its node behind React's back makes the
+      // next unmount throw NotFoundError and unmounts the whole app.
       window.addEventListener("load", function () {
         setTimeout(function () {
-          const preloader = document.getElementById("preloader");
-          if (preloader) {
-            preloader.style.opacity = "0";
-            preloader.style.visibility = "hidden";
-            setTimeout(() => preloader.remove(), 500);
-          }
           document.body.classList.add("loaded");
         }, 500);
       });

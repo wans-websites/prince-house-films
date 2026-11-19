@@ -45,12 +45,6 @@ const Preloader = () => {
   useEffect(() => {
     if (isComplete) {
       document.body.style.overflow = "auto";
-      const preloader = document.getElementById("preloader");
-      if (preloader) {
-        setTimeout(() => {
-          preloader.style.display = "none";
-        }, 1000);
-      }
     } else {
       document.body.style.overflow = "hidden";
     }
