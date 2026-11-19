@@ -62,6 +62,8 @@ export const headerQuery = `
     logo,
     logoAlt,
     navLinks[]{
+      _key,
+      id,
       label,
       path
     },
