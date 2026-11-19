@@ -324,6 +324,12 @@
   .services-bento-content {
     padding: 26px;
   }
+
+  .services-bento-text,
+  .services-featured .services-bento-text {
+    -webkit-line-clamp: unset;
+    display: block;
+  }
 }
 
 /* Mobile: a deliberate single column; every card shares one aspect ratio so
@@ -362,8 +368,10 @@
     min-height: 0;
   }
 
+  /* The square ratio is a floor: a long description grows the card instead of
+     being clipped, so every card shows its complete text. */
   .services-bento-item {
-    aspect-ratio: 5 / 4;
+    aspect-ratio: 1 / 1;
     min-width: 0;
     border-radius: 20px;
   }
@@ -400,7 +408,8 @@
     font-size: 15px;
     line-height: 1.5;
     max-width: none;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: unset;
+    display: block;
   }
 }
 
@@ -423,7 +432,7 @@
   }
 
   .services-bento-item {
-    aspect-ratio: 5 / 4;
+    aspect-ratio: 1 / 1;
     border-radius: 18px;
   }
 

@@ -150,39 +150,41 @@ export default function Services({ services = [] }) {
       <div className="services-container">
         <h2 className="services-section-title">{sectionData.sectionTitle}</h2>
 
-        <div className="services-bento-grid">
-          {bentoServices.map((item) => (
-            <div
-              key={item._id}
-              className={[
-                "services-bento-item",
-                `services-area-${item.area}`,
-                item.hasBg ? "services-has-bg" : "",
-                item.area === "featured" ? "services-featured" : "",
-              ]
-                .filter(Boolean)
-                .join(" ")}
-              style={
-                item.hasBg
-                  ? { "--services-bento-bg": `url("${item.bgImage}")` }
-                  : undefined
-              }
-              aria-label={`View ${item.title} details`}
-              onClick={() => setSelectedService(item)}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(event) => handleKeyDown(event, item)}
-            >
-              <div className="services-bento-content">
-                <div className="services-bento-head">
-                  <div className="services-bento-icon">{item.iconElement}</div>
-                  <h3 className="services-bento-title">{item.title}</h3>
+        {bentoServices.length > 0 && (
+          <div className="services-bento-grid">
+            {bentoServices.map((item) => (
+              <div
+                key={item._id}
+                className={[
+                  "services-bento-item",
+                  `services-area-${item.area}`,
+                  item.hasBg ? "services-has-bg" : "",
+                  item.area === "featured" ? "services-featured" : "",
+                ]
+                  .filter(Boolean)
+                  .join(" ")}
+                style={
+                  item.hasBg
+                    ? { "--services-bento-bg": `url("${item.bgImage}")` }
+                    : undefined
+                }
+                aria-label={`View ${item.title} details`}
+                onClick={() => setSelectedService(item)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(event) => handleKeyDown(event, item)}
+              >
+                <div className="services-bento-content">
+                  <div className="services-bento-head">
+                    <div className="services-bento-icon">{item.iconElement}</div>
+                    <h3 className="services-bento-title">{item.title}</h3>
+                  </div>
+                  <p className="services-bento-text">{item.text}</p>
                 </div>
-                <p className="services-bento-text">{item.text}</p>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
 
         <ServiceModal
           onClose={() => setSelectedService(null)}

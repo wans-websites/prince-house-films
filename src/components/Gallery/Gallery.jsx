@@ -34,10 +34,17 @@ const Gallery = () => {
     fallbackGalleryItems
   );
 
-  const filters = (section.categories || []).map((cat) => ({
-    id: cat.label === "All" ? "all" : cat.label.toLowerCase().replace(/\s+/g, "-"),
-    label: cat.label,
-  }));
+  // A category with no resolved label would crash the whole page on
+  // `label.toLowerCase()`, so unresolved entries are dropped.
+  const filters = (section.categories || [])
+    .filter((cat) => cat && cat.label)
+    .map((cat) => ({
+      id:
+        cat.label === "All"
+          ? "all"
+          : cat.label.toLowerCase().replace(/\s+/g, "-"),
+      label: cat.label,
+    }));
 
   const galleryItems = items || [];
 

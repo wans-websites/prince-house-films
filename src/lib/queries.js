@@ -193,8 +193,8 @@ export const portfolioSectionQuery = `
   *[_type == "portfolioSection"][0]{
     sectionTitle,
     categories[]{
-      order,
-      label
+      "order": coalesce(order, @->order),
+      "label": coalesce(label, @->label)
     }
   }
 `;
@@ -239,8 +239,8 @@ export const gallerySectionQuery = `
     sectionTitle,
     intro,
     categories[]{
-      order,
-      label
+      "order": coalesce(order, @->order),
+      "label": coalesce(label, @->label)
     },
     viewMoreLink,
     viewMoreLabel
