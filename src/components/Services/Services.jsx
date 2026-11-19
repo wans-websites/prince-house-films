@@ -93,6 +93,15 @@ export default function Services({ services = [] }) {
         const orderB = rankB === -1 ? Number.MAX_SAFE_INTEGER : rankB;
         return orderA - orderB || a.index - b.index;
       })
+      // A duplicate title would otherwise claim one of the five bento slots
+      // and push a real service out of the layout.
+      .filter(({ item }, position, list) => {
+        const title = normalizeTitle(item.title);
+        const firstIndex = list.findIndex(
+          (entry) => normalizeTitle(entry.item.title) === title
+        );
+        return firstIndex === position;
+      })
       .map(({ item }) => item);
 
     const featuredItem = visible.find((item) => item.featured) || visible[0];
