@@ -1,6 +1,7 @@
 // src/components/Services/ServiceModal.jsx
 
 import { useEffect, useMemo } from "react";
+import { createPortal } from "react-dom";
 import { BiChevronRight, BiX } from "react-icons/bi";
 import "./ServiceModal.css";
 import MediaEmbed, { VideoPlayerProvider } from "../MediaEmbed";
@@ -65,7 +66,9 @@ const ServiceModal = ({ onClose, serviceData }) => {
 
   if (!serviceData) return null;
 
-  return (
+  // Rendered into <body>: the section ancestors set position/z-index, which
+  // would trap this fixed overlay under the fixed header.
+  return createPortal(
     <>
       <div className="service-modal-backdrop" onClick={onClose} />
 
@@ -122,7 +125,8 @@ const ServiceModal = ({ onClose, serviceData }) => {
           </div>
         </div>
       </div>
-    </>
+    </>,
+    document.body
   );
 };
 

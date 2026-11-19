@@ -413,6 +413,8 @@
 @media (max-width: 1024px) and (min-width: 769px) {
   .service-modal {
     max-width: 96%;
+    /* top(2.5%) + max-height(95vh) must stay inside the viewport */
+    top: 2.5%;
     max-height: 95vh;
   }
 
@@ -446,6 +448,7 @@
 @media (max-width: 768px) and (min-width: 577px) {
   .service-modal {
     max-width: 96%;
+    top: 2.5%;
     max-height: 95vh;
   }
 
