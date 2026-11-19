@@ -120,43 +120,49 @@ const Portfolio = () => {
           ))}
         </div>
 
-        <div className="portfolio-grid">
-          {filteredItems.map((item, i) => (
-            <motion.div
-              key={item.id}
-              className="portfolio-item phf-card"
-              initial={{ opacity: 0, scale: 0.96 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={REVEAL}
-              transition={{ duration: 0.4, delay: Math.min(i, 5) * 0.06 }}
-              whileHover={{
-                scale: 1.02,
-                transition: { duration: 0.2 },
-              }}
-              role="button"
-              tabIndex={0}
-              aria-label={`View ${item.title} project details`}
-              onClick={() => openModal(item)}
-              onKeyDown={(event) => handleCardKeyDown(event, item)}
-            >
-              <div
-                className="portfolio-image"
-                role="img"
-                aria-label={item.coverAlt || item.title}
-                style={{ backgroundImage: `url("${item.image}")` }}
-              />
+        {filteredItems.length === 0 ? (
+          <p className="portfolio-empty">
+            No projects in this category yet.
+          </p>
+        ) : (
+          <div className="portfolio-grid">
+            {filteredItems.map((item, i) => (
+              <motion.div
+                key={item.id}
+                className="portfolio-item phf-card"
+                initial={{ opacity: 0, scale: 0.96 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={REVEAL}
+                transition={{ duration: 0.4, delay: Math.min(i, 5) * 0.06 }}
+                whileHover={{
+                  scale: 1.02,
+                  transition: { duration: 0.2 },
+                }}
+                role="button"
+                tabIndex={0}
+                aria-label={`View ${item.title} project details`}
+                onClick={() => openModal(item)}
+                onKeyDown={(event) => handleCardKeyDown(event, item)}
+              >
+                <div
+                  className="portfolio-image"
+                  role="img"
+                  aria-label={item.coverAlt || item.title}
+                  style={{ backgroundImage: `url("${item.image}")` }}
+                />
 
-              <div className="portfolio-overlay">
-                <span className="portfolio-category">{item.category}</span>
-                <h3 className="portfolio-title">{item.title}</h3>
-                <p className="portfolio-description">{item.description}</p>
-                <span className="portfolio-link">
-                  View Project <i className="bi bi-arrow-right"></i>
-                </span>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+                <div className="portfolio-overlay">
+                  <span className="portfolio-category">{item.category}</span>
+                  <h3 className="portfolio-title">{item.title}</h3>
+                  <p className="portfolio-description">{item.description}</p>
+                  <span className="portfolio-link">
+                    View Project <i className="bi bi-arrow-right"></i>
+                  </span>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        )}
       </div>
 
       <AnimatePresence>
