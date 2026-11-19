@@ -26,7 +26,7 @@ export default function Objectives() {
   const values = data.values;
 
   return (
-    <section className="phf-section objectives-section" id="approach">
+    <section className="phf-section objectives-section" id="objectives">
       <div className="glow-overlay"></div>
       <div className="container">
         <motion.h2

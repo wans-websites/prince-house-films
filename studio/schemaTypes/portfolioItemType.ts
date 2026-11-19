@@ -3,7 +3,7 @@
 // coverImage (Sanity) OR coverImageUrl (external URL) — component picks one (Batch 4).
 // coverAlt is required.
 
-import {defineField, defineType} from 'sanity'
+import {defineArrayMember, defineField, defineType} from 'sanity'
 
 export const portfolioItemType = defineType({
   name: 'portfolioItem',
@@ -123,6 +123,14 @@ export const portfolioItemType = defineType({
       group: 'links',
       description: 'Label of the "Watch Film" button in the portfolio modal.',
       initialValue: 'Watch Film',
+    }),
+    defineField({
+      name: 'mediaItems',
+      title: 'Additional Media Items',
+      type: 'array',
+      group: 'media',
+      of: [defineArrayMember({type: 'mediaItem'})],
+      description: 'Additional images and videos for this portfolio project. The cover image is used as the primary thumbnail.',
     }),
   ],
   orderings: [

@@ -314,7 +314,7 @@ const Preloader = () => {
 
             {/* Video Background (if enabled) */}
             <AnimatePresence>
-              {showVideo && (
+              {showVideo && data.backgroundVideoUrl && (
                 <motion.div
                   className="preloader-video-container"
                   initial={{ opacity: 0 }}
@@ -329,10 +329,7 @@ const Preloader = () => {
                     playsInline
                   >
                     <source
-                      src={
-                        data.backgroundVideoUrl ||
-                        "/assets/img/WildNowLogovideo.mp4"
-                      }
+                      src={data.backgroundVideoUrl}
                       type="video/mp4"
                     />
                   </video>

@@ -206,6 +206,7 @@ export const fallbackCounts = {
   sectionTitle: "Our Impact in Numbers",
   stats: [
     {
+      _key: "stat-years",
       order: 1,
       number: 10,
       suffix: "+",
@@ -214,6 +215,7 @@ export const fallbackCounts = {
       iconKey: "camera-movie",
     },
     {
+      _key: "stat-projects",
       order: 2,
       number: 200,
       suffix: "+",
@@ -222,6 +224,7 @@ export const fallbackCounts = {
       iconKey: "trophy",
     },
     {
+      _key: "stat-clients",
       order: 3,
       number: 150,
       suffix: "+",
@@ -230,6 +233,7 @@ export const fallbackCounts = {
       iconKey: "globe",
     },
     {
+      _key: "stat-satisfaction",
       order: 4,
       number: 98,
       suffix: "%",

@@ -698,6 +698,40 @@ async function seed() {
       intro:
         "Building lasting relationships that drive creative excellence and mutual success",
       actionButtonLabel: "Explore Partnership",
+      partners: [
+        {_key: "partner-1", order: 1, name: "Coca Cola", logoAlt: "Coca Cola logo", logoUrl: null},
+        {_key: "partner-2", order: 2, name: "Darling", logoAlt: "Darling logo", logoUrl: null},
+        {_key: "partner-3", order: 3, name: "Delish", logoAlt: "Delish logo", logoUrl: null},
+        {_key: "partner-4", order: 4, name: "Dr. Mattress", logoAlt: "Dr. Mattress logo", logoUrl: null},
+        {_key: "partner-5", order: 5, name: "EABL", logoAlt: "EABL logo", logoUrl: null},
+        {_key: "partner-6", order: 6, name: "Furniture Place", logoAlt: "Furniture Place logo", logoUrl: null},
+        {_key: "partner-7", order: 7, name: "LC Waikiki", logoAlt: "LC Waikiki logo", logoUrl: null},
+        {_key: "partner-8", order: 8, name: "Mega Growth", logoAlt: "Mega Growth logo", logoUrl: null},
+        {_key: "partner-9", order: 9, name: "Orient", logoAlt: "Orient logo", logoUrl: null},
+        {_key: "partner-10", order: 10, name: "Prestige", logoAlt: "Prestige logo", logoUrl: null},
+        {_key: "partner-11", order: 11, name: "Sarit", logoAlt: "Sarit logo", logoUrl: null},
+        {_key: "partner-12", order: 12, name: "Titi", logoAlt: "Titi logo", logoUrl: null},
+        {_key: "partner-13", order: 13, name: "Two Rivers", logoAlt: "Two Rivers logo", logoUrl: null},
+        {_key: "partner-14", order: 14, name: "V Spa", logoAlt: "V Spa logo", logoUrl: null},
+      ],
+      types: [
+        {
+          _key: "type-1",
+          order: 1,
+          title: "Brand Partnerships",
+          description:
+            "Long-term collaborations with brands for consistent content production",
+          features: [
+            "Monthly content production",
+            "Brand integration",
+            "Performance analytics",
+            "Strategic planning",
+          ],
+          iconKey: "building",
+          color: "#FF2A26",
+          accent: "#FF6B66",
+        },
+      ],
     },
     "partnershipSection/partnershipSection",
   );
@@ -1463,6 +1497,21 @@ async function seed() {
       fallbackText: "Couldn't load this media. Try another item.",
     },
     "errorBoundary/errorBoundary",
+  );
+
+  await upsert(
+    {
+      _id: "hero",
+      _type: "hero",
+      title: "Where visual storytelling",
+      highlightedText: "meets strategy",
+      ctaText: "Start Your Project",
+      ctaLink: "#contact",
+      backgroundType: "video",
+      backgroundVideoUrl:
+        "https://res.cloudinary.com/dlzstmm4e/video/upload/v1770377544/hero_tycjh1.mov",
+    },
+    "hero/hero-singleton",
   );
 
   // =========================================================================

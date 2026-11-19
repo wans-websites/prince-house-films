@@ -6,8 +6,8 @@ import "./ServiceModal.css";
 import MediaEmbed, { VideoPlayerProvider } from "../MediaEmbed";
 import ErrorBoundary from "../ErrorBoundary";
 import { useSanityData } from "../../lib/useSanityData";
-import { siteSettingsQuery } from "../../lib/queries";
-import { fallbackSiteSettings } from "../../lib/fallbacks";
+import { siteSettingsQuery, errorBoundaryQuery } from "../../lib/queries";
+import { fallbackSiteSettings, fallbackErrorBoundary } from "../../lib/fallbacks";
 
 const ServiceModal = ({ onClose, serviceData }) => {
   useEffect(() => {
@@ -32,20 +32,33 @@ const ServiceModal = ({ onClose, serviceData }) => {
     fallbackSiteSettings
   );
 
+  const { data: errorBoundaryData } = useSanityData(
+    errorBoundaryQuery,
+    {},
+    fallbackErrorBoundary
+  );
+
   const contentItems = useMemo(() => {
     if (!serviceData?.mediaItems?.length) return [];
 
     return serviceData.mediaItems.map((item) => ({
       type:
         item.type === "video"
-          ? "external_video"
+          ? item.videoFile
+            ? "sanity_video"
+            : "external_video"
           : item.image
             ? "sanity_image"
             : "external_image",
       title: item.title || "",
+      alt: item.alt || "",
       image: item.image || null,
       imageUrl: item.imageUrl || "",
       videoUrl: item.videoUrl || "",
+      videoFile: item.videoFile || null,
+      videoPoster: item.videoPoster || null,
+      videoPosterUrl: item.videoPosterUrl || "",
+      duration: item.duration || "",
       redirectUrl: item.externalUrl || "",
     }));
   }, [serviceData]);
@@ -75,7 +88,7 @@ const ServiceModal = ({ onClose, serviceData }) => {
 
         <VideoPlayerProvider>
           <div className="service-modal-grid">
-            <ErrorBoundary>
+            <ErrorBoundary fallbackText={errorBoundaryData?.fallbackText}>
               {contentItems.map((item, index) => (
                 <div
                   key={`${serviceData._id}-${index}-${

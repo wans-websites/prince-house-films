@@ -40,7 +40,7 @@ const Counts = () => {
 
   const stats = (data.stats || []).map(stat => ({
     ...stat,
-    number: counts[stat.key] || 0,
+    number: counts[stat._key] || 0,
   }));
 
   const achievements = data.achievements || [];
@@ -73,7 +73,7 @@ const Counts = () => {
     if (isVisible && !counted.current) {
       const initial = {};
       (data.stats || []).forEach(stat => {
-        initial[stat.key] = 0;
+        initial[stat._key] = 0;
       });
       setCounts(initial);
       counted.current = true;
@@ -94,7 +94,7 @@ const Counts = () => {
 
       const durations = [2000, 2500, 2200, 1800];
       (data.stats || []).forEach((stat, i) => {
-        animateCounter(0, stat.number, durations[i] || 2000, stat.key);
+        animateCounter(0, stat.number, durations[i] || 2000, stat._key);
       });
     }
   }, [isVisible, data]);
@@ -124,7 +124,7 @@ const Counts = () => {
         <div className="stats-grid">
           {stats.map((stat, i) => (
             <motion.div
-              key={stat.key}
+              key={stat._key}
               className="stat-item phf-card"
               style={{ "--stat-color": statColorMap[stat.iconKey] }}
               initial={{ opacity: 0, y: 30 }}

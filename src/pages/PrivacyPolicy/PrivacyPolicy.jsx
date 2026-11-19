@@ -85,11 +85,8 @@ const PrivacyPolicy = () => {
                 <strong>{settings.brandName}</strong>
               </p>
               <p>Email: {settings.email}</p>
-              {/* Phone intentionally left hardcoded — GetInTouch uses "+254 715 130 028",
-                  PrivacyPolicy uses local form "0715130028". Unifying is a content
-                  decision, see CONTENT_MAP.md. */}
-              <p>Phone: 0715130028</p>
-              <p>Website: www.princehousefilms.com</p>
+              <p>Phone: {settings.phone}</p>
+              <p>Website: {settings.siteUrl}</p>
             </div>
           </div>
         </div>

@@ -40,6 +40,13 @@ export const partnerType = defineType({
       description: 'Partner logo image shown in the carousel.',
     }),
     defineField({
+      name: 'logoUrl',
+      title: 'Logo URL (External)',
+      type: 'url',
+      group: 'media',
+      description: 'External logo URL used if no Sanity logo image is set.',
+    }),
+    defineField({
       name: 'logoAlt',
       title: 'Logo Alt Text',
       type: 'string',

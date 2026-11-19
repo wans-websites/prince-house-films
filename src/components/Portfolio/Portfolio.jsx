@@ -18,6 +18,7 @@ import {
   fallbackPortfolioSection,
   fallbackPortfolioItems,
 } from "../../lib/fallbacks";
+import MediaEmbed from "../MediaEmbed";
 
 const Portfolio = () => {
   const [activeFilter, setActiveFilter] = useState("all");
@@ -215,6 +216,27 @@ const Portfolio = () => {
                   className="modal-image"
                   style={{ backgroundImage: `url(${activeItem.image})` }}
                 />
+
+                {activeItem.mediaItems && activeItem.mediaItems.length > 0 && (
+                  <div
+                    className="modal-media-items"
+                    style={{ marginTop: "20px", display: "flex", flexWrap: "wrap", gap: "10px" }}
+                  >
+                    {activeItem.mediaItems.map((media, idx) => (
+                      <div
+                        key={media._key}
+                        className="modal-media-item"
+                        style={{
+                          width: "calc(50% - 5px)",
+                          aspectRatio: "1",
+                          position: "relative",
+                        }}
+                      >
+                        <MediaEmbed item={media} index={idx} />
+                      </div>
+                    ))}
+                  </div>
+                )}
 
                 <div className="modal-info">
                   <h3>{activeItem.title}</h3>

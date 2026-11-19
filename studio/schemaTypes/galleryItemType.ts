@@ -3,7 +3,7 @@
 // coverImage (Sanity) OR coverImageUrl (external URL) — component picks one (Batch 4).
 // coverAlt is required. date is a free-form string (A5).
 
-import {defineField, defineType} from 'sanity'
+import {defineArrayMember, defineField, defineType} from 'sanity'
 
 export const galleryItemType = defineType({
   name: 'galleryItem',
@@ -104,6 +104,14 @@ export const galleryItemType = defineType({
       validation: (Rule) => Rule.required(),
       description: 'Whether the item is a photo or video (controls the play icon and lightbox label).',
       initialValue: 'photo',
+    }),
+    defineField({
+      name: 'mediaItems',
+      title: 'Additional Media Items',
+      type: 'array',
+      group: 'media',
+      of: [defineArrayMember({type: 'mediaItem'})],
+      description: 'Additional images and videos for this gallery item. The cover image is used as the primary thumbnail.',
     }),
   ],
   orderings: [

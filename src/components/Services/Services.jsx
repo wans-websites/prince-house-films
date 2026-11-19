@@ -11,11 +11,31 @@ import {
 } from "react-icons/bi";
 import { urlFor } from "../../lib/sanity";
 import { getYouTubeId } from "../../lib/mediaUtils";
-import creativeContentGif from "../../assets/img/services/creativeContent.gif";
 import motionGif from "../../assets/img/services/motion.gif";
 import { useSanityData } from "../../lib/useSanityData";
 import { servicesSectionQuery } from "../../lib/queries";
 import { fallbackServicesSection } from "../../lib/fallbacks";
+
+// Services removed from the rendered bento. Document IDs are the primary
+// identification method; normalized titles are the fallback.
+const EXCLUDED_SERVICE_IDS = new Set([
+  "service-creative",
+  "service-event",
+  "service-graphic",
+]);
+
+const EXCLUDED_SERVICE_TITLES = new Set([
+  "creative content",
+  "event coverage",
+  "graphic design",
+]);
+
+const isExcludedService = (item) => {
+  if (!item) return true;
+  if (EXCLUDED_SERVICE_IDS.has(item._id)) return true;
+  const title = (item.title || "").trim().toLowerCase();
+  return EXCLUDED_SERVICE_TITLES.has(title);
+};
 
 const iconMap = {
   pen: <BiPen />,
@@ -40,7 +60,16 @@ export default function Services({ services = [] }) {
   );
 
   const mappedServices = useMemo(() => {
-    return services.map((item) => {
+    const visible = services.filter((item) => !isExcludedService(item));
+
+    // Place the featured card first so the bento composition is stable
+    // regardless of Sanity document ordering or orderRank values.
+    const featuredItem = visible.find((item) => item.featured);
+    const ordered = featuredItem
+      ? [featuredItem, ...visible.filter((item) => item !== featuredItem)]
+      : visible;
+
+    return ordered.map((item) => {
       let bgImage = "";
 
       // Title-match preserved as fallback for docs that haven't
@@ -48,12 +77,9 @@ export default function Services({ services = [] }) {
       const fallbackKey =
         item.localFallbackKey && item.localFallbackKey !== "none"
           ? item.localFallbackKey
-          : item.title === "Creative Content" ? "creative"
           : item.title === "Motion Graphics" ? "motion"
           : "none";
-      if (fallbackKey === "creative") {
-        bgImage = creativeContentGif;
-      } else if (fallbackKey === "motion") {
+      if (fallbackKey === "motion") {
         bgImage = motionGif;
       } else if (item.backgroundType === "image" && item.backgroundImage) {
         bgImage = urlFor(item.backgroundImage)
@@ -92,6 +118,7 @@ export default function Services({ services = [] }) {
                   item.featured ? "services-featured" : ""
                 }`}
                 style={{ "--services-bento-bg": `url(${item.bgImage})` }}
+                aria-label={`View ${item.title} details`}
                 onClick={() => setSelectedService(item)}
                 role="button"
                 tabIndex={0}

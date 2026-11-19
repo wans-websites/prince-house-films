@@ -22,14 +22,23 @@ export const servicesQuery = `
     backgroundType,
     backgroundVideoUrl,
     backgroundImage,
+    localFallbackKey,
     mediaItems[]{
       _key,
       type,
       title,
+      alt,
+      "imageUrl": image.asset->url,
       image,
       imageUrl,
+      "videoFileUrl": videoFile.asset->url,
+      videoFile,
       videoUrl,
-      externalUrl
+      "videoPosterUrl": videoPoster.asset->url,
+      videoPoster,
+      videoPosterUrl,
+      externalUrl,
+      order
     }
   }
 `;
@@ -129,6 +138,7 @@ export const countsQuery = `
   *[_type == "counts"][0]{
     sectionTitle,
     stats[] | order(order asc){
+      _key,
       order,
       number,
       suffix,
@@ -197,13 +207,30 @@ export const portfolioItemsQuery = `
     category,
     "description": shortDescription,
     details,
-    "image": coalesce(coverImageUrl, coverImage.asset->url),
+    "image": coalesce(coverImage.asset->url, coverImageUrl),
     coverAlt,
     client,
     year,
     duration,
     awards[],
-    watchCtaLabel
+    watchCtaLabel,
+    mediaItems[]{
+      _key,
+      type,
+      title,
+      alt,
+      "imageUrl": image.asset->url,
+      image,
+      imageUrl,
+      "videoFileUrl": videoFile.asset->url,
+      videoFile,
+      videoUrl,
+      "videoPosterUrl": videoPoster.asset->url,
+      videoPoster,
+      videoPosterUrl,
+      externalUrl,
+      order
+    }
   }
 `;
 
@@ -227,11 +254,28 @@ export const galleryItemsQuery = `
     title,
     category,
     "description": description,
-    "image": coalesce(coverImageUrl, coverImage.asset->url),
+    "image": coalesce(coverImage.asset->url, coverImageUrl),
     coverAlt,
     date,
     location,
-    "type": mediaType
+    "type": mediaType,
+    mediaItems[]{
+      _key,
+      type,
+      title,
+      alt,
+      "imageUrl": image.asset->url,
+      image,
+      imageUrl,
+      "videoFileUrl": videoFile.asset->url,
+      videoFile,
+      videoUrl,
+      "videoPosterUrl": videoPoster.asset->url,
+      videoPoster,
+      videoPosterUrl,
+      externalUrl,
+      order
+    }
   }
 `;
 
@@ -250,7 +294,25 @@ export const partnershipSectionQuery = `
     badgeLabel,
     sectionTitle,
     intro,
-    actionButtonLabel
+    actionButtonLabel,
+    partners[]{
+      _key,
+      order,
+      name,
+      "img": coalesce(logo.asset->url, logoUrl),
+      logoUrl,
+      logoAlt,
+      url
+    },
+    types[] | order(order asc){
+      order,
+      title,
+      description,
+      features[],
+      iconKey,
+      color,
+      accent
+    }
   }
 `;
 
@@ -259,7 +321,8 @@ export const partnersQuery = `
     _id,
     order,
     name,
-    "img": logo.asset->url,
+    "img": coalesce(logo.asset->url, logoUrl),
+    logoUrl,
     logoAlt,
     url
   }

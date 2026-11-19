@@ -17,6 +17,7 @@ import {
   fallbackGallerySection,
   fallbackGalleryItems,
 } from "../../lib/fallbacks";
+import MediaEmbed from "../MediaEmbed";
 
 const Gallery = () => {
   const [activeFilter, setActiveFilter] = useState("all");
@@ -171,6 +172,27 @@ const Gallery = () => {
                 className="lightbox-image"
                 style={{ backgroundImage: `url(${activeImage.image})` }}
               />
+
+              {activeImage.mediaItems && activeImage.mediaItems.length > 0 && (
+                <div
+                  className="lightbox-media-items"
+                  style={{ marginTop: "20px", display: "flex", flexWrap: "wrap", gap: "10px" }}
+                >
+                  {activeImage.mediaItems.map((media, idx) => (
+                    <div
+                      key={media._key}
+                      className="lightbox-media-item"
+                      style={{
+                        width: "calc(50% - 5px)",
+                        aspectRatio: "1",
+                        position: "relative",
+                      }}
+                    >
+                      <MediaEmbed item={media} index={idx} />
+                    </div>
+                  ))}
+                </div>
+              )}
 
               <div className="lightbox-info">
                 <h3>{activeImage.title}</h3>

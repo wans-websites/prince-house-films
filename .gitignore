@@ -25,3 +25,9 @@ yarn-error.log*
 
 build
 build.zip
+
+backup-20261119-pre-migration.tar.gz
+
+# Sanity production backups and exports
+/backups/
+*.tar.gz
