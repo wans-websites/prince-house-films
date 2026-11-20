@@ -171,6 +171,66 @@ so it stays.
 | 2 — homepage | six sections mounted | `f744c09` |
 | 3 — components | six folders deleted | `97e61f7` |
 | 4 — Sanity frontend | 9 queries + 8 fallbacks removed | `f719a1b` |
-| 5 — Studio schemas | none removed (see above) | this doc commit |
-| 6 — assets/deps | pending | — |
-| 7 — verification | pending | — |
+| 5 — Studio schemas | none removed (see above) | `fdee816` |
+| 6 — assets/deps | 8 files + 12 packages removed | `408ef53` |
+| 7 — verification | build, lint, routes, responsive | this doc commit |
+
+## Final verification
+
+**Build:** `npx react-scripts build` → `Compiled successfully`, exit 0.
+`CI=true` build → exit 0, no "Treating warnings as errors" line, so there are
+zero CRA warnings.
+
+**Lint:** the project defines no lint script; CRA's bundled ESLint is the
+lint command. `npx eslint --ext .js,.jsx src` → exit 0, no output.
+
+**Production dataset (read-only):** 8 `service` documents — the five retained
+titles plus `service-creative`, `service-event`, `service-graphic`. The
+Services filter drops by document id first, so those three never render even
+though Sanity returns them. `service-event` is "Event Coverage" and is
+distinct from the retained "EVENTS" document (`b8b517f7…`). Also confirms the
+`orderRank` inconsistency: four of the retained docs all share `rank=1`, and
+the featured document is `service-event`, which is excluded — hence the fixed
+`SERVICE_ORDER` list in `Services.jsx` rather than relying on CMS ordering.
+
+**Services audit.** The five-card bento already satisfies the design brief, so
+no change was made to it:
+
+| Viewport | Columns | Composition | Card width |
+| -------- | ------: | ----------- | ---------: |
+| ≤640px   |       1 | stacked, 1:1 ratio | 288–604 |
+| 641–1024 |       6 | featured on top, 2+2 below | ≥291 |
+| ≥1025    |      12 | 7-col featured over 2 rows, 2 stacked beside, 2 below | ≥396 |
+
+Checked at 320/360/375/414/430/540/640/641/700/768/820/900/1024/1025/1200/1280/1440/1600/1920:
+no horizontal overflow, no zero-size or overlapping cards, no empty tracks.
+
+Card text was measured with `Range` glyph boxes against card bounds at every
+width — every title and description sits inside its card at every breakpoint
+(worst case 27px of headroom). An earlier scrollHeight/clientHeight check
+flagged the featured title as clipped; that was a sub-pixel `line-height`
+rounding artifact (81px vs 78px on an `overflow: visible` element), not real
+clipping.
+
+Interaction: `role="button"`, `tabIndex=0`, `aria-label`, Enter and Space both
+open `ServiceModal`, Escape closes it, focus ring renders `2px solid #dc1f29`,
+`cursor: pointer`, and zero nested interactive elements.
+
+**Portfolio.** The Portfolio section is not part of this branch: it was
+removed in Task 2 of this cleanup, matching the approved six-section homepage.
+The blank-space bug this brief describes was already diagnosed and fixed
+before removal, in `27b4862`:
+
+- **Root cause:** the project grid used `whileInView` with no `once`, so each
+  card animated back to `opacity: 0` once it scrolled out of view. The grid
+  cell kept its row height, leaving a large empty gap where the card should be.
+- **Fix:** `const REVEAL = { once: true, amount: 0.15 }` on the card and title
+  variants, plus a rebuilt responsive grid (3 → 2 → 1 columns, `16/10` ratio on
+  mobile, overlay forced visible under `(hover: none)`) and a `dvh`-sized modal.
+
+That work is preserved in git history (`27b4862`, `cedcf37`) and still exists
+on `origin/feat/sanity`'s parent history if the section is ever reinstated.
+
+**Routes:** `/` and `/privacy-policy` both load directly and survive a reload.
+`PolicyPage` renders no Header — that is pre-existing behaviour, verified
+against the Task 1 commit, and was left alone.
