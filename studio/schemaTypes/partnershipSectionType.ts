@@ -1,6 +1,7 @@
 // studio/schemaTypes/partnershipSectionType.ts
 // Partnership singleton — "Our Valued Partnerships" section.
-// partners[] and types[] are embedded objects (A3).
+// Partner logos live in the separate `partner` collection (partnerType.ts);
+// only the partnership type cards are embedded here.
 
 import {defineField, defineType} from 'sanity'
 
@@ -39,87 +40,6 @@ export const partnershipSectionType = defineType({
       validation: (Rule) => Rule.required(),
       initialValue:
         'Building lasting relationships that drive creative excellence and mutual success',
-    }),
-    defineField({
-      name: 'partners',
-      title: 'Partner Logos',
-      type: 'array',
-      group: 'content',
-      description: 'Partner logos shown in the infinite carousel (name, logo image, alt, optional URL).',
-      of: [
-        {
-          type: 'object',
-          name: 'partnerItem',
-          title: 'Partner Logo',
-          fields: [
-            defineField({
-              name: 'order',
-              title: 'Order',
-              type: 'number',
-              validation: (Rule) => Rule.required().integer().min(0),
-              description: 'Lower numbers appear first.',
-              initialValue: 1,
-            }),
-            defineField({
-              name: 'name',
-              title: 'Partner Name',
-              type: 'string',
-              validation: (Rule) => Rule.required(),
-              description: 'Partner name shown in the overlay and as alt text.',
-              initialValue: 'Coca Cola',
-            }),
-            defineField({
-              name: 'logo',
-              title: 'Logo Image',
-              type: 'image',
-              options: {hotspot: true},
-              description: 'Partner logo image shown in the carousel.',
-            }),
-            defineField({
-              name: 'logoUrl',
-              title: 'Logo URL (External)',
-              type: 'url',
-              description: 'External logo URL used if no Sanity logo image is set.',
-            }),
-            defineField({
-              name: 'logoAlt',
-              title: 'Logo Alt Text',
-              type: 'string',
-              validation: (Rule) => Rule.required(),
-              description: 'Accessible alt text for the partner logo.',
-              initialValue: 'Coca Cola logo',
-            }),
-            defineField({
-              name: 'url',
-              title: 'Partner URL',
-              type: 'url',
-              description: 'Optional external link opened when the partner card is clicked.',
-            }),
-          ],
-          preview: {
-            select: {title: 'name', media: 'logo'},
-            prepare({title, media}) {
-              return {title: title || 'Partner', media}
-            },
-          },
-        },
-      ],
-      initialValue: [
-        {_key: 'partner-1', order: 1, name: 'Coca Cola', logoAlt: 'Coca Cola logo'},
-        {_key: 'partner-2', order: 2, name: 'Darling', logoAlt: 'Darling logo'},
-        {_key: 'partner-3', order: 3, name: 'Delish', logoAlt: 'Delish logo'},
-        {_key: 'partner-4', order: 4, name: 'Dr. Mattress', logoAlt: 'Dr. Mattress logo'},
-        {_key: 'partner-5', order: 5, name: 'EABL', logoAlt: 'EABL logo'},
-        {_key: 'partner-6', order: 6, name: 'Furniture Place', logoAlt: 'Furniture Place logo'},
-        {_key: 'partner-7', order: 7, name: 'LC Waikiki', logoAlt: 'LC Waikiki logo'},
-        {_key: 'partner-8', order: 8, name: 'Mega Growth', logoAlt: 'Mega Growth logo'},
-        {_key: 'partner-9', order: 9, name: 'Orient', logoAlt: 'Orient logo'},
-        {_key: 'partner-10', order: 10, name: 'Prestige', logoAlt: 'Prestige logo'},
-        {_key: 'partner-11', order: 11, name: 'Sarit', logoAlt: 'Sarit logo'},
-        {_key: 'partner-12', order: 12, name: 'Titi', logoAlt: 'Titi logo'},
-        {_key: 'partner-13', order: 13, name: 'Two Rivers', logoAlt: 'Two Rivers logo'},
-        {_key: 'partner-14', order: 14, name: 'V Spa', logoAlt: 'V Spa logo'},
-      ],
     }),
     defineField({
       name: 'partnershipTypes',

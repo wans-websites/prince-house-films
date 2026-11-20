@@ -41,14 +41,6 @@ export const siteSettingsType = defineType({
       initialValue: 'Prince House Films',
     }),
     defineField({
-      name: 'favicon',
-      title: 'Favicon',
-      type: 'image',
-      group: 'media',
-      options: {hotspot: true},
-      description: 'Site favicon / browser tab icon. Stored for future use; public/index.html remains authoritative.',
-    }),
-    defineField({
       name: 'siteUrl',
       title: 'Site URL',
       type: 'url',
