@@ -49,7 +49,9 @@
 .services-bento-grid {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
-  grid-template-rows: repeat(2, minmax(0, 1fr)) auto;
+  /* min-content floors keep a description from being clipped when a side
+     card needs more height than the featured card's share of the rows. */
+  grid-template-rows: repeat(2, minmax(min-content, 1fr)) auto;
   grid-template-areas:
     "featured featured featured featured featured featured featured side1 side1 side1 side1 side1"
     "featured featured featured featured featured featured featured side2 side2 side2 side2 side2"
@@ -244,10 +246,7 @@
   color: rgba(255, 255, 255, 0.82);
   line-height: 1.55;
   margin: 0;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  overflow-wrap: break-word;
 }
 
 /* Featured card: editorial emphasis without demoting the others. */
@@ -267,7 +266,7 @@
 
 .services-featured .services-bento-title {
   font-size: 34px;
-  line-height: 1.15;
+  line-height: 1.22;
   max-width: 14ch;
 }
 
@@ -275,7 +274,6 @@
   font-size: 16px;
   max-width: 46ch;
   color: rgba(255, 255, 255, 0.86);
-  -webkit-line-clamp: 4;
 }
 
 /* --- RESPONSIVE DESIGN --- */
@@ -327,11 +325,6 @@
     padding: 26px;
   }
 
-  .services-bento-text,
-  .services-featured .services-bento-text {
-    -webkit-line-clamp: unset;
-    display: block;
-  }
 }
 
 /* Mobile: a deliberate single column; every card shares one aspect ratio so
@@ -410,8 +403,6 @@
     font-size: 15px;
     line-height: 1.5;
     max-width: none;
-    -webkit-line-clamp: unset;
-    display: block;
   }
 }
 
