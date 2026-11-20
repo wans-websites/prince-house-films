@@ -1,7 +1,17 @@
 import {defineConfig} from 'sanity'
-import {structureTool} from 'sanity/structure'
+import {structureTool, type StructureBuilder} from 'sanity/structure'
 import {visionTool} from '@sanity/vision'
 import {schemaTypes} from './schemaTypes'
+
+const singleton = (
+  S: StructureBuilder,
+  schemaType: string,
+  documentId: string,
+  title: string
+) =>
+  S.listItem()
+    .title(title)
+    .child(S.document().schemaType(schemaType).documentId(documentId))
 
 export default defineConfig({
   name: 'default',
@@ -16,79 +26,77 @@ export default defineConfig({
         S.list()
           .title('Content')
           .items([
-            S.listItem().title('Page Sections').child(
-              S.list().title('Page Sections').items([
-                S.listItem().title('Site Settings').child(
-                  S.document().schemaType('siteSettings').documentId('siteSettings'),
-                ),
-                S.listItem().title('Header').child(
-                  S.document().schemaType('header').documentId('header'),
-                ),
-                S.listItem().title('Preloader').child(
-                  S.document().schemaType('preloader').documentId('preloader'),
-                ),
-                S.listItem().title('Hero').child(
-                  S.document().schemaType('hero').documentId('hero-singleton'),
-                ),
-                S.listItem().title('About').child(
-                  S.document().schemaType('about').documentId('about'),
-                ),
-                S.listItem().title('Our Creative Process (Approach)').child(
-                  S.document().schemaType('approach').documentId('approach'),
-                ),
-                S.listItem().title('Our Vision & Mission (Objectives)').child(
-                  S.document().schemaType('objectives').documentId('objectives'),
-                ),
-                S.listItem().title('Our Impact in Numbers (Counts)').child(
-                  S.document().schemaType('counts').documentId('counts'),
-                ),
-                S.listItem().title('Why Choose Us').child(
-                  S.document().schemaType('whyUs').documentId('whyUs'),
-                ),
-                S.listItem().title('Services Section').child(
-                  S.document().schemaType('servicesSection').documentId('servicesSection'),
-                ),
-                S.listItem().title('Portfolio Section').child(
-                  S.document().schemaType('portfolioSection').documentId('portfolioSection'),
-                ),
-                S.listItem().title('Gallery Section').child(
-                  S.document().schemaType('gallerySection').documentId('gallerySection'),
-                ),
-                S.listItem().title('Team Section').child(
-                  S.document().schemaType('teamSection').documentId('teamSection'),
-                ),
-                S.listItem().title('Partnership Section').child(
-                  S.document().schemaType('partnershipSection').documentId('partnershipSection'),
-                ),
-                S.listItem().title('Get In Touch').child(
-                  S.document().schemaType('getInTouch').documentId('getInTouch'),
-                ),
-                S.listItem().title('Footer').child(
-                  S.document().schemaType('footer').documentId('footer'),
-                ),
-                S.listItem().title('Privacy Policy').child(
-                  S.document().schemaType('privacyPolicy').documentId('privacyPolicy'),
-                ),
-                S.listItem().title('Error Boundary').child(
-                  S.document().schemaType('errorBoundary').documentId('errorBoundary'),
-                ),
-              ])
-            ),
+            S.listItem()
+              .title('Website Content')
+              .child(
+                S.list()
+                  .title('Website Content')
+                  .items([
+                    singleton(S, 'hero', 'hero-singleton', 'Hero'),
+                    singleton(S, 'about', 'about', 'About — Who We Are'),
+                    S.listItem()
+                      .title('Services')
+                      .child(
+                        S.list()
+                          .title('Services')
+                          .items([
+                            singleton(S, 'servicesSection', 'servicesSection', 'Section Heading'),
+                            S.documentTypeListItem('service').title('Services'),
+                          ])
+                      ),
+                    S.listItem()
+                      .title('Partnership')
+                      .child(
+                        S.list()
+                          .title('Partnership')
+                          .items([
+                            singleton(
+                              S,
+                              'partnershipSection',
+                              'partnershipSection',
+                              'Section Heading'
+                            ),
+                            S.documentTypeListItem('partner').title('Partner Logos'),
+                          ])
+                      ),
+                    S.listItem()
+                      .title('Team')
+                      .child(
+                        S.list()
+                          .title('Team')
+                          .items([
+                            singleton(S, 'teamSection', 'teamSection', 'Section Heading'),
+                            S.documentTypeListItem('teamMember').title('Team Members'),
+                          ])
+                      ),
+                    singleton(S, 'getInTouch', 'getInTouch', 'Contact'),
+                    singleton(S, 'header', 'header', 'Header'),
+                    singleton(S, 'footer', 'footer', 'Footer'),
+                  ])
+              ),
+
             S.divider(),
-            S.listItem().title('Collections').child(
-              S.list().title('Collections').items([
-                S.documentTypeListItem('service').title('Services'),
-                S.documentTypeListItem('approachStep').title('Approach Steps'),
-                S.documentTypeListItem('portfolioCategory').title('Portfolio Categories'),
-                S.documentTypeListItem('portfolioItem').title('Portfolio Items'),
-                S.documentTypeListItem('galleryCategory').title('Gallery Categories'),
-                S.documentTypeListItem('galleryItem').title('Gallery Items'),
-                S.documentTypeListItem('partner').title('Partner Logos'),
-                S.documentTypeListItem('contactDetail').title('Contact Details'),
-                // teamMember hidden per A8 — uncomment when content ready
-                // S.documentTypeListItem('teamMember').title('Team Members'),
-              ])
-            ),
+
+            S.listItem()
+              .title('Legal')
+              .child(
+                S.list()
+                  .title('Legal')
+                  .items([singleton(S, 'privacyPolicy', 'privacyPolicy', 'Privacy Policy')])
+              ),
+
+            S.listItem()
+              .title('Site Configuration')
+              .child(
+                S.list()
+                  .title('Site Configuration')
+                  .items([
+                    singleton(S, 'siteSettings', 'siteSettings', 'Site Settings'),
+                    singleton(S, 'preloader', 'preloader', 'Preloader'),
+                    singleton(S, 'errorBoundary', 'errorBoundary', 'Error Boundary'),
+                    S.documentTypeListItem('contactDetail').title('Contact Details'),
+                  ])
+              ),
           ])
     }),
     visionTool(),
