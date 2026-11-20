@@ -115,16 +115,7 @@ export const partnershipSectionQuery = `
     sectionTitle,
     intro,
     actionButtonLabel,
-    partners[]{
-      _key,
-      order,
-      name,
-      "img": coalesce(logo.asset->url, logoUrl),
-      logoUrl,
-      logoAlt,
-      url
-    },
-    types[] | order(order asc){
+    partnershipTypes[] | order(order asc){
       order,
       title,
       description,
