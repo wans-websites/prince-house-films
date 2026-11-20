@@ -8,7 +8,13 @@ import {
   getVideoThumbnail,
 } from "../lib/mediaUtils";
 
-const VideoPlayerContext = createContext();
+// A default value keeps MediaEmbed safe to render outside a provider instead
+// of throwing on destructure and taking the whole tree down.
+const VideoPlayerContext = createContext({
+  playingVideoId: null,
+  playVideo: () => {},
+  pauseVideo: () => {},
+});
 
 export const VideoPlayerProvider = ({ children }) => {
   const [playingVideoId, setPlayingVideoId] = useState(null);

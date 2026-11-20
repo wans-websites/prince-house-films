@@ -18,7 +18,7 @@ import {
   fallbackPortfolioSection,
   fallbackPortfolioItems,
 } from "../../lib/fallbacks";
-import MediaEmbed from "../MediaEmbed";
+import MediaEmbed, { VideoPlayerProvider } from "../MediaEmbed";
 
 // Cards must stay visible once revealed: without `once`, a card that scrolls
 // back out of view animates to opacity 0 and leaves an empty grid cell behind.
@@ -204,13 +204,15 @@ const Portfolio = () => {
                   <p>{activeItem.details}</p>
 
                   {activeItem.mediaItems && activeItem.mediaItems.length > 0 && (
-                    <div className="modal-media-items">
-                      {activeItem.mediaItems.map((media, idx) => (
-                        <div key={media._key} className="modal-media-item">
-                          <MediaEmbed item={media} index={idx} />
-                        </div>
-                      ))}
-                    </div>
+                    <VideoPlayerProvider>
+                      <div className="modal-media-items">
+                        {activeItem.mediaItems.map((media, idx) => (
+                          <div key={media._key} className="modal-media-item">
+                            <MediaEmbed item={media} index={idx} />
+                          </div>
+                        ))}
+                      </div>
+                    </VideoPlayerProvider>
                   )}
 
                   <div className="modal-details">
