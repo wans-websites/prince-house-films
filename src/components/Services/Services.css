@@ -280,8 +280,10 @@
 
 /* --- RESPONSIVE DESIGN --- */
 
-/* Tablet: featured card on top, two side cards, then two bottom cards. */
-@media (max-width: 1024px) {
+/* Tablet: featured card on top, two side cards, then two bottom cards.
+   Stops at 1023px so a 1024px window keeps the 12-column desktop bento
+   instead of a letterboxed full-width featured card. */
+@media (max-width: 1023px) {
   .services-section {
     padding: 84px 0;
   }
