@@ -127,6 +127,33 @@ they are retained so the content is not orphaned in Studio. Only schemas that
 are demonstrably unused by content *and* code will be considered, and none
 currently meet that bar.
 
+Verified document counts in the production dataset:
+
+| Type             | Docs | Type              | Docs |
+| ---------------- | ---: | ----------------- | ---: |
+| approach         |    1 | partner           |   14 |
+| approachStep     |    5 | partnershipSection|    1 |
+| contactDetail    |    3 | portfolioCategory |    6 |
+| counts           |    1 | portfolioItem     |    6 |
+| errorBoundary    |    1 | portfolioSection  |    1 |
+| footer           |    1 | preloader         |    1 |
+| galleryCategory  |    6 | privacyPolicy     |    1 |
+| galleryItem      |    9 | service           |    8 |
+| gallerySection   |    1 | servicesSection   |    1 |
+| getInTouch       |    1 | siteSettings      |    1 |
+| header           |    1 | teamMember        |    0 |
+| hero             |    1 | teamSection       |    1 |
+| objectives       |    1 | whyUs             |    1 |
+
+Every schema except `teamMember` has live documents. `teamMember` has none,
+but it is a deliberate "reserved" schema documented in its own file as content
+for the retained Team section, and no retained schema references the removed
+types. Removing it would delete planned CMS capability rather than dead code,
+so it stays.
+
+**Task 5 result: no schema removed.** The Studio still builds and type-checks
+(`npx sanity build -y`, `npx tsc --noEmit`).
+
 ## Deletion order
 
 1. Homepage rendering + `App.jsx` imports (Task 2).
@@ -135,3 +162,15 @@ currently meet that bar.
 4. Studio schema review — expected: no safe removals (Task 5).
 5. Orphaned files, assets, CSS and dependencies (Task 6).
 6. Final verification (Task 7).
+
+## Progress
+
+| Task | Result | Commit |
+| ---- | ------ | ------ |
+| 1 — audit | plan written | `da556ac` |
+| 2 — homepage | six sections mounted | `f744c09` |
+| 3 — components | six folders deleted | `97e61f7` |
+| 4 — Sanity frontend | 9 queries + 8 fallbacks removed | `f719a1b` |
+| 5 — Studio schemas | none removed (see above) | this doc commit |
+| 6 — assets/deps | pending | — |
+| 7 — verification | pending | — |
