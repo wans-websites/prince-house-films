@@ -5,13 +5,7 @@ import { Routes, Route } from "react-router-dom";
 import Header from "./components/Header/Header";
 import Hero from "./components/Hero/Hero";
 import About from "./components/About/About";
-import Objectives from "./components/Objectives/Objectives";
-import Counts from "./components/Counts/Counts";
-import Approach from "./components/Approach/Approach";
-import WhyUs from "./components/WhyUs/WhyUs";
 import Services from "./components/Services/Services";
-import Portfolio from "./components/Portfolio/Portfolio";
-import Gallery from "./components/Gallery/Gallery";
 import Partnerships from "./components/Partnership/Partnership";
 import Team from "./components/Team/Team";
 import GetInTouch from "./components/GetInTouch/GetInTouch";
@@ -41,13 +35,7 @@ function HomePage({
 
       <main id="main">
         <About />
-        <Objectives />
-        <Counts />
-        <Approach />
-        <WhyUs />
         <Services services={servicesData} />
-        <Portfolio />
-        <Gallery />
         <Partnerships />
         <Team />
         <GetInTouch />
