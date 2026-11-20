@@ -192,9 +192,9 @@ export const servicesSectionQuery = `
 export const portfolioSectionQuery = `
   *[_type == "portfolioSection"][0]{
     sectionTitle,
-    categories[]->{
-      order,
-      label
+    "categories": categories[]{
+      "order": coalesce(order, @->order),
+      "label": coalesce(label, @->label)
     }
   }
 `;
@@ -238,9 +238,9 @@ export const gallerySectionQuery = `
   *[_type == "gallerySection"][0]{
     sectionTitle,
     intro,
-    categories[]->{
-      order,
-      label
+    "categories": categories[]{
+      "order": coalesce(order, @->order),
+      "label": coalesce(label, @->label)
     },
     viewMoreLink,
     viewMoreLabel
