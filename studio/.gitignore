@@ -28,3 +28,6 @@
 
 # Dotenv and similar local-only files
 *.local
+
+backups/*
+backup-20261109-1144.tar.gz
