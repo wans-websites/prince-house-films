@@ -143,7 +143,7 @@ export const getInTouchQuery = `
   *[_type == "getInTouch"][0]{
     sectionTitle,
     intro,
-    contactDetails[] | order(order asc){
+    contactDetails[]-> | order(order asc){
       order,
       title,
       content,
