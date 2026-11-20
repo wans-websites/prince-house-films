@@ -2,6 +2,7 @@
 
 import "dotenv/config";
 import { createClient } from "@sanity/client";
+import { partnerLogoUrl } from "./partnerLogos.js";
 
 const client = createClient({
   projectId: process.env.SANITY_PROJECT_ID,
@@ -1872,7 +1873,7 @@ async function seed() {
       _type: "partner",
       order: 1,
       name: "Coca Cola",
-
+      logoUrl: partnerLogoUrl("partner-cocacola"),
       logoAlt: "Coca Cola logo",
       url: null,
     },
@@ -1881,7 +1882,7 @@ async function seed() {
       _type: "partner",
       order: 2,
       name: "Darling",
-
+      logoUrl: partnerLogoUrl("partner-darling"),
       logoAlt: "Darling logo",
       url: null,
     },
@@ -1890,7 +1891,7 @@ async function seed() {
       _type: "partner",
       order: 3,
       name: "Delish",
-
+      logoUrl: partnerLogoUrl("partner-delish"),
       logoAlt: "Delish logo",
       url: null,
     },
@@ -1899,7 +1900,7 @@ async function seed() {
       _type: "partner",
       order: 4,
       name: "Dr. Mattress",
-
+      logoUrl: partnerLogoUrl("partner-drmattress"),
       logoAlt: "Dr. Mattress logo",
       url: null,
     },
@@ -1908,7 +1909,7 @@ async function seed() {
       _type: "partner",
       order: 5,
       name: "EABL",
-
+      logoUrl: partnerLogoUrl("partner-eabl"),
       logoAlt: "EABL logo",
       url: null,
     },
@@ -1917,7 +1918,7 @@ async function seed() {
       _type: "partner",
       order: 6,
       name: "Furniture Place",
-
+      logoUrl: partnerLogoUrl("partner-furnitureplace"),
       logoAlt: "Furniture Place logo",
       url: null,
     },
@@ -1926,7 +1927,7 @@ async function seed() {
       _type: "partner",
       order: 7,
       name: "LC Waikiki",
-
+      logoUrl: partnerLogoUrl("partner-lcwaikiki"),
       logoAlt: "LC Waikiki logo",
       url: null,
     },
@@ -1935,7 +1936,7 @@ async function seed() {
       _type: "partner",
       order: 8,
       name: "Mega Growth",
-
+      logoUrl: partnerLogoUrl("partner-megagrowth"),
       logoAlt: "Mega Growth logo",
       url: null,
     },
@@ -1944,7 +1945,7 @@ async function seed() {
       _type: "partner",
       order: 9,
       name: "Orient",
-
+      logoUrl: partnerLogoUrl("partner-orient"),
       logoAlt: "Orient logo",
       url: null,
     },
@@ -1953,7 +1954,7 @@ async function seed() {
       _type: "partner",
       order: 10,
       name: "Prestige",
-
+      logoUrl: partnerLogoUrl("partner-prestige"),
       logoAlt: "Prestige logo",
       url: null,
     },
@@ -1962,7 +1963,7 @@ async function seed() {
       _type: "partner",
       order: 11,
       name: "Sarit",
-
+      logoUrl: partnerLogoUrl("partner-sarit"),
       logoAlt: "Sarit logo",
       url: null,
     },
@@ -1971,7 +1972,7 @@ async function seed() {
       _type: "partner",
       order: 12,
       name: "Titi",
-
+      logoUrl: partnerLogoUrl("partner-titi"),
       logoAlt: "Titi logo",
       url: null,
     },
@@ -1980,7 +1981,7 @@ async function seed() {
       _type: "partner",
       order: 13,
       name: "Two Rivers",
-
+      logoUrl: partnerLogoUrl("partner-tworivers"),
       logoAlt: "Two Rivers logo",
       url: null,
     },
@@ -1989,7 +1990,7 @@ async function seed() {
       _type: "partner",
       order: 14,
       name: "V Spa",
-
+      logoUrl: partnerLogoUrl("partner-vspa"),
       logoAlt: "V Spa logo",
       url: null,
     },
