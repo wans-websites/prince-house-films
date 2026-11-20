@@ -194,6 +194,42 @@ All 14 exported queries are imported and used, so none is removed. The
 `fallbacks.js` keeps the fallback for every retained query. No obsolete
 fallback objects remain from the earlier cleanup.
 
+## 8a. Logo seeding result
+
+Applied to `zsbii2ih/production`. Each logo is a Sanity image asset referenced
+from `partner.logo.asset`; `logoUrl` was left null so the asset remains the
+single source of truth.
+
+| Partner | ID | Asset | Resolves |
+| ------- | -- | :---: | :------: |
+| Coca Cola | `partner-cocacola` | yes | yes |
+| Darling | `partner-darling` | yes | yes |
+| Delish | `partner-delish` | yes | yes |
+| Dr. Mattress | `partner-drmattress` | yes | yes |
+| EABL | `partner-eabl` | yes | yes |
+| Furniture Place | `partner-furnitureplace` | yes | yes |
+| LC Waikiki | `partner-lcwaikiki` | yes | yes |
+| Mega Growth | `partner-megagrowth` | yes | yes |
+| Orient | `partner-orient` | yes | yes |
+| Prestige | `partner-prestige` | yes | yes |
+| Sarit | `partner-sarit` | yes | yes |
+| Titi | `partner-titi` | yes | yes |
+| Two Rivers | `partner-tworivers` | yes | yes |
+| V Spa | `partner-vspa` | yes | yes |
+
+Checks after applying:
+
+- 14 partner documents, 14 distinct IDs — nothing duplicated.
+- 14 image assets, one per logo, no duplicate uploads.
+- Every `logo.asset->url` returns HTTP 200 with an `image/*` content type.
+- `name`, `order`, `logoAlt` and `url` are unchanged on all 14, compared
+  against the snapshot taken before the write.
+- A second `--apply` run reported all 14 as `unchanged` and wrote nothing,
+  which confirms the operation is idempotent.
+- The production `partnersQuery` projection returns a Sanity CDN URL for all
+  14 partners, so the carousel reads the assets rather than the `logoUrl`
+  fallback.
+
 ## 9. Production safety
 
 - No document is deleted.
