@@ -43,11 +43,35 @@ React (CRA) marketing site backed by Sanity CMS.
   the whole app.
 - YouTube thumbnails must use `hqdefault.jpg`; `maxresdefault.jpg` 404s for
   many videos and leaves cards with no background.
+- **A `fr` track can be shorter than its content.** The Services bento pinned
+  two rows to `minmax(0, 1fr)`, so a side card needing ~271px got 245px and its
+  description was clipped. Use `minmax(min-content, 1fr)` and avoid
+  `-webkit-line-clamp` on copy the design calls "complete".
+- **A single throwing map kills the whole page.** `cat.label.toLowerCase()` on
+  an unresolved reference threw inside render and unmounted the app, so every
+  section looked missing. Filter null labels before mapping.
+
+## Branch layout
+
+`temp-branch` is the six-section homepage (Hero, About, Services, Partnership,
+Team, Contact). It has no Portfolio or Gallery, and its schema types were
+deleted, so `feat/sanity` cannot be pushed onto it without dropping those
+sections. Keep Portfolio work on `feat/sanity`.
 
 ## Testing responsive layouts
 
-Playwright with `/usr/bin/chromium` and `--no-sandbox` works. Sanity's CDN can
-be slow or rate limited from CI, so route `**/*sanity.io/**` and serve a cached
-query response, then assert on measured geometry (`getBoundingClientRect`)
-rather than screenshots alone. Check for horizontal overflow with
-`document.documentElement.scrollWidth > innerWidth`.
+Chromium with `--no-sandbox` works. The Sanity CDN rejects browser requests
+with a CORS error even though `curl` succeeds, so launch Chromium with
+`--disable-web-security` to exercise real production content instead of the
+fallback path — otherwise every section renders empty and the test proves
+nothing.
+
+`whileInView` needs time: scroll each card into view, then wait for the
+stagger (0.4s delay plus 0.5s duration) before reading opacity, or a passing
+fix looks broken.
+
+Assert on measured geometry (`getBoundingClientRect`) rather than screenshots
+alone. Check for horizontal overflow with
+`document.documentElement.scrollWidth > innerWidth`, for clipping with
+`scrollHeight > clientHeight` on text nodes, and for empty grid cells by
+comparing the grid's bottom edge to the last card's.
