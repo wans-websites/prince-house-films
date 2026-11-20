@@ -192,7 +192,7 @@ export const servicesSectionQuery = `
 export const portfolioSectionQuery = `
   *[_type == "portfolioSection"][0]{
     sectionTitle,
-    categories[]{
+    categories[]->{
       order,
       label
     }
@@ -238,7 +238,7 @@ export const gallerySectionQuery = `
   *[_type == "gallerySection"][0]{
     sectionTitle,
     intro,
-    categories[]{
+    categories[]->{
       order,
       label
     },

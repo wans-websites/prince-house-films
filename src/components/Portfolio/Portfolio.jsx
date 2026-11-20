@@ -20,6 +20,11 @@ import {
 } from "../../lib/fallbacks";
 import MediaEmbed from "../MediaEmbed";
 
+// Cards must stay visible once revealed. Without `once`, a card that scrolls
+// back out of view animates to opacity 0 and leaves an empty grid cell behind,
+// which reads as a large blank gap in the section.
+const REVEAL = { once: true, amount: 0.15 };
+
 const Portfolio = () => {
   const [activeFilter, setActiveFilter] = useState("all");
   const [activeItem, setActiveItem] = useState(null);
@@ -35,10 +40,14 @@ const Portfolio = () => {
     fallbackPortfolioItems
   );
 
-  const filters = (section.categories || []).map((cat) => ({
-    id: cat.label === "All Projects" ? "all" : cat.label.toLowerCase(),
-    label: cat.label,
-  }));
+  // Drop categories without a resolved label: an unresolved reference would
+  // otherwise crash on cat.label.toLowerCase() and unmount the whole app.
+  const filters = (section.categories || [])
+    .filter((cat) => cat && cat.label)
+    .map((cat) => ({
+      id: cat.label === "All Projects" ? "all" : cat.label.toLowerCase(),
+      label: cat.label,
+    }));
 
   const portfolioItems = items || [];
 
@@ -47,15 +56,24 @@ const Portfolio = () => {
       ? portfolioItems
       : portfolioItems.filter((item) => item.category === activeFilter);
 
+  // Restore whatever overflow the body had before the modal opened instead of
+  // hardcoding "auto", which would clobber a page that intentionally locks it.
+  useEffect(() => {
+    if (!modalOpen) return undefined;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previous;
+    };
+  }, [modalOpen]);
+
   const openModal = (item) => {
     setActiveItem(item);
     setModalOpen(true);
-    document.body.style.overflow = "hidden";
   };
 
   const closeModal = () => {
     setModalOpen(false);
-    document.body.style.overflow = "auto";
   };
 
   useEffect(() => {
@@ -75,6 +93,7 @@ const Portfolio = () => {
           className="section-title"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
+          viewport={REVEAL}
           transition={{ duration: 0.6 }}
         >
           {section.sectionTitle}
@@ -107,12 +126,22 @@ const Portfolio = () => {
               className="portfolio-item phf-card"
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
+              viewport={REVEAL}
               transition={{ duration: 0.4, delay: i * 0.1 }}
               whileHover={{
                 scale: 1.02,
                 transition: { duration: 0.2 },
               }}
               onClick={() => openModal(item)}
+              onKeyDown={(event) => {
+                if (event.key === "Enter" || event.key === " ") {
+                  event.preventDefault();
+                  openModal(item);
+                }
+              }}
+              role="button"
+              tabIndex={0}
+              aria-label={`View ${item.title} project`}
             >
               <div
                 className="portfolio-image"
@@ -125,13 +154,9 @@ const Portfolio = () => {
                 <span className="portfolio-category">{item.category}</span>
                 <h3 className="portfolio-title">{item.title}</h3>
                 <p className="portfolio-description">{item.description}</p>
-                <a
-                  href="#"
-                  className="portfolio-link"
-                  onClick={(e) => e.preventDefault()}
-                >
+                <span className="portfolio-link" aria-hidden="true">
                   View Project <i className="bi bi-arrow-right"></i>
-                </a>
+                </span>
               </div>
             </motion.div>
           ))}
@@ -218,20 +243,9 @@ const Portfolio = () => {
                 />
 
                 {activeItem.mediaItems && activeItem.mediaItems.length > 0 && (
-                  <div
-                    className="modal-media-items"
-                    style={{ marginTop: "20px", display: "flex", flexWrap: "wrap", gap: "10px" }}
-                  >
+                  <div className="modal-media-items">
                     {activeItem.mediaItems.map((media, idx) => (
-                      <div
-                        key={media._key}
-                        className="modal-media-item"
-                        style={{
-                          width: "calc(50% - 5px)",
-                          aspectRatio: "1",
-                          position: "relative",
-                        }}
-                      >
+                      <div key={media._key} className="modal-media-item">
                         <MediaEmbed item={media} index={idx} />
                       </div>
                     ))}
@@ -280,13 +294,7 @@ const Portfolio = () => {
                       <h4>
                         <BiAward /> Awards & Recognition
                       </h4>
-                      <ul
-                        style={{
-                          color: "rgba(255, 255, 255, 0.7)",
-                          fontSize: "14px",
-                          paddingLeft: "20px",
-                        }}
-                      >
+                      <ul className="modal-awards-list">
                         {activeItem.awards.map((award, i) => (
                           <li key={i}>{award}</li>
                         ))}
@@ -296,33 +304,7 @@ const Portfolio = () => {
 
                   <a
                     href={`/project/${activeItem.id}`}
-                    className="cta-button"
-                    style={{
-                      display: "inline-flex",
-                      alignItems: "center",
-                      gap: "10px",
-                      padding: "12px 32px",
-                      background:
-                        "linear-gradient(90deg, var(--color-primary), var(--color-primary-dark))",
-                      color: "white",
-                      textDecoration: "none",
-                      borderRadius: "50px",
-                      fontWeight: "600",
-                      fontSize: "15px",
-                      transition: "all 0.3s ease",
-                      boxShadow: "0 8px 25px rgba(255, 4, 0, 0.3)",
-                      marginTop: "30px",
-                    }}
-                    onMouseEnter={(e) => {
-                      e.target.style.transform = "translateY(-2px)";
-                      e.target.style.boxShadow =
-                        "0 12px 30px rgba(255, 4, 0, 0.4)";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.target.style.transform = "translateY(0)";
-                      e.target.style.boxShadow =
-                        "0 8px 25px rgba(255, 4, 0, 0.3)";
-                    }}
+                    className="cta-button portfolio-cta"
                   >
                     <BiPlayCircle /> Watch Film
                   </a>

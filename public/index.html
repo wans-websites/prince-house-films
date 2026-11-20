@@ -488,15 +488,10 @@
 
     <!-- Vendor JS Files - Defer Loading -->
     <script>
-      // Preloader removal script
+      // The preloader node is owned by React (Preloader.jsx). Detaching it here
+      // makes AnimatePresence throw NotFoundError and unmounts the whole app.
       window.addEventListener("load", function () {
         setTimeout(function () {
-          const preloader = document.getElementById("preloader");
-          if (preloader) {
-            preloader.style.opacity = "0";
-            preloader.style.visibility = "hidden";
-            setTimeout(() => preloader.remove(), 500);
-          }
           document.body.classList.add("loaded");
         }, 500);
       });

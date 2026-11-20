@@ -35,7 +35,10 @@ const Gallery = () => {
   );
 
   const filters = (section.categories || []).map((cat) => ({
-    id: cat.label === "All" ? "all" : cat.label.toLowerCase().replace(/\s+/g, "-"),
+    id:
+      cat.label === "All"
+        ? "all"
+        : (cat.label || "").toLowerCase().replace(/\s+/g, "-"),
     label: cat.label,
   }));
 

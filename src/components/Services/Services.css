@@ -37,72 +37,89 @@
   font-weight: 700;
   color: var(--color-default);
   text-align: center;
-  margin-bottom: 60px;
+  margin: 0 0 60px 0;
   position: relative;
 }
 
-/* --- BENTO GRID (5 cards: featured + 4 supporting) --- */
-/* Desktop: 12-column editorial composition.
-   Row 1-2: featured card (7 of 12 columns) + two stacked side cards (5 columns).
-   Row 3:   two complementary cards across the full width. */
+/* --- BENTO GRID (5 cards: featured + 4 supporting) ---
+   Desktop: 12 columns. Featured card takes 7 columns over two rows, two cards
+   stack beside it in the remaining 5, and two complementary cards close the
+   composition on the bottom row.
+   Both side cards and bottom cards use fr tracks so rows stay balanced. */
 .services-bento-grid {
   display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr)) auto;
   grid-template-areas:
-    "featured featured featured featured featured featured side1 side1 side1 side1 side1"
-    "featured featured featured featured featured featured side2 side2 side2 side2 side2"
+    "featured featured featured featured featured featured featured side1 side1 side1 side1 side1"
+    "featured featured featured featured featured featured featured side2 side2 side2 side2 side2"
     "bottom1 bottom1 bottom1 bottom1 bottom1 bottom1 bottom2 bottom2 bottom2 bottom2 bottom2 bottom2";
   gap: 24px;
-  margin-top: 25px;
+  align-items: stretch;
 }
 
 /* --- BENTO PLACEMENT (render order: featured first, then the rest) --- */
-.services-bento-item:nth-child(1) {
+.services-area-featured {
   grid-area: featured;
+  min-height: 460px;
 }
-.services-bento-item:nth-child(2) {
+
+.services-area-side1 {
   grid-area: side1;
 }
-.services-bento-item:nth-child(3) {
+
+.services-area-side2 {
   grid-area: side2;
 }
-.services-bento-item:nth-child(4) {
+
+.services-area-bottom1 {
   grid-area: bottom1;
+  min-height: 260px;
 }
-.services-bento-item:nth-child(5) {
+
+.services-area-bottom2 {
   grid-area: bottom2;
+  min-height: 260px;
 }
 
 /* --- BENTO ITEM STYLES --- */
 .services-bento-item {
   position: relative;
+  isolation: isolate;
   border-radius: 24px;
   overflow: hidden;
   background: linear-gradient(145deg, #232323, #1a1a1a);
   border: 1px solid rgba(255, 255, 255, 0.06);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
-  transition: all 0.35s ease;
+  transition:
+    transform 0.35s ease,
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
   display: flex;
   flex-direction: column;
   cursor: pointer;
 }
 
 .services-bento-item:hover {
-  border-color: rgba(255, 42, 38, 0.2);
+  border-color: rgba(255, 42, 38, 0.24);
   box-shadow:
     0 20px 40px rgba(0, 0, 0, 0.45),
-    0 0 0 1px rgba(255, 42, 38, 0.1);
+    0 0 0 1px rgba(255, 42, 38, 0.12);
   transform: translateY(-4px);
+}
+
+.services-bento-item:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+  border-color: rgba(255, 42, 38, 0.4);
 }
 
 /* --- BACKGROUND IMAGES --- */
 .services-has-bg {
-  position: relative;
   background: linear-gradient(
     to bottom,
-    rgba(0, 0, 0, 0.15),
-    rgba(0, 0, 0, 0.85)
+    rgba(0, 0, 0, 0.15) 0%,
+    rgba(0, 0, 0, 0.85) 100%
   );
 }
 
@@ -110,198 +127,338 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: var(--services-bento-bg) center/cover no-repeat;
-  z-index: -1;
+  background-image: var(--services-bento-bg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: -2;
   opacity: 0.75;
-  transition: opacity 0.35s ease, transform 0.35s ease;
+  transform: scale(1);
+  transition:
+    opacity 0.35s ease,
+    transform 0.6s ease;
 }
 
-.services-has-bg:hover::before {
-  opacity: 0.85;
-  transform: scale(1.04);
-}
-
-/* Fallback when a card has no background image: keep a polished look. */
-.services-bento-item:not(.services-has-bg)::before {
+.services-has-bg::after {
   content: "";
   position: absolute;
   inset: 0;
   background: linear-gradient(
-    135deg,
-    rgba(255, 42, 38, 0.04) 0%,
-    rgba(255, 42, 38, 0.0) 60%
+    to bottom,
+    rgba(0, 0, 0, 0.1) 0%,
+    rgba(0, 0, 0, 0.55) 55%,
+    rgba(0, 0, 0, 0.88) 100%
   );
   z-index: -1;
+  pointer-events: none;
+}
+
+.services-has-bg:hover::before {
+  opacity: 0.88;
+  transform: scale(1.04);
+}
+
+/* Cards without a background image keep a polished look instead of a void. */
+.services-bento-item:not(.services-has-bg)::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      circle at 85% 0%,
+      rgba(255, 42, 38, 0.12) 0%,
+      transparent 55%
+    ),
+    linear-gradient(145deg, #262626 0%, #191919 100%);
+  z-index: -2;
+}
+
+.services-bento-item:not(.services-has-bg)::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.04) 0%,
+    rgba(255, 255, 255, 0) 45%
+  );
+  z-index: -1;
+  pointer-events: none;
 }
 
 /* --- BENTO CONTENT --- */
 .services-bento-content {
-  padding: 32px;
+  padding: 30px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 100%;
+  gap: 18px;
+  flex: 1;
+  min-height: 100%;
   position: relative;
-  z-index: 2;
+  z-index: 1;
+}
+
+.services-bento-head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .services-bento-icon {
-  font-size: 40px;
+  font-size: 32px;
   margin-bottom: 16px;
-  width: 60px;
-  height: 60px;
+  width: 52px;
+  height: 52px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 42, 38, 0.12);
-  border-radius: 16px;
+  background: rgba(255, 42, 38, 0.14);
+  border: 1px solid rgba(255, 42, 38, 0.25);
+  border-radius: 14px;
   color: var(--color-primary);
+  transition:
+    background 0.35s ease,
+    border-color 0.35s ease;
+}
+
+.services-bento-item:hover .services-bento-icon {
+  background: rgba(255, 42, 38, 0.22);
+  border-color: rgba(255, 42, 38, 0.45);
 }
 
 .services-bento-title {
-  font-size: 24px;
+  font-family: var(--font-secondary);
+  font-size: 22px;
   font-weight: 700;
-  margin: 10px 0 12px 0;
+  margin: 0;
   color: var(--color-default);
   line-height: 1.25;
+  letter-spacing: 0.01em;
+  overflow-wrap: break-word;
 }
 
 .services-bento-text {
   font-size: 15px;
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(255, 255, 255, 0.82);
   line-height: 1.55;
-  margin-top: auto;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 /* Featured card: editorial emphasis without demoting the others. */
 .services-featured .services-bento-content {
-  justify-content: flex-start;
+  justify-content: flex-end;
+  gap: 22px;
+  padding: 40px;
 }
 
 .services-featured .services-bento-icon {
-  margin-bottom: 24px;
-  width: 72px;
-  height: 72px;
-  font-size: 48px;
+  width: 62px;
+  height: 62px;
+  font-size: 38px;
+  margin-bottom: 20px;
+  border-radius: 16px;
 }
 
 .services-featured .services-bento-title {
-  font-size: 28px;
-  margin-bottom: 14px;
+  font-size: 34px;
+  line-height: 1.15;
+  max-width: 14ch;
 }
 
 .services-featured .services-bento-text {
   font-size: 16px;
+  max-width: 46ch;
+  color: rgba(255, 255, 255, 0.86);
+  -webkit-line-clamp: 4;
 }
 
 /* --- RESPONSIVE DESIGN --- */
 
-/* Tablet: 6-column composition, featured spans two rows. */
-@media (max-width: 1024px) {
-  .services-bento-grid {
-    grid-template-columns: repeat(6, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-    grid-template-areas:
-      "featured featured featured featured side1 side1"
-      "featured featured featured featured side2 side2"
-      "bottom1 bottom1 bottom1 bottom2 bottom2 bottom2";
-    gap: 20px;
+/* Tablet: featured card on top, two side cards, then two bottom cards.
+   Stops at 1023px so a 1024px window keeps the 12-column desktop bento
+   instead of a letterboxed full-width featured card. */
+@media (max-width: 1023px) {
+  .services-section {
+    padding: 84px 0;
   }
 
   .services-section-title {
     font-size: 34px;
-    margin-bottom: 48px;
-  }
-}
-
-/* Mobile: single deliberate column, one card at a time. */
-@media (max-width: 768px) {
-  .services-section-title {
-    font-size: 32px;
-    margin-bottom: 40px;
+    margin-bottom: 44px;
   }
 
   .services-bento-grid {
-    grid-template-columns: 1fr;
-    grid-template-rows: repeat(5, auto);
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    grid-template-rows: auto;
     grid-template-areas:
-      "featured"
-      "side1"
-      "side2"
-      "bottom1"
-      "bottom2";
+      "featured featured featured featured featured featured"
+      "side1 side1 side1 side2 side2 side2"
+      "bottom1 bottom1 bottom1 bottom2 bottom2 bottom2";
     gap: 20px;
   }
 
-  .services-bento-item {
-    grid-column: 1;
-    grid-row: auto;
-    height: 420px;
-    min-height: 420px;
-    border-radius: 20px;
+  .services-area-featured {
+    min-height: 340px;
+  }
+
+  .services-area-side1,
+  .services-area-side2,
+  .services-area-bottom1,
+  .services-area-bottom2 {
+    min-height: 240px;
+  }
+
+  .services-featured .services-bento-content {
+    padding: 32px;
+  }
+
+  .services-featured .services-bento-title {
+    font-size: 30px;
+    max-width: 20ch;
   }
 
   .services-bento-content {
     padding: 26px;
   }
 
-  .services-bento-icon {
-    width: 52px;
-    height: 52px;
-    font-size: 36px;
-    margin-bottom: 14px;
-  }
-
-  .services-bento-title {
-    font-size: 22px;
-    margin-bottom: 10px;
-  }
-
-  .services-bento-text {
-    font-size: 15px;
-  }
-
-  .services-featured .services-bento-icon {
-    width: 60px;
-    height: 60px;
-    font-size: 40px;
-  }
-
-  .services-featured .services-bento-title {
-    font-size: 24px;
+  .services-bento-text,
+  .services-featured .services-bento-text {
+    -webkit-line-clamp: unset;
+    display: block;
   }
 }
 
-@media (max-width: 480px) {
+/* Mobile: a deliberate single column; every card shares one aspect ratio so
+   the rhythm stays consistent and no card becomes a tall empty box. */
+@media (max-width: 640px) {
   .services-section {
-    padding: 70px 0;
+    padding: 72px 0;
   }
 
   .services-section-title {
-    font-size: 28px;
+    font-size: 30px;
+    margin-bottom: 36px;
+  }
+
+  .services-container {
+    padding: 0 18px;
+  }
+
+  .services-bento-grid {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "featured"
+      "side1"
+      "side2"
+      "bottom1"
+      "bottom2";
+    gap: 18px;
+  }
+
+  .services-area-featured,
+  .services-area-side1,
+  .services-area-side2,
+  .services-area-bottom1,
+  .services-area-bottom2 {
+    grid-area: auto;
+    min-height: 0;
+  }
+
+  /* The square ratio is a floor: a long description grows the card instead of
+     being clipped, so every card shows its complete text. */
+  .services-bento-item {
+    aspect-ratio: 1 / 1;
+    min-width: 0;
+    border-radius: 20px;
+  }
+
+  .services-bento-content,
+  .services-featured .services-bento-content {
+    padding: 24px;
+    justify-content: flex-end;
+    gap: 14px;
+  }
+
+  .services-bento-head {
+    margin-bottom: auto;
+  }
+
+  .services-bento-icon,
+  .services-featured .services-bento-icon {
+    width: 46px;
+    height: 46px;
+    font-size: 26px;
+    margin-bottom: 14px;
+    border-radius: 12px;
+  }
+
+  .services-bento-title,
+  .services-featured .services-bento-title {
+    font-size: 24px;
+    line-height: 1.2;
+    max-width: none;
+  }
+
+  .services-bento-text,
+  .services-featured .services-bento-text {
+    font-size: 15px;
+    line-height: 1.5;
+    max-width: none;
+    -webkit-line-clamp: unset;
+    display: block;
+  }
+}
+
+@media (max-width: 420px) {
+  .services-section {
+    padding: 62px 0;
+  }
+
+  .services-section-title {
+    font-size: 26px;
     margin-bottom: 30px;
   }
 
+  .services-container {
+    padding: 0 16px;
+  }
+
+  .services-bento-grid {
+    gap: 16px;
+  }
+
   .services-bento-item {
-    height: 380px;
-    min-height: 380px;
+    aspect-ratio: 1 / 1;
+    border-radius: 18px;
   }
 
-  .services-bento-content {
-    padding: 22px;
+  .services-bento-content,
+  .services-featured .services-bento-content {
+    padding: 20px;
+    gap: 12px;
   }
 
-  .services-bento-icon {
-    width: 48px;
-    height: 48px;
-    font-size: 32px;
+  .services-bento-icon,
+  .services-featured .services-bento-icon {
+    width: 42px;
+    height: 42px;
+    font-size: 24px;
+    margin-bottom: 12px;
   }
 
-  .services-bento-title {
-    font-size: 20px;
+  .services-bento-title,
+  .services-featured .services-bento-title {
+    font-size: 21px;
   }
 
-  .services-bento-text {
+  .services-bento-text,
+  .services-featured .services-bento-text {
     font-size: 14px;
   }
 }
