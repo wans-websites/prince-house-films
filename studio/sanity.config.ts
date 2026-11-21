@@ -3,15 +3,8 @@ import {structureTool, type StructureBuilder} from 'sanity/structure'
 import {visionTool} from '@sanity/vision'
 import {schemaTypes} from './schemaTypes'
 
-const singleton = (
-  S: StructureBuilder,
-  schemaType: string,
-  documentId: string,
-  title: string
-) =>
-  S.listItem()
-    .title(title)
-    .child(S.document().schemaType(schemaType).documentId(documentId))
+const singleton = (S: StructureBuilder, schemaType: string, documentId: string, title: string) =>
+  S.listItem().title(title).child(S.document().schemaType(schemaType).documentId(documentId))
 
 export default defineConfig({
   name: 'default',
@@ -33,7 +26,7 @@ export default defineConfig({
                   .title('Website Content')
                   .items([
                     singleton(S, 'hero', 'hero-singleton', 'Hero'),
-                    singleton(S, 'about', 'about', 'About — Who We Are'),
+                    singleton(S, 'about', 'about', 'About'),
                     S.listItem()
                       .title('Services')
                       .child(
@@ -42,7 +35,7 @@ export default defineConfig({
                           .items([
                             singleton(S, 'servicesSection', 'servicesSection', 'Section Heading'),
                             S.documentTypeListItem('service').title('Services'),
-                          ])
+                          ]),
                       ),
                     S.listItem()
                       .title('Partnership')
@@ -54,10 +47,10 @@ export default defineConfig({
                               S,
                               'partnershipSection',
                               'partnershipSection',
-                              'Section Heading'
+                              'Section Heading',
                             ),
                             S.documentTypeListItem('partner').title('Partner Logos'),
-                          ])
+                          ]),
                       ),
                     S.listItem()
                       .title('Team')
@@ -67,12 +60,12 @@ export default defineConfig({
                           .items([
                             singleton(S, 'teamSection', 'teamSection', 'Section Heading'),
                             S.documentTypeListItem('teamMember').title('Team Members'),
-                          ])
+                          ]),
                       ),
                     singleton(S, 'getInTouch', 'getInTouch', 'Contact'),
                     singleton(S, 'header', 'header', 'Header'),
                     singleton(S, 'footer', 'footer', 'Footer'),
-                  ])
+                  ]),
               ),
 
             S.divider(),
@@ -82,7 +75,7 @@ export default defineConfig({
               .child(
                 S.list()
                   .title('Legal')
-                  .items([singleton(S, 'privacyPolicy', 'privacyPolicy', 'Privacy Policy')])
+                  .items([singleton(S, 'privacyPolicy', 'privacyPolicy', 'Privacy Policy')]),
               ),
 
             S.listItem()
@@ -95,9 +88,9 @@ export default defineConfig({
                     singleton(S, 'preloader', 'preloader', 'Preloader'),
                     singleton(S, 'errorBoundary', 'errorBoundary', 'Error Boundary'),
                     S.documentTypeListItem('contactDetail').title('Contact Details'),
-                  ])
+                  ]),
               ),
-          ])
+          ]),
     }),
     visionTool(),
   ],
